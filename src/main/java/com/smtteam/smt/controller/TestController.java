@@ -18,4 +18,9 @@ public class TestController {
         return "This is a test";
     }
 
+    @GetMapping("another")
+    public String testOther(){
+        return "This is a another test";
+    }
+
 }
