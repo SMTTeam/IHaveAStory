@@ -4,11 +4,11 @@ server:
 spring:
   datasource:
     name: test
-    url: jdbc:mysql://139.196.75.247:3306/smt?characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://139.196.75.247:3306/smt?characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull
     username: smt
     password: smt2018
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
-  mapper-locations: classpath:mapping/*Mapper.xml
+  mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.smtteam.smt.model
