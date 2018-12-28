@@ -1,6 +1,6 @@
 package com.smtteam.smt.service.impl;
 
-import com.smtteam.smt.dao.UserMapper;
+import com.smtteam.smt.dao.UserDao;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +18,15 @@ import java.util.List;
 @Service
 public class TestServiceImpl implements TestService {
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Override
     public List<User> getUsers() {
-        return userMapper.selectAll();
+        return userDao.findAll();
     }
 
     @Override
     public User getUser() {
-        return userMapper.selectByPrimaryKey(1);
+        return userDao.findById(1).get();
     }
 }
