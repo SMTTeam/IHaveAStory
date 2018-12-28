@@ -25,4 +25,3 @@
 /.nb-gradle/
 src/main/resources/generatorConfig.xml
 src/main/resources/mapper/UserMapperExample.xml
-src/main/resources/application.yaml

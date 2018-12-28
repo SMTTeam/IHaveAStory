@@ -5,8 +5,8 @@ spring:
   datasource:
     name: test
     url: jdbc:mysql://139.196.75.247:3306/smt?characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;zeroDateTimeBehavior=convertToNull
-    username: root
-    password: root
+    username: smt
+    password: smt2018
     driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
