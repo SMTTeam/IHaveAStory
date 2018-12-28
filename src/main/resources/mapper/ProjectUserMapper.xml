@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smtteam.smt.dao.ProjectUserMapper" >
+  <resultMap id="BaseResultMap" type="com.smtteam.smt.model.ProjectUser" >
+    <id column="pu_id" property="puId" jdbcType="INTEGER" />
+    <result column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="role" property="role" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pu_id, pro_id, user_id, role, status, salt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pro_user
+    where pu_id = #{puId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pro_user
+    where pu_id = #{puId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.smtteam.smt.model.ProjectUser" >
+    insert into pro_user (pu_id, pro_id, user_id, 
+      role, status, salt)
+    values (#{puId,jdbcType=INTEGER}, #{proId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{role,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{salt,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.smtteam.smt.model.ProjectUser" >
+    insert into pro_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="puId != null" >
+        pu_id,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="puId != null" >
+        #{puId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smtteam.smt.model.ProjectUser" >
+    update pro_user
+    <set >
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pu_id = #{puId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smtteam.smt.model.ProjectUser" >
+    update pro_user
+    set pro_id = #{proId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      role = #{role,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      salt = #{salt,jdbcType=VARCHAR}
+    where pu_id = #{puId,jdbcType=INTEGER}
+  </update>
+</mapper>
