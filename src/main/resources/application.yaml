@@ -13,6 +13,22 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  mail:
+    host: smtp.163.com
+    username: xxx
+    password: xxx
+    default-encoding: UTF-8
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+logging:
+  config: classpath:logback.xml
 
   #mybatis:
 #  mapper-locations: classpath:mapper/*Mapper.xml
