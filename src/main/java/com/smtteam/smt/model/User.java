@@ -1,11 +1,13 @@
 package com.smtteam.smt.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "user")
 public class User {
     @Id

@@ -1,8 +1,11 @@
 package com.smtteam.smt.dao;
 
+import com.smtteam.smt.model.Project;
 import com.smtteam.smt.model.ProjectUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 类说明：

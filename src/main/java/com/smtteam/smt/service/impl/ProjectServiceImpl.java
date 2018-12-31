@@ -10,6 +10,8 @@ import com.smtteam.smt.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 类说明：
  * 创建者：Zeros
@@ -36,5 +38,15 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectUser projectUser = new ProjectUser(result.getId(), project.getUserId(), ProjectRole.Owner.getRole(), Constants.PROJECT_INVITED, "");
         projectUserDao.save(projectUser);
         return result;
+    }
+
+    /**
+     * 查看我发布的项目
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Project> findByUserId(int userId) {
+        return projectDao.findByUserId(userId);
     }
 }
