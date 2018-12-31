@@ -28,6 +28,5 @@ public class Activity {
         this.posId = posId;
     }
 
-    public Activity(){}
 
 }
