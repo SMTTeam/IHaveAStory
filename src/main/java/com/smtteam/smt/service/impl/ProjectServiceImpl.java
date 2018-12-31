@@ -1,7 +1,11 @@
 package com.smtteam.smt.service.impl;
 
+import com.smtteam.smt.common.bean.Constants;
+import com.smtteam.smt.common.enums.ProjectRole;
 import com.smtteam.smt.dao.ProjectDao;
+import com.smtteam.smt.dao.ProjectUserDao;
 import com.smtteam.smt.model.Project;
+import com.smtteam.smt.model.ProjectUser;
 import com.smtteam.smt.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectDao projectDao;
+    @Autowired
+    private ProjectUserDao projectUserDao;
 
     /**
      * 创建项目
@@ -27,6 +33,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project createProject(Project project) {
         Project result = projectDao.save(project);
+        ProjectUser projectUser = new ProjectUser(result.getId(), project.getUserId(), ProjectRole.Owner.getRole(), Constants.PROJECT_INVITED, "");
+        projectUserDao.save(projectUser);
         return result;
     }
 }
