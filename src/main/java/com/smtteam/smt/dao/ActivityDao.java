@@ -2,6 +2,9 @@ package com.smtteam.smt.dao;
 
 import com.smtteam.smt.model.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,5 +16,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ActivityDao extends JpaRepository<Activity, Integer> {
+    @Modifying
+    @Query("update Activity set posId=posId+1 where posId>:posId")
+    void updateCreatePosID(@Param("posId") int posId);
 
+    @Modifying
+    @Query("update Activity set posId=posId-1 where posId>:posId")
+    void updateDeletePosID(@Param("posId") int posId);
 }
