@@ -42,7 +42,18 @@ public class ProjectController {
     @GetMapping("list")
     public ResultVO<List<Project>> getReleaseList(){
         //TODO 获取用户ID
-        List<Project> projectList = projectService.findByUserId(1);
+        List<Project> projectList = projectService.findReleaseList(1);
+        return new ResultVO<>(projectList);
+    }
+
+    /**
+     * 查看我参与的项目
+     * @return
+     */
+    @GetMapping("attended")
+    public ResultVO<List<Project>> getAttendedList(){
+        //TODO 获取用户ID
+        List<Project> projectList = projectService.findAttendList(1);
         return new ResultVO<>(projectList);
     }
 }

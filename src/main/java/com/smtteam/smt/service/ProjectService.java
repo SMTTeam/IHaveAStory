@@ -20,5 +20,12 @@ public interface ProjectService {
      * @param userId
      * @return
      */
-    List<Project> findByUserId(int userId);
+    List<Project> findReleaseList(int userId);
+
+    /**
+     * 查看我参与的项目
+     * @param userId
+     * @return
+     */
+    List<Project> findAttendList(int userId);
 }

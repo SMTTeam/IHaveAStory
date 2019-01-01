@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * 类说明：
  * 创建者：Zeros
@@ -46,7 +48,20 @@ public class ProjectServiceImpl implements ProjectService {
      * @return
      */
     @Override
-    public List<Project> findByUserId(int userId) {
+    public List<Project> findReleaseList(int userId) {
         return projectDao.findByUserId(userId);
+    }
+
+    /**
+     * 查看我参与的项目
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Project> findAttendList(int userId) {
+        List<ProjectUser> list = projectUserDao.findByUserId(userId);
+        List<Integer> projectIdList = list.stream().map(ProjectUser::getProId).collect(toList());
+        List<Project> projectList = projectDao.findByIdIn(projectIdList);
+        return projectList;
     }
 }
