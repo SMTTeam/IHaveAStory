@@ -22,5 +22,11 @@ public class Activity {
     @Column(name = "pos_id")
     private Integer posId;
 
+    public Activity(Integer proId, String name, Integer posId){
+        this.proId = proId;
+        this.name = name;
+        this.posId = posId;
+    }
+
 
 }
