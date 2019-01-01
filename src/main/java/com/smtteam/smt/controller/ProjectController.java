@@ -1,6 +1,8 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ResultVO;
+import com.smtteam.smt.common.enums.ResultCode;
+import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.Project;
 import com.smtteam.smt.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,26 @@ public class ProjectController {
      * @return
      */
     @PostMapping("create")
-    public ResultVO<Project> createProject(@RequestParam String name, @RequestParam  String description){
+    public ResultVO<Project> createProject(@RequestParam String name, @RequestParam String description){
         //TODO 获取用户ID
         Project project = new Project(1, name, description);
         Project result = projectService.createProject(project);
         return new ResultVO<>(result);
     }
+
+    @PostMapping("modify")
+    public ResultVO<Project> modifyProject(@RequestParam Integer proId, @RequestParam String name, @RequestParam String description){
+        //TODO 获取用户ID
+        Integer userId = 1;
+        Project project = null;
+        try {
+            project = projectService.modifyProject(proId, userId, name, description);
+        } catch (NoAccessException e) {
+            return new ResultVO<>(ResultCode.NOT_ACCESS, "没有权限访问这个项目。");
+        }
+        return new ResultVO<>(project);
+    }
+
 
     /**
      * 查看我发布的项目

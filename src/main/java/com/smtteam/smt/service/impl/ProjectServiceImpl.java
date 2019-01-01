@@ -2,6 +2,7 @@ package com.smtteam.smt.service.impl;
 
 import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.common.enums.ProjectRole;
+import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.dao.ProjectDao;
 import com.smtteam.smt.dao.ProjectUserDao;
 import com.smtteam.smt.model.Project;
@@ -64,4 +65,27 @@ public class ProjectServiceImpl implements ProjectService {
         List<Project> projectList = projectDao.findByIdIn(projectIdList);
         return projectList;
     }
+
+    /**
+     * 修改项目
+     * @param proId
+     * @param userId
+     * @param name
+     * @param description
+     * @return
+     */
+    @Override
+    public Project modifyProject(Integer proId, Integer userId, String name, String description) throws NoAccessException {
+        Project project = projectDao.findById(proId).get();
+        if(!project.getUserId().equals(userId)){
+            throw new NoAccessException("No access to the project.");
+        }
+        project.setDescription(description);
+        project.setProName(name);
+        project = projectDao.saveAndFlush(project);
+        return project;
+    }
+
+
+
 }
