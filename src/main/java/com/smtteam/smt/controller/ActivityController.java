@@ -4,10 +4,9 @@ import com.smtteam.smt.common.bean.ResultVO;
 import com.smtteam.smt.model.Activity;
 import com.smtteam.smt.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * created by Kimone
@@ -33,6 +32,12 @@ public class ActivityController {
         return new ResultVO<>(result);
     }
 
+    /**
+     * 修改activity名字
+     * @param id
+     * @param name
+     * @return
+     */
     @PostMapping("/modify")
     public ResultVO<Activity> modifyActivity(@RequestParam int id, @RequestParam String name) {
         Activity activity = activityService.getActivityById(id);
@@ -41,9 +46,24 @@ public class ActivityController {
         return new ResultVO<>(result);
     }
 
+    /**
+     * 删除activity
+     * @param id
+     * @return
+     */
     @PostMapping("/delete")
     public ResultVO<Activity> deleteActivity(@RequestParam int id) {
         activityService.deleteActivity(id);
         return new ResultVO<>();
+    }
+
+    /**
+     * 获取所有activity
+     * @return
+     */
+    @GetMapping("/list")
+    public ResultVO<List<Activity>> getAllActivity(){
+        List<Activity> activities =  activityService.getActivityList();
+        return new ResultVO<>(activities);
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 类说明：
  * 创建者：Zeros
@@ -20,7 +22,9 @@ public interface ActivityDao extends JpaRepository<Activity, Integer> {
     @Query("update Activity set posId=posId+1 where posId>:posId")
     void updateCreatePosID(@Param("posId") int posId);
 
-    @Modifying
-    @Query("update Activity set posId=posId-1 where posId>:posId")
-    void updateDeletePosID(@Param("posId") int posId);
+//    @Modifying
+//    @Query("update Activity set posId=posId-1 where posId>:posId")
+//    void updateDeletePosID(@Param("posId") int posId);
+
+    List<Activity> findAllByOrderByPosId();
 }

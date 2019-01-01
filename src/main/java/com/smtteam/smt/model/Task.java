@@ -19,4 +19,10 @@ public class Task {
     private String name;
 
     private Integer posId;
+
+    public Task(Integer activityId, String name, Integer posId) {
+        this.activityId = activityId;
+        this.name = name;
+        this.posId = posId;
+    }
 }
