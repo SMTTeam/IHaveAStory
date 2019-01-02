@@ -26,6 +26,12 @@ spring:
           starttls:
             enable: true
             required: true
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: HTML5
+    servlet:
+      content-type: text/html
 
 logging:
   config: classpath:logback.xml
