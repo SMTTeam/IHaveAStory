@@ -3,7 +3,9 @@ package com.smtteam.smt.controller;
 import com.smtteam.smt.common.bean.ResultVO;
 import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.exception.ExistException;
+import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.Project;
+import com.smtteam.smt.model.ProjectUser;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.InviteService;
 import com.smtteam.smt.service.ProjectService;
@@ -74,8 +76,24 @@ public class InviteController {
             e.printStackTrace();
             return new ResultVO<>("权限输入有误。");
         } catch (ExistException e) {
-            e.printStackTrace();
             return new ResultVO<>("该用户已被邀请或者已在项目中。");
+        }
+        return new ResultVO<>();
+    }
+
+
+    @GetMapping("accept/{code}")
+    public ResultVO<Void> acceptInvitation(@PathVariable String code){
+        System.out.println(code);
+        if(code == null || code.isEmpty()){
+            return new ResultVO<>();
+        }
+        ProjectUser projectUser = null;
+        try {
+            projectUser = inviteService.acceptInvitation(code);
+            //TODO 更新userID,跳转页面
+        } catch (NoAccessException | NumberFormatException e) {
+            return new ResultVO<>(e.getMessage());
         }
         return new ResultVO<>();
     }

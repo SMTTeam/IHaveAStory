@@ -61,7 +61,7 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public List<Project> findAttendList(int userId) {
-        List<ProjectUser> list = projectUserDao.findByUserId(userId);
+        List<ProjectUser> list = projectUserDao.findByUserIdAndStatus(userId, Constants.PROJECT_INVITED);
         List<Integer> projectIdList = list.stream().map(ProjectUser::getProId).collect(Collectors.toList());
         List<Project> projectList = projectDao.findByIdIn(projectIdList);
         return projectList;

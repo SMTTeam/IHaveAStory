@@ -1,8 +1,10 @@
 package com.smtteam.smt.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.common.enums.ProjectRole;
 import com.smtteam.smt.common.exception.ExistException;
+import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.dao.ProjectUserDao;
 import com.smtteam.smt.model.ProjectUser;
 import com.smtteam.smt.service.InviteService;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.NoSuchElementException;
 
@@ -58,5 +61,28 @@ public class InviteServiceImpl implements InviteService {
         String[] tos = new String[]{email};
         mailUtil.sendHtmlMail(tos, "项目邀请", content);
         return projectUser;
+    }
+
+    /**
+     * 接受邀请
+     * @param code base64编码的密钥
+     * @return
+     */
+    @Override
+    public ProjectUser acceptInvitation(String code) throws NoAccessException {
+        byte[] bytes = Base64.getDecoder().decode(code);
+        String source = new String(bytes, StandardCharsets.UTF_8);
+        String[] array = source.split("&");
+        if(array.length < 3) throw new NoAccessException("没有权限");
+        Integer userId = Integer.parseInt(array[0]);
+        Integer proId = Integer.parseInt(array[1]);
+        //检验
+        ProjectUser projectUser = projectUserDao.findByUserIdAndProId(userId, proId);
+        if(projectUser == null || !projectUser.getStatus().equals(Constants.PROJECT_INVITING) || !array[2].equals(EncryptUtil.SHA256(projectUser.getSalt()))){
+            throw new NoAccessException("邀请不存在或您已同意加入该项目。");
+        }
+        //更新状态
+        projectUser.setStatus(Constants.PROJECT_INVITED);
+        return projectUserDao.saveAndFlush(projectUser);
     }
 }
