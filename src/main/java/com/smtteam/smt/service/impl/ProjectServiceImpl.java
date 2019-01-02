@@ -2,6 +2,7 @@ package com.smtteam.smt.service.impl;
 
 import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.common.enums.ProjectRole;
+import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.dao.ProjectDao;
 import com.smtteam.smt.dao.ProjectUserDao;
 import com.smtteam.smt.model.Project;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * 类说明：
@@ -46,7 +49,43 @@ public class ProjectServiceImpl implements ProjectService {
      * @return
      */
     @Override
-    public List<Project> findByUserId(int userId) {
+    public List<Project> findReleaseList(int userId) {
         return projectDao.findByUserId(userId);
     }
+
+    /**
+     * 查看我参与的项目
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Project> findAttendList(int userId) {
+        List<ProjectUser> list = projectUserDao.findByUserId(userId);
+        List<Integer> projectIdList = list.stream().map(ProjectUser::getProId).collect(toList());
+        List<Project> projectList = projectDao.findByIdIn(projectIdList);
+        return projectList;
+    }
+
+    /**
+     * 修改项目
+     * @param proId
+     * @param userId
+     * @param name
+     * @param description
+     * @return
+     */
+    @Override
+    public Project modifyProject(Integer proId, Integer userId, String name, String description) throws NoAccessException {
+        Project project = projectDao.findById(proId).get();
+        if(!project.getUserId().equals(userId)){
+            throw new NoAccessException("No access to the project.");
+        }
+        project.setDescription(description);
+        project.setProName(name);
+        project = projectDao.saveAndFlush(project);
+        return project;
+    }
+
+
+
 }
