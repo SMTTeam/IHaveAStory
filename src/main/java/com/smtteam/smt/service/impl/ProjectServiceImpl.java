@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 
 /**
  * 类说明：
@@ -61,7 +62,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<Project> findAttendList(int userId) {
         List<ProjectUser> list = projectUserDao.findByUserId(userId);
-        List<Integer> projectIdList = list.stream().map(ProjectUser::getProId).collect(toList());
+        List<Integer> projectIdList = list.stream().map(ProjectUser::getProId).collect(Collectors.toList());
         List<Project> projectList = projectDao.findByIdIn(projectIdList);
         return projectList;
     }
@@ -86,6 +87,16 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
+    /**
+     * 根据ID查找项目
+     * @param proId
+     * @return
+     */
+    @Override
+    public Project findById(Integer proId) {
+        Optional<Project> project = projectDao.findById(proId);
+        return project.orElse(null);
+    }
 
 
 }

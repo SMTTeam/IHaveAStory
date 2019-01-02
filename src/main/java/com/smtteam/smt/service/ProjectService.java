@@ -39,4 +39,11 @@ public interface ProjectService {
      * @return
      */
     Project modifyProject(Integer proId, Integer userId, String name, String description) throws NoAccessException;
+
+    /**
+     * 根据ID查找项目
+     * @param proId
+     * @return
+     */
+    Project findById(Integer proId);
 }

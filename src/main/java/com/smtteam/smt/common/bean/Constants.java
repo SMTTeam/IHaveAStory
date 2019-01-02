@@ -12,4 +12,6 @@ public class Constants {
     public final static Integer PROJECT_INVITING = 1;
     public final static Integer PROJECT_INVITED = 2;
 
+    //盐长度
+    public static final Integer SALT_LENGTH = 20;
 }
