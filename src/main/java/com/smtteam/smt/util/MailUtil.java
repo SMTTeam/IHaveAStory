@@ -16,7 +16,7 @@ import java.io.File;
  * Created by mengf on 2017/11/22 0022.
  */
 @Service
-public class MailService {
+public class MailUtil {
     @Autowired
     private JavaMailSender sender;
 

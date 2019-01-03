@@ -1,5 +1,6 @@
 package com.smtteam.smt.model;
 
+import com.smtteam.smt.common.bean.ShowUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,12 @@ public class User {
 
     private String verify;
 
+
+    public ShowUser toShowUser() {
+        ShowUser user = new ShowUser();
+        user.setEmail(email);
+        user.setId(id);
+        user.setUsername(username);
+        return user;
+    }
 }

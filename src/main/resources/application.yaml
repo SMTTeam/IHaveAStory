@@ -1,6 +1,9 @@
 server:
   port: 8888
 
+deploy:
+  url: http://localhost:8888
+
 spring:
   datasource:
     name: test
@@ -15,8 +18,8 @@ spring:
       ddl-auto: update
   mail:
     host: smtp.163.com
-    username: xxx
-    password: xxx
+    username: smt_group@163.com
+    password: smt2019
     default-encoding: UTF-8
     protocol: smtp
     properties:
