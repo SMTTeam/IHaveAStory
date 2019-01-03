@@ -5,6 +5,7 @@ import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
 
     /**
      * 根据邮箱查找用户
@@ -42,4 +44,17 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userDao.findById(userId);
         return user.orElse(null);
     }
+
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    @Override
+    @Transactional
+    public User addUser(User user){
+        User result = userDao.save(user);
+        return result;
+    }
+
 }

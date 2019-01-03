@@ -22,4 +22,11 @@ public interface UserService {
      * @return
      */
     User findById(Integer userId);
+
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    User addUser(User user);
 }

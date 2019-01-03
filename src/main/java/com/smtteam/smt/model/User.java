@@ -26,11 +26,20 @@ public class User {
     private String verify;
 
 
+
     public ShowUser toShowUser() {
         ShowUser user = new ShowUser();
         user.setEmail(email);
         user.setId(id);
         user.setUsername(username);
         return user;
+    }
+
+    public User (String email, String psw, String username, Integer gender, String verify){
+        this.email = email;
+        this.psw = psw;
+        this.username = username;
+        this.gender = gender;
+        this.verify = verify;
     }
 }
