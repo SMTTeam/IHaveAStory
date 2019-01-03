@@ -26,5 +26,8 @@ public interface ActivityDao extends JpaRepository<Activity, Integer> {
 //    @Query("update Activity set posId=posId-1 where posId>:posId")
 //    void updateDeletePosID(@Param("posId") int posId);
 
-    List<Activity> findAllByOrderByPosId();
+    List<Activity> findByProIdOrderByPosId(int proId);
+
+    @Query("select max(a.id) from Activity a ")
+    int findMaxID();
 }

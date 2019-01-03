@@ -28,4 +28,7 @@ public interface TaskDao extends JpaRepository<Task, Integer> {
 
     List<Task> findByActivityIdOrderByPosId(int activityId);
 
+    @Query("select max(t.id) from Task t ")
+    int findMaxID();
+
 }

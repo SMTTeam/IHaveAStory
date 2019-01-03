@@ -1,7 +1,9 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ResultVO;
+import com.smtteam.smt.model.Activity;
 import com.smtteam.smt.model.Task;
+import com.smtteam.smt.service.ActivityService;
 import com.smtteam.smt.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private ActivityService activityService;
 
     /**
      * 新增task
@@ -62,9 +66,16 @@ public class TaskController {
      * @param activityId
      * @return
      */
-    @GetMapping("/listByActivity/{activityId}")
+    @GetMapping("/list/{activityId}")
     public ResultVO<List<Task>> getByActivity(@PathVariable int activityId) {
         List<Task> tasks = taskService.getByActivity(activityId);
         return new ResultVO<>(tasks);
+    }
+
+
+    @GetMapping("/maxId")
+    public ResultVO<Integer> getActivityNum() {
+        int num = taskService.findMaxID();
+        return new ResultVO<>(num);
     }
 }

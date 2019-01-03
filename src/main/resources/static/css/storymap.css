@@ -1,0 +1,91 @@
+.head-container{
+    border-top: 1px solid #ccc;
+}
+.column{
+    position: relative;
+    border-right:1px dashed #ccc;
+    display: inline-block;
+}
+
+.column-container{
+    margin: 5px;
+}
+
+.a-name-editor{
+    background-color: #C2D3F6;
+    border: none;
+    width: 118px;
+    height: 60px;
+    resize: none;
+    outline: none;
+    cursor: default;
+}
+
+.a-operation-menu {
+    width: 118px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    padding: 1px;
+    background-color: #C2D3F6;
+}
+
+.t-operation-menu {
+    width: 118px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    padding: 1px;
+    background-color: #F2E65C;
+}
+
+.create {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 5px;
+}
+
+.edit {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 5px;
+    margin-left: 70px;
+}
+
+.activity-title .task-title{
+    font-size: 12px;
+}
+.t-name-editor{
+    background-color: #F2E65C;
+    border: none;
+    width: 118px;
+    height: 60px;
+    resize: none;
+    outline: none;
+    cursor: default;
+}
+textarea::selection{
+    background-color: #3390ff;
+    color: white;
+}
+.activity-card{
+    display: inline-block;
+    position: relative;
+    margin: 6px;
+    color: #5058A3;
+    background-color: #C2D3F6;
+    border: 1px solid rgba(59,113,223,.1);
+    width: 120px;
+    height: 70px;
+}
+
+.task-card{
+    display: inline-block;
+    position: relative;
+    margin: 6px;
+    color: #8B572A;
+    background-color: #F2E65C;
+    border: 1px solid rgba(245,166,35,.29);
+    width: 120px;
+    height: 70px;
+}

@@ -17,5 +17,7 @@ public interface ActivityService {
 
     Activity modifyActivity(Activity activity);
 
-    List<Activity> getActivityList();
+    List<Activity> getActivityList(int proId);
+
+    int findMaxID();
 }
