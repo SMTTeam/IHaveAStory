@@ -57,7 +57,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<Activity> getActivityList() {
-        return activityDao.findAllByOrderByPosId();
+    public List<Activity> getActivityList(int proId) {
+        return activityDao.findByProIdOrderByPosId(proId);
+    }
+
+    @Override
+    public int findMaxID() {
+        return activityDao.findMaxID();
     }
 }

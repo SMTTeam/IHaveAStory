@@ -19,4 +19,6 @@ public interface TaskService {
     void deleteTask(int id);
 
     List<Task> getByActivity(int activityId);
+
+    int findMaxID();
 }

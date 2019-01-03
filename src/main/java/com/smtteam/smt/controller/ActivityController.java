@@ -61,9 +61,15 @@ public class ActivityController {
      * 获取所有activity
      * @return
      */
-    @GetMapping("/list")
-    public ResultVO<List<Activity>> getAllActivity(){
-        List<Activity> activities =  activityService.getActivityList();
+    @GetMapping("/list/{proId}")
+    public ResultVO<List<Activity>> getAllActivity(@PathVariable int proId){
+        List<Activity> activities =  activityService.getActivityList(proId);
         return new ResultVO<>(activities);
+    }
+
+    @GetMapping("/maxId")
+    public ResultVO<Integer> getActivityNum() {
+        int num = activityService.findMaxID();
+        return new ResultVO<>(num);
     }
 }

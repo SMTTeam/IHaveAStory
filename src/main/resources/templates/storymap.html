@@ -2,9 +2,46 @@
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Story Map</title>
+    <title>Story Mapping</title>
+    <link rel="stylesheet" th:href="${'//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{css/storymap.css}">
 </head>
 <body>
-<p>Hello</p>
+<div class="story-map-container">
+    <div class="mapping-board">
+        <div class="board-head" style="white-space: nowrap">
+            <div class="head-container" id="head-container">
+                <!--<div class="column" id="column-1">-->
+                    <!--<div class="column-container">-->
+                        <!--<div class="activity-container">-->
+                            <!--<div class="activity-card" onmousemove="over(this)" onmouseleave="leave(this)" id="card-1">-->
+                                <!--<textarea class="a-name-editor" maxlength="50" readonly="readonly">未命名activity</textarea>-->
+                                <!--<div class="a-operation-menu" id="menu-1" style="display: none">-->
+                                    <!--<a th:title="编辑" onclick="editActivity(this)"><img class="edit" src="img/edit.png"></a>-->
+                                    <!--<a th:title="在右侧新建" onclick="createActivity(this)"><img class="create" src="img/create.png"></a>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="task-container">-->
+                            <!--<div class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="tcard-1">-->
+                                <!--<textarea class="t-name-editor" maxlength="50" readonly="readonly">未命名task</textarea>-->
+                                <!--<div class="t-operation-menu" id="tmenu-1" style="display: none">-->
+                                    <!--<a th:title="编辑" onclick="editTask(this)"><img class="edit" src="img/edit.png"></a>-->
+                                    <!--<a th:title="在右侧新建" onclick="createTask(this)"><img class="create" src="img/create.png"></a>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="${'//cdn.bootcss.com/jquery/3.3.1/jquery.min.js'}"></script>
+<script th:inline="javascript">
+    var proId = [[${proId}]]
+</script>
+<script th:src="@{js/storymap.js}"></script>
 </body>
 </html>

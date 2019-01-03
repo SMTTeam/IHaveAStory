@@ -56,5 +56,10 @@ public class TaskServiceImpl implements TaskService {
         return taskDao.findByActivityIdOrderByPosId(activityId);
     }
 
+    @Override
+    public int findMaxID() {
+        return taskDao.findMaxID();
+    }
+
 
 }
