@@ -29,4 +29,20 @@ public interface UserService {
      * @return
      */
     User addUser(User user);
+
+    /**
+     * 根据email查找用户（一个email对应1个用户）
+     * @param email
+     * @return
+     */
+    User findByEmail(String email);
+
+    /**
+     * 根据email和psw来查找用户
+     * @param email
+     * @param psw
+     * @return
+     */
+    User findByEmailAndPsw( String email , String psw);
+
 }

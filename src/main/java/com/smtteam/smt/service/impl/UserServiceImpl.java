@@ -57,4 +57,24 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /**
+     * 根据email查找用户（一个email对应1个用户）
+     * @param email
+     * @return
+     */
+    @Override
+    public User findByEmail(String email){
+        return userDao.findByEmail(email);
+    }
+
+    /**
+     * 根据email和psw来查找用户
+     * @param email
+     * @param psw
+     * @return
+     */
+    @Override
+    public User findByEmailAndPsw(String email , String psw){
+        return userDao.findByEmailAndPsw(email,psw);
+    }
 }

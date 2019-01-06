@@ -17,4 +17,8 @@ import java.util.List;
 public interface UserDao extends JpaRepository<User, Integer> {
 
     List<User> findByEmailLike(String email);
+
+    User findByEmail(String email);
+
+    User findByEmailAndPsw(String email , String psw);
 }

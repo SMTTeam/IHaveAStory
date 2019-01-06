@@ -1,6 +1,7 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ResultVO;
+import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,6 @@ public class UserController {
         User result = userService.addUser(user);
         return new ResultVO<>(result);
     }
+
 
 }
