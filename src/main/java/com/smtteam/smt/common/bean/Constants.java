@@ -12,6 +12,16 @@ public class Constants {
     public final static Integer PROJECT_INVITING = 1;
     public final static Integer PROJECT_INVITED = 2;
 
+    //邮箱验证常量
+    public final static Integer USEREMAIL_VERIFYING = 1;
+    public final static Integer USEREMAIL_VERIFIED = 2;
+
+    //默认的用户性别
+    public final static Integer USER_DEFAULT_GENDA = 1;
+
+    //默认verify字段为""
+    public final static String USER_DEFAULT_VERIFY = "";
+
     //盐长度
     public static final Integer SALT_LENGTH = 20;
 }

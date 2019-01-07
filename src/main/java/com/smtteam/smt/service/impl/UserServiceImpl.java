@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService {
      * @param psw
      * @return
      */
+    //TODO 验证身份登录时要把 邮箱验证的 status（验证完成）考虑进去
     @Override
     public User findByEmailAndPsw(String email , String psw){
         return userDao.findByEmailAndPsw(email,psw);

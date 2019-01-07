@@ -25,7 +25,7 @@
                 </div>
                 <div class="panel-body" id="registPage">
                     <p class="text-center pv" style="font-size: large">请注册(^O^)</p>
-                    <form id="form" data-parsley-validate="true"  onsubmit="return false">
+                    <form id="form" data-parsley-validate="true"  onsubmit="return false" onkeydown="if(event.KEYDOWN==13){return false;}">
                         <div class="form-group has-feedback">
                             <!--<label for="signupInputEmail1" class="text-muted"></label>-->
                             <input id="signupInputEmail" type="email" placeholder="输入邮箱地址" class="form-control"
@@ -70,7 +70,7 @@
                             <span class="fa fa-lock form-control-feedback text-muted"></span>
                         </div>
                         <label for="registerButton" class="text-muted"></label>
-                        <button th:onclick="regist" id="registerButton" class="btn btn-block btn-primary mt-lg">创建账户</button>
+                        <button id="registerButton" class="btn btn-block btn-primary mt-lg">创建账户</button>
                     </form>
                     <p></p>
                     <div id="errorMsg" class="alert alert-danger text-center" style="display:none;"></div>
@@ -84,7 +84,7 @@
                 <span>-</span>
                 <span>2019</span>
                 <br/>
-                <span>smt@126.com</span>
+                <span>smt_group@163.com</span>
             </div>
         </div>
     </div>

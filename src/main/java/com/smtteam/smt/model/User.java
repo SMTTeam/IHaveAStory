@@ -25,6 +25,7 @@ public class User {
 
     private String verify;
 
+    private Integer status;
 
 
     public ShowUser toShowUser() {
@@ -35,11 +36,12 @@ public class User {
         return user;
     }
 
-    public User (String email, String psw, String username, Integer gender, String verify){
+    public User (String email, String psw, String username, Integer gender, String verify ,Integer status){
         this.email = email;
         this.psw = psw;
         this.username = username;
         this.gender = gender;
         this.verify = verify;
+        this.status = status;
     }
 }
