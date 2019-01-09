@@ -29,5 +29,5 @@ public interface ActivityDao extends JpaRepository<Activity, Integer> {
     List<Activity> findByProIdOrderByPosId(int proId);
 
     @Query("select max(a.id) from Activity a ")
-    int findMaxID();
+    Integer findMaxID();
 }

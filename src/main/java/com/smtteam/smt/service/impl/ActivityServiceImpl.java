@@ -63,6 +63,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public int findMaxID() {
-        return activityDao.findMaxID();
+        Integer num = activityDao.findMaxID();
+        if(num==null){
+            return 0;
+        }else {
+            return num;
+        }
+
     }
 }

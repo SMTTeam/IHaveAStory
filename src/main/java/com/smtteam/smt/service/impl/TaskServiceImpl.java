@@ -58,7 +58,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public int findMaxID() {
-        return taskDao.findMaxID();
+        Integer num =taskDao.findMaxID();
+        if(num==null){
+            return 0;
+        }else {
+            return num;
+        }
     }
 
 
