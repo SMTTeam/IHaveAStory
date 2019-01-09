@@ -19,8 +19,8 @@ import java.util.List;
 @Repository
 public interface TaskDao extends JpaRepository<Task, Integer> {
     @Modifying
-    @Query("update Task set posId=posId+1 where posId>:posId")
-    void updateCreatePosID(@Param("posId") int posId);
+    @Query("update Task set posId=posId+1 where activityId=:activityId and posId>:posId")
+    void updateCreatePosID(@Param("activityId") int activityId, @Param("posId") int posId);
 
 //    @Modifying
 //    @Query("update Task set posId=posId-1 where posId>:posId")

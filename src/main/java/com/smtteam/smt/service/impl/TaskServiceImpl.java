@@ -25,7 +25,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     public Task createTask(Task task) {
-        taskDao.updateCreatePosID(task.getPosId()-1);
+        taskDao.updateCreatePosID(task.getActivityId(), task.getPosId()-1);
         return taskDao.save(task);
     }
 

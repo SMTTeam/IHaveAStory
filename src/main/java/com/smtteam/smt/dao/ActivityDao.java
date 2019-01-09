@@ -19,8 +19,8 @@ import java.util.List;
 @Repository
 public interface ActivityDao extends JpaRepository<Activity, Integer> {
     @Modifying
-    @Query("update Activity set posId=posId+1 where posId>:posId")
-    void updateCreatePosID(@Param("posId") int posId);
+    @Query("update Activity set posId=posId+1 where proId=:proId and posId>:posId")
+    void updateCreatePosID(@Param("proId") int proId, @Param("posId") int posId);
 
 //    @Modifying
 //    @Query("update Activity set posId=posId-1 where posId>:posId")

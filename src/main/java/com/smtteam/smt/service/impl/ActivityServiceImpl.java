@@ -29,7 +29,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     @Transactional
     public Activity createActivity(Activity activity) {
-        activityDao.updateCreatePosID(activity.getPosId()-1);
+        activityDao.updateCreatePosID(activity.getProId(),activity.getPosId()-1);
         Activity result = activityDao.save(activity);
         return result;
     }
