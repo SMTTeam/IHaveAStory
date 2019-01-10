@@ -1,0 +1,32 @@
+.smt-nav{
+    background-color: #303133 !important;
+    border-color: #000000 !important;
+}
+
+.smt-nav a:hover{
+    text-decoration: none;
+}
+
+.smt-nav a:after{
+    color: #F2F6FC !important;
+    border-bottom-color: #F2F6FC !important;
+}
+
+.smt-nav-button{
+    color: #DCDFE6;
+    background-color: #303133;
+    border-color: #DCDFE6;
+    border-radius: 5px;
+}
+
+.smt-nav-button:hover{
+    color: #F2F6FC;
+    border-color: #F2F6FC;
+}
+
+.am-container{
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: none !important;
+}
+
