@@ -29,7 +29,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     @Transactional
     public Activity createActivity(Activity activity) {
-        activityDao.updateCreatePosID(activity.getPosId()-1);
+        activityDao.updateCreatePosID(activity.getProId(),activity.getPosId()-1);
         Activity result = activityDao.save(activity);
         return result;
     }
@@ -63,6 +63,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public int findMaxID() {
-        return activityDao.findMaxID();
+        Integer num = activityDao.findMaxID();
+        if(num==null){
+            return 0;
+        }else {
+            return num;
+        }
+
     }
 }

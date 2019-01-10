@@ -25,7 +25,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     public Task createTask(Task task) {
-        taskDao.updateCreatePosID(task.getPosId()-1);
+        taskDao.updateCreatePosID(task.getActivityId(), task.getPosId()-1);
         return taskDao.save(task);
     }
 
@@ -58,7 +58,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public int findMaxID() {
-        return taskDao.findMaxID();
+        Integer num =taskDao.findMaxID();
+        if(num==null){
+            return 0;
+        }else {
+            return num;
+        }
     }
 
 
