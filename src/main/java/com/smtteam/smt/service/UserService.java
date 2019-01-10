@@ -1,6 +1,10 @@
 package com.smtteam.smt.service;
 
 import com.smtteam.smt.model.User;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -45,4 +49,11 @@ public interface UserService {
      */
     User findByEmailAndPsw( String email , String psw);
 
+    /**
+     * 更新个人信息，主要更新username字段
+     * @param useremail
+     * @param username
+     * @return
+     */
+    int updateUserInfoByEmail(String useremail , String username);
 }

@@ -78,4 +78,9 @@ public class UserServiceImpl implements UserService {
     public User findByEmailAndPsw(String email , String psw){
         return userDao.findByEmailAndPsw(email,psw);
     }
+
+    @Override
+    public int updateUserInfoByEmail(String useremail , String username){
+        return userDao.updateUserInfoByEmail(username,useremail);
+    }
 }
