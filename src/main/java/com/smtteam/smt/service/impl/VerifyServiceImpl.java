@@ -9,6 +9,8 @@ import com.smtteam.smt.service.VerifyService;
 import com.smtteam.smt.util.EncryptUtil;
 import com.smtteam.smt.util.MailUtil;
 import com.smtteam.smt.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,7 @@ public class VerifyServiceImpl implements VerifyService {
     @Value("${deploy.url}")
     private String server;
 
+
     /**
      * 发送验证邮件
      * @param email
@@ -45,6 +48,8 @@ public class VerifyServiceImpl implements VerifyService {
     public User sendVerifyEmail(String email, String psw, String username)throws ExistException{
         //在发送前保存记录到数据库
 //        System.out.println("11111111111");
+
+
         User user1 = userDao.findByEmail(email);
 //        System.out.println("2222222222222");
         if(user1 != null && user1.getStatus()== Constants.USEREMAIL_VERIFYING) throw new ExistException("该邮箱已注册但未验证，请前往验证！");
