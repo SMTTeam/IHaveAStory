@@ -6,6 +6,11 @@ ul li{
     list-style: none;
 }
 
+canvas{
+    position: absolute;
+    z-index: -1;
+}
+
 .smt-nav{
     background-color: #303133 !important;
     border-color: #000000 !important;
@@ -116,7 +121,7 @@ ul li{
 .smt-card-btn-group .smt-bnt{
     color: #fff;
     background-color: #606266;
-    border-color: #606266;
+    /*border-color: #606266;*/
     margin: 5px;
     border-radius: 1rem;
     font-size: 1.4rem;
@@ -125,7 +130,7 @@ ul li{
 .smt-cards li:hover .smt-bnt{
     color: #303133;
     background-color: #fff;
-    border-color: #606266;
+    /*border-color: #606266;*/
 }
 
 /* 文字截断 */
@@ -136,3 +141,4 @@ ul li{
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+

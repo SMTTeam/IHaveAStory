@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("invite")
-public class InviteController {
+@RequestMapping("api/invite")
+public class InviteApiController {
 
     @Autowired
     private InviteService inviteService;
