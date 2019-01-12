@@ -7,6 +7,9 @@ import com.smtteam.smt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * createdBy: weishixin
  * date: 2018/01/04
@@ -25,8 +28,9 @@ public class LoginController {
      * @return
      */
     @PostMapping("/checklogin")
-    public ResultVO<User> checkLogin(@RequestParam String email , @RequestParam String pwd){
+    public ResultVO<User> checkLogin(@RequestParam String email , @RequestParam String pwd , HttpServletRequest request1){
         User result = userService.findByEmailAndPsw(email,pwd);
+
         if( result == null ){
             ResultVO<User> resultVO = new ResultVO<>();
             resultVO.setCode(ResultCode.NOT_FOUND.getCode());
@@ -36,6 +40,10 @@ public class LoginController {
         }else {
             ResultVO<User> resultVO = new ResultVO<>(result);
             System.out.println(resultVO.getCode());
+            HttpSession session = request1.getSession();
+            session.setAttribute("useremail",email);
+            session.setAttribute("password",pwd);
+
             return resultVO;
         }
     }
