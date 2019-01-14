@@ -1,0 +1,10 @@
+.login-background{
+    /*background-image: url(../img/background.jpg);*/
+    background-image: url(http://img1.imgtn.bdimg.com/it/u=3281018393,1135547142&fm=26&gp=0.jpg);
+    /*background-size: 100%;*/
+    background-position: right bottom, left top;
+    background-repeat: no-repeat, repeat;
+    /*padding: 15px;*/
+    /*background-color: #0a1115;*/
+
+}

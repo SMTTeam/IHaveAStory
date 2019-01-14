@@ -54,4 +54,6 @@ public class ViewController {
         return "attended";
     }
 
+    @RequestMapping("example")
+    public String example(){ return "example";}
 }

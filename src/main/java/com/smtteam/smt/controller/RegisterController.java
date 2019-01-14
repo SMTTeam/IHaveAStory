@@ -86,7 +86,6 @@ public class RegisterController {
         User user = null;
         try {
             user = verifyService.acceptVerifyEmail(code);
-
         }catch (NoAccessException e){
 //            return new ResultVO<>(e.getMessage());
             return new ModelAndView("redirect:/login");//重定向到login界面
@@ -95,7 +94,8 @@ public class RegisterController {
         HttpSession session = request.getSession();
         session.setAttribute("useremail" , user.getEmail());
         session.setAttribute("userid", user.getId());
-        ModelAndView modelAndView = new ModelAndView("redirect:/main");//验证成功登录进主界面
+        session.setAttribute("user",user);
+        ModelAndView modelAndView = new ModelAndView("redirect:/project");//验证成功登录进主界面
         modelAndView.addObject("userid",user.getId());//将userid传到主界面
         return modelAndView;
     }

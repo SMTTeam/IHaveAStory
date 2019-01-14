@@ -25,18 +25,23 @@
                 </div>
                 <div class="panel-body" id="registPage">
                     <p class="text-center pv" style="font-size: large">请注册(^O^)</p>
-                    <form id="form" data-parsley-validate="true"  onsubmit="return false" onkeydown="if(event.KEYDOWN==13){return false;}">
+                    <!--onkeydown="(function(e){if (!e) e = window.event;switch (e.which) {case 13:alert('囧');break;}})(event);"-->
+                    <!--onsubmit="return false"  data-parsley-validate="true"-->
+                    <!--alert('aaaaa'); focusNextInput(this); -->
+                    <!--onkeydown="if(event.which==13) { return false; }" onsubmit="return false"-->
+                    <form id="form" method="post" onsubmit="return submitForm();" data-parsley-validate onkeydown="if(event.which==13) { return false; }" >
                         <div class="form-group has-feedback">
                             <!--<label for="signupInputEmail1" class="text-muted"></label>-->
+                            <!--required="required"-->
                             <input id="signupInputEmail" type="email" placeholder="输入邮箱地址" class="form-control"
                                    data-parsley-required-message="邮箱地址不能为空"
                                    data-parsley-type-message="请输入正确的邮箱地址"
                                    data-parsley-trigger="change"
-                                   required="required"
+                                   data-parsley-required="true"
                                    data-parsley-remote
                                    data-parsley-remote-validator="checkEmail"
                                    data-parsley-remote-options='{ "type": "GET" }'
-                                   data-parsley-remote-message="邮箱已注册"     />
+                                   data-parsley-remote-message="邮箱已注册"    onkeydown="if(event.which==13) { focusNextInput(this); }" />
                             <!--要做一个checkaccount来查询是否账号已经被注册-->
                             <span class="fa fa-envelope form-control-feedback text-muted"></span>
                         </div>
@@ -44,16 +49,20 @@
                             <!--<label for="signupInputName" class="text-muted"></label>-->
                             <input id="signupInputName" type="text" placeholder="我们该如何称呼您？" class="form-control"
                                    data-parsley-trigger="change"
-                                   required="required" data-parsley-required-message="请输入用户名称"/>
+                                   required="required"
+                                   data-parsley-required="true"
+                                   data-parsley-required-message="请输入用户名称" onkeydown="if(event.which==13) { focusNextInput(this); }"/>
                             <span class="fa fa-user form-control-feedback text-muted"></span>
                         </div>
                         <div class="form-group has-feedback">
-                            <!--<label for="signupInputPassword" class="text-muted"></label>-->
+                            <!--<label for="signupInputPassword" class="text-muted"></label> required="required" -->
                             <input id="signupInputPassword" type="password" placeholder="填入密码" class="form-control"
                                    data-parsley-trigger="change"
-                                   required="required" data-parsley-required-message="请输入密码"
+                                   required="required"
+                                   data-parsley-required="true"
+                                   data-parsley-required-message="请输入密码"
                                    pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$)\S{6,20}$/"
-                                   data-parsley-pattern-message="请输入6-20位字母数字组合" />
+                                   data-parsley-pattern-message="请输入6-20位字母数字组合" onkeydown="if(event.which==13) { focusNextInput(this); }"/>
                             <span class="fa fa-lock form-control-feedback text-muted"></span>
                         </div>
                         <div class="form-group has-feedback">
@@ -63,14 +72,14 @@
                                    pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$)\S{6,20}$/"
                                    data-parsley-pattern-message="请输入6-20位字母数字组合"
                                    data-parsley-required="true"
-                                   data-parsley-trigger="focusout"
+                                   data-parsley-trigger="change"
                                    data-parsley-required-message="确认密码不可为空"
                                    data-parsley-equalto="#signupInputPassword"
-                                   data-parsley-equalto-message="两次密码输入不一致"/>
-                            <span class="fa fa-lock form-control-feedback text-muted"></span>
+                                   data-parsley-equalto-message="两次密码输入不一致" onkeydown="if(event.which==13) { focusNextInput(this); }"/>
+                            <span class="fa fa-lock form-control-feedback text-muted" ></span>
                         </div>
                         <label for="registerButton" class="text-muted"></label>
-                        <button id="registerButton" class="btn btn-block btn-primary mt-lg">创建账户</button>
+                        <button id="registerButton"  class="btn btn-block btn-primary mt-lg">创建账户</button>
                     </form>
                     <p></p>
                     <div id="errorMsg" class="alert alert-danger text-center" style="display:none;"></div>
