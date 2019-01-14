@@ -55,7 +55,7 @@ public class InviteServiceImpl implements InviteService {
         projectUser = projectUserDao.save(projectUser);
 
         String url = userId + "&" + proId + "&" + EncryptUtil.SHA256(salt);
-        url = server + "/invite/accept/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
+        url = server + "/api/invite/accept/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
         String content = "<html><head><title></title></head><body>亲爱的SMT用户您好,<br> &nbsp;&nbsp;&nbsp;其他用户邀请您加入" + proName + "项目，点击以下链接查看详情：<br> &nbsp;&nbsp; <a href = \"" + url + "\">" + url + "</a></body></html>";
         System.out.println(content);
         String[] tos = new String[]{email};

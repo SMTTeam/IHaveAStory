@@ -44,15 +44,7 @@ public class ViewController {
     }
 
 
-    @RequestMapping("project")
-    public String project(){
-        return "projects";
-    }
 
-    @RequestMapping("attended")
-    public String attended(){
-        return "attended";
-    }
 
     @RequestMapping("example")
     public String example(){ return "example";}

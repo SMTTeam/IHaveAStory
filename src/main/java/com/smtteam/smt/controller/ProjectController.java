@@ -1,75 +1,30 @@
 package com.smtteam.smt.controller;
 
-import com.smtteam.smt.common.bean.ResultVO;
-import com.smtteam.smt.common.enums.ResultCode;
-import com.smtteam.smt.common.exception.NoAccessException;
-import com.smtteam.smt.model.Project;
-import com.smtteam.smt.service.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 类说明：
+ * 类说明：项目界面路由
  * 创建者：Zeros
- * 创建时间：2018-12-29 16:08
+ * 创建时间：2019-01-11 00:08
  * 包名：com.smtteam.smt.controller
  */
-@RestController
-@RequestMapping("project")
+
+@Controller
 public class ProjectController {
 
-    @Autowired
-    private ProjectService projectService;
-
-    /**
-     * 创建项目
-     * @param name
-     * @param description
-     * @return
-     */
-    @PostMapping("create")
-    public ResultVO<Project> createProject(@RequestParam String name, @RequestParam String description){
-        //TODO 获取用户ID
-        Project project = new Project(1, name, description);
-        Project result = projectService.createProject(project);
-        return new ResultVO<>(result);
+    @RequestMapping("project")
+    public String project(){
+        return "projects";
     }
 
-    @PostMapping("modify")
-    public ResultVO<Project> modifyProject(@RequestParam Integer proId, @RequestParam String name, @RequestParam String description){
-        //TODO 获取用户ID
-        Integer userId = 1;
-        Project project = null;
-        try {
-            project = projectService.modifyProject(proId, userId, name, description);
-        } catch (NoAccessException e) {
-            return new ResultVO<>(ResultCode.NOT_ACCESS, "没有权限访问这个项目。");
-        }
-        return new ResultVO<>(project);
+    @RequestMapping("attended")
+    public String attended(){
+        return "attended";
     }
 
-
-    /**
-     * 查看我发布的项目
-     * @return
-     */
-    @GetMapping("list")
-    public ResultVO<List<Project>> getReleaseList(){
-        //TODO 获取用户ID
-        List<Project> projectList = projectService.findReleaseList(1);
-        return new ResultVO<>(projectList);
-    }
-
-    /**
-     * 查看我参与的项目
-     * @return
-     */
-    @GetMapping("attended")
-    public ResultVO<List<Project>> getAttendedList(){
-        //TODO 获取用户ID
-        List<Project> projectList = projectService.findAttendList(1);
-        return new ResultVO<>(projectList);
+    @RequestMapping("project/create")
+    public String createProject(){
+        return "createProject";
     }
 }
