@@ -27,4 +27,9 @@ public class ProjectController {
     public String createProject(){
         return "createProject";
     }
+
+    @RequestMapping("project/edit")
+    public String editProject(){
+        return "editProject";
+    }
 }

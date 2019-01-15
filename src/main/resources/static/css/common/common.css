@@ -1,3 +1,6 @@
+body{
+    min-width: 480px;
+}
 ul{
     padding: 0;
 }
@@ -51,6 +54,7 @@ canvas{
         max-width: 1100px !important;
     }
 }
+
 
 .smt-bnt{
     color: #fff;
@@ -141,4 +145,115 @@ canvas{
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+.smt-title{
+    margin: 40px auto 0;
+    height: 40px;
+}
+
+/*.smt-title:first-child{*/
+    /*margin-top: 40px;*/
+/*}*/
+
+.smt-block{
+    display: block;
+    margin: 0 auto !important;
+    padding: 20px 32px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.19), 0 0 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.smt-input-row{
+    margin-top: 15px;
+    height: auto;
+}
+
+.smt-input-label{
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+    vertical-align: middle;
+    line-height: 32px;
+    height: 32px;
+}
+
+.smt-input-wrapper{
+    overflow: hidden;
+}
+
+.smt-input-for-row{
+    display: inline-block !important;
+    width: 100% !important;
+    vertical-align: middle !important;
+    line-height: inherit !important;
+    height: inherit !important;
+    padding: .2em .5em !important;
+    border-radius: 2px !important;
+}
+
+.smt-small-btn{
+    display: block;
+    width: 100px;
+    margin-top: 10px;
+    line-height: 1.2;
+}
+
+.smt-lines li{
+    clear: both;
+    color: #303133;
+    margin: 5px auto;
+    padding: 2px 15px;
+}
+
+.smt-lines li:hover{
+    color: #409EFF;
+    border: 1px solid #DCDFE6;
+    border-radius: 10px;
+}
+
+.smt-lines li:last-child:hover{
+    color: #303133;
+    border: none;
+}
+
+
+
+.smt-line{
+    height: 64px;
+    line-height: 64px;
+}
+
+.smt-line p{
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+}
+
+.smt-line img{
+    display: block;
+    /*vertical-align: middle;*/
+    /*margin: 0 auto;*/
+    line-height: 64px;
+}
+
+.smt-line-icon{
+    width: 48px;
+    height: 48px;
+    margin: 8px auto;
+}
+
+.smt-line-operator{
+    width: 24px;
+    height: 24px;
+    margin: 20px auto;
+}
+
+.smt-line-operator:hover{
+    cursor: pointer;
+    color: #409EFF;
+}
+
+
 
