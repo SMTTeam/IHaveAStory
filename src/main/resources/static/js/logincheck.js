@@ -21,6 +21,21 @@
 //     }
 // )
 
+function focusNextInput(thisInput){
+    var inputs = document.getElementsByTagName("input");
+
+    for( var i = 0 ; i < inputs.length ; i ++ ){
+        if( i === inputs.length-1 ){
+            $('form').submit();
+            break;
+        }else if(thisInput == inputs[i]){
+            inputs[i+1].focus();
+            break;
+        }
+    }
+    return false;
+}
+
 $("#loginButton").click(function () {
     var email = $.trim($("#loginEmail").val());
     var password = $.trim($("#loginPsd").val());
@@ -49,7 +64,6 @@ $("#loginButton").click(function () {
                 tip.html(result.message);//设置提示文字
                 $("#loginPsd").val('');
             }
-
         }
     })
 })

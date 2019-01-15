@@ -24,7 +24,7 @@ public class ViewController {
 
     @RequestMapping("/loginsmt")
     public ModelAndView login(){
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView("login2");
         return modelAndView;
 //        return "login";
     }
@@ -42,9 +42,6 @@ public class ViewController {
         ModelAndView modelAndView = new ModelAndView("main");
         return modelAndView;
     }
-
-
-
 
     @RequestMapping("example")
     public String example(){ return "example";}

@@ -1,10 +1,46 @@
 .login-background{
-    /*background-image: url(../img/background.jpg);*/
-    background-image: url(http://img1.imgtn.bdimg.com/it/u=3281018393,1135547142&fm=26&gp=0.jpg);
+    background-image: url(../img/background.jpg);
+    /*background-image: url(http://img1.imgtn.bdimg.com/it/u=3281018393,1135547142&fm=26&gp=0.jpg);*/
+    /*background-color: #0a1115;*/
     /*background-size: 100%;*/
     background-position: right bottom, left top;
     background-repeat: no-repeat, repeat;
     /*padding: 15px;*/
     /*background-color: #0a1115;*/
+
+}
+
+.login-label{
+    font-size: 2rem;
+    color: white;
+    line-height:30px;
+    width: auto;
+    /*align-content: center;*/
+    text-align:center;
+}
+
+.smt-register-btn{
+    color: #303133;
+    background-color: #a39cb4;
+    border-color: #F2F6FC;
+
+    border-radius: 1rem;
+    font-size: 1.6rem;
+
+}
+
+.smt-register-btn:hover,
+.smt-register-btn:focus,
+.smt-register-btn:active,
+.smt-register-btn.am-active,
+.smt-register-btn.am-dropdown-toggle {
+    color: #303133;
+    background-color: #9f8eb4;
+    /*color: #fff;*/
+    /*color: #303133;*/
+    /*background-color: #ffffff;*/
+    border-color: #a39cb4;
+    /*border-radius: 0;*/
+
 
 }

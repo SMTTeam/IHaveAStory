@@ -21,23 +21,25 @@
     <div class="wrapper" style="background-image: url(../static/img/background.jpg)">
         <div class="block-center mt-xl wd-xl" >
             <div class="panel panel-dark panel-flat">
-                <!--<div class="panel-heading text-center">-->
-                    <!--<a href="#">&lt;!&ndash;先定义成 仍然跳转到本页面&ndash;&gt;-->
-                        <!--&lt;!&ndash;<img src="../static/img/logo_IHaveAStory.png" alt="Image" class="block-center img-rounded"/>&ndash;&gt;-->
-                        <!--<p class="text-center pv" style="color: #FFFFFF;font-size: large">I Have A Storymap</p>-->
-                    <!--</a>-->
-                <!--</div>-->
+                <div class="panel-heading text-center">
+                    <a href="#"><!--先定义成 仍然跳转到本页面-->
+                        <!--<img src="../static/img/logo_IHaveAStory.png" alt="Image" class="block-center img-rounded"/>-->
+                        <p class="text-center pv" style="color: #FFFFFF;font-size: large">I Have A Storymap</p>
+                    </a>
+                </div>
                 <div class="panel-body" id="loginPage">
                     <p class="text-center pv" style="font-size: large">请登录(^o^)</p>
-                    <form id="form" method="post"  data-parsley-validate="true"  onsubmit="return false">
+                    <form id="form" method="post"  onsubmit="return false" data-parsley-validate onkeydown="if(event.which==13) { return false; }">
                         <label for="loginEmail" class="text-muted"></label>
                         <div class="form-group has-feedback">
 
                             <!--@thymesVar id="loginEmail" type="java.lang.String"-->
                             <!--th:field="*{loginEmail}"-->
-                            <input id="loginEmail" type="email" name="loginEmail"  placeholder="邮箱" class="form-control" data-parsley-trigger="change" required="required"  data-parsley-required-message="邮箱地址不能为空"
+                            <input id="loginEmail" type="email" name="loginEmail"  placeholder="邮箱"
+                                   class="form-control" data-parsley-trigger="change" required="required"
+                                   data-parsley-required-message="邮箱地址不能为空"
                                    data-parsley-type-message="请输入正确的邮箱地址"
-                                   />
+                                   onkeydown="if(event.which==13) { focusNextInput(this); }"/>
                             <span class="fa fa-envelope form-control-feedback text-muted"></span>
 
                         </div>
@@ -47,7 +49,7 @@
                             <!--th:field="*{loginPassword}"-->
                             <input id="loginPsd" type="password" placeholder="密码" data-parsley-trigger="focusout" name="loginPassword" class="form-control"
                                    data-parsley-type-message="请输入符合要求的密码"
-                                   required="required" data-parsley-required-message="密码不能为空" />
+                                   required="required" data-parsley-required-message="密码不能为空" onkeydown="if(event.which==13) { focusNextInput(this);}"/>
                             <span class="fa fa-lock form-control-feedback text-muted"></span>
                         </div>
                         <div class="clearfix">

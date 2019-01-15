@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="/common/head::loadHeader('登 录')"></head>
-<body style="background-image: url('../static/img/background.jpg'); background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;" >
-    <div class="am-container" >
-        <!--<div class="am-u-lg-10 am-u-md-12 am-u-sm-centered">-->
-        <div class="am-u-lg-centered am-u-md-centered am-u-sm-centered " style="background-color: white" >
-            <div class="am-u-md-6 am-u-lg-6 am-u-sm-6" >
-                <form class="am-form" method="post">
-                    <div class="am-u-sm-centered am-u-md-centered">
-                        <!--required="required"-->
-                        <input id="loginEmail"  type="email" name="loginEmail" placeholder="邮箱"
-                               data-parsley-trigger="change" required="required"
+<head th:include="/common/head::loadHeader('登 录')">
+</head>
+<!--style="background-image: url('../static/img/background.jpg'); background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;"-->
+<body class="login-background"  >
+    <div th:include="/common/nav :: loadNav"></div>
 
-                               data-parsley-required-message="邮箱地址不能为空"
-                               data-parsley-type-message="请输入正确的邮箱地址" />
+    <div class="am-container"  >
+        <!--<div class="am-u-lg-10 am-u-md-12 am-u-sm-centered">   style="background-color: black"  -->
+        <div class="am-g"  style="margin-top: 120px" >
+            <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-4" >-->
+                <div class="am-u-sm-4 am-u-md-4 am-u-lg-4  am-u-sm-centered">
+                    <label class="login-label">欢迎登录</label>
+                </div>
+
+                <form class="am-form am-u-sm-4 am-u-md-4 am-u-lg-4 am-u-sm-centered" method="post" data-parsley-validate>
+                    <div class="am-form-group " style="margin-top: 60px;">
+                        <!--required="required"-->
+                        <!--<input type="email" id="doc-vld-email-2" placeholder="输入邮箱" required/>-->
+                        <input id="loginEmail"  type="email" name="loginEmail" placeholder="邮箱" required/>
+                               <!--data-parsley-trigger="change" required="required"-->
+                                <!--data-parsley-required="true"-->
+                               <!--data-parsley-required-message="邮箱地址不能为空"-->
+                               <!--data-parsley-type-message="请输入正确的邮箱地址"-->
+
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <div class="am-u-sm-centered  am-u-md-centered" >
-                        <input id="loginPsd" type="password" placeholder="密码"  data-parsley-trigger="focusout" name="loginPassword"
+
+                    <div class="am-form-group" style="margin-top: 30px;" >
+                        <input id="loginPsd" type="password" placeholder="密码"  data-parsley-trigger="change"
+                               data-parsley-required="true" name="loginPassword"
                                data-parsley-type-message="请输入符合要求的密码"
                                required="required" data-parsley-required-message="密码不能为空"/>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <div class="am-u-md-centered am-u-lg-centered am-u-sm-centered ">
-                        <button id="loginButton" type="submit" class="am-btn am-btn-primary am-btn-block" >登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+
+                    <div class="am-form-group" style="margin-top: 45px;">
+                        <button id="loginButton" type="submit" class="am-btn smt-bnt am-u-sm-centered" >登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
                     </div>
 
+                    <div class="am-form-group" style="margin-top: 30px;">
+                        <button id="registerButton" type="button" class="am-btn smt-register-btn  am-u-sm-centered" >立即注册</button>
+                    </div>
                 </form>
-            </div>
+            <!--</div>-->
+                <!--<a href="/registersmt"  class=""></a>-->
+            <!--</div>-->
         </div>
     </div>
 
