@@ -9,14 +9,20 @@
     /*background-color: #0a1115;*/
 
 }
+.login-welcom-label{
+    font-size: 20px;
 
-.login-label{
-    font-size: 2rem;
-    color: white;
+    color: #303133;
     line-height:30px;
-    width: auto;
+    margin: 0 auto;
+    width: -moz-max-content;
     /*align-content: center;*/
     text-align:center;
+}
+
+.a-forgetpsw{
+    font-size: 16px;
+    color: #303133;
 }
 
 .smt-register-btn{
@@ -26,7 +32,6 @@
 
     border-radius: 1rem;
     font-size: 1.6rem;
-
 }
 
 .smt-register-btn:hover,
@@ -42,5 +47,8 @@
     border-color: #a39cb4;
     /*border-radius: 0;*/
 
+}
 
+.login-teamcontact{
+    padding: 15px !important;
 }

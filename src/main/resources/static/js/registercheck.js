@@ -112,13 +112,13 @@ function submitForm() {
         }
 
     });
-    alert(temp_result_url);
+    // alert(temp_result_url);
     window.location.href = "/project";
 };
 
 $('#registerButton').click(function () {
     // location.reload();
-    alert('isemailExist='+isemailExist);
+    // alert('isemailExist='+isemailExist);
     var email = $.trim($("#signupInputEmail").val());
     var username = $.trim($("#signupInputName").val());
     var password = $.trim($("#signupInputPassword").val());
@@ -143,7 +143,6 @@ $('#registerButton').click(function () {
     //     }
     //
     // });
-
     if ( username == "" || ! email_pattern.test(email) || ! password_pattern.test(password) ||  password !== verify_password || isemailExist){
         return;//啥都不做
     }
@@ -204,4 +203,9 @@ $('#registerButton').click(function () {
     // if( temp_result_url.length > 0 ){
     //     window.open(temp_result_url, "_blank");
     // }
-})
+});
+
+$('#loginButton1')[0].click(function () {
+    alert('222');
+   window.location.href('/loginsmt');
+});

@@ -31,7 +31,7 @@ public class ViewController {
 
     @RequestMapping("/registersmt")
     public ModelAndView register(){
-        ModelAndView modelAndView = new ModelAndView("register");
+        ModelAndView modelAndView = new ModelAndView("register2");
         return modelAndView;
 //        return "register";
     }
