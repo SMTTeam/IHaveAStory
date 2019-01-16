@@ -1,5 +1,6 @@
 package com.smtteam.smt.controller;
 
+import com.smtteam.smt.common.bean.IterationVO;
 import com.smtteam.smt.common.bean.ResultVO;
 import com.smtteam.smt.common.bean.StoryVO;
 import com.smtteam.smt.model.Story;
@@ -7,7 +8,9 @@ import com.smtteam.smt.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/story")
@@ -23,7 +26,7 @@ public class StoryController {
     @PostMapping("/create")
     public ResultVO<Story> createStory(@RequestBody StoryVO storyInput){
         Story story = new Story(storyInput.getTaskId(), storyInput.getName(), storyInput.getStoryPoint(), storyInput.getPriority(),
-                storyInput.getDescription(), storyInput.getPosId()+1, storyInput.getAcceptance(), storyInput.getIteration());
+                storyInput.getDescription(), storyInput.getPosId()+1, storyInput.getAcceptance(), storyInput.getGroupName(), storyInput.getIteration());
         Story result = storyService.createStory(story);
         return new ResultVO<>(result);
     }
@@ -43,8 +46,20 @@ public class StoryController {
         story.setDescription(storyInput.getDescription());
         story.setPosId(storyInput.getPosId());
         story.setAcceptance(storyInput.getAcceptance());
+        story.setGroupName(storyInput.getGroupName());
         story.setIteration(storyInput.getIteration());
         Story result = storyService.modifyStory(story);
+        return new ResultVO<>(result);
+    }
+
+    /**
+     * 根据storyid获取内容
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ResultVO<Story> modifyStory(@PathVariable int id){
+        Story result = storyService.getStoryById(id);
         return new ResultVO<>(result);
     }
 
@@ -79,5 +94,26 @@ public class StoryController {
     public ResultVO<Integer> getStoryNum(){
         int num = storyService.findMaxID();
         return new ResultVO<>(num);
+    }
+
+    /**
+     * 获取某个project的迭代
+     * @param proId
+     * @return
+     */
+    @GetMapping("/iterList/{proId}")
+    public ResultVO<List<IterationVO>> getIterList(@PathVariable int proId){
+        List<IterationVO> list = new ArrayList<>();
+        list = storyService.findIterNum(proId);
+
+//        System.out.println("controller begin");
+//        for (IterationVO i:list){
+//            System.out.println(i);
+//        }
+        ResultVO<List<IterationVO>> res;
+        res=new ResultVO<>(list);
+//        System.out.println(res.getData());
+//        System.out.println("controller end");
+        return res;
     }
 }

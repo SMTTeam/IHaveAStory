@@ -28,9 +28,11 @@ public class Story {
 
     private String acceptance;
 
+    private String groupName;
+
     private Integer iteration;
 
-    public Story(Integer taskId, String name, Integer storyPoint, Integer priority, String description, Integer posId, String acceptance, Integer iteration) {
+    public Story(Integer taskId, String name, Integer storyPoint, Integer priority, String description, Integer posId, String acceptance, String groupName, Integer iteration) {
         this.taskId = taskId;
         this.name = name;
         this.storyPoint = storyPoint;
@@ -38,6 +40,7 @@ public class Story {
         this.description = description;
         this.posId = posId;
         this.acceptance = acceptance;
+        this.groupName = groupName;
         this.iteration = iteration;
     }
 }

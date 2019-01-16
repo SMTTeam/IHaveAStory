@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <title>Story Mapping</title>
     <link rel="stylesheet" th:href="${'//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{vendor/fontawesome/css/font-awesome.min.css}">
     <link rel="stylesheet" th:href="@{css/storymap.css}">
 
 </head>
+<head th:include="/common/head :: loadHeader('用户故事地图')"></head>
+
 <body>
 <div class="story-map-container">
     <div class="mapping-board">
-        <div class="board-head" style="white-space: nowrap">
+        <div class="board-head">
             <div class="head-container" id="head-container">
                 <!--<div class="column" id="column-1">-->
                     <!--<div class="column-container">-->
@@ -37,9 +40,136 @@
                 <!--</div>-->
             </div>
         </div>
+        <div class="board-body">
+            <div class="release-group">
+                <div class="release-header">
+                    <div class="expand-switcher">
+                        <i class="fa fa-minus"></i>
+                    </div>
+                    <div class="release-name">
+                        <span>默认分组</span>
+                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">
+                    </div>
+                    <div class="dropdown">
+                        <button class="transparent-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                            <i class="fa fa-caret-down fa-fw"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript: void(0)" class="create-release below">在上方新建分组</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createStoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">新增story</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="am-g">
+                        <form class="am-form am-u-sm-11 am-u-md-10 am-u-lg-8 am-u-sm-centered" data-am-validator>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="taskId" name="taskId">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="preId" name="preId">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="text" class="name" id="name" name="name" placeholder="故事名称" required>
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="text" class="name" id="storyPoint" name="storyPoint" placeholder="故事点数">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="text" class="name" id="priority" name="priority" placeholder="优先级">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="posId" name="posId">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="groupName" name="groupName">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="iteration" name="iteration">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 30px">
+                                <textarea class="description" rows="10" id="description" placeholder="故事描述"></textarea>
+                            </div>
+                            <div class="am-form-group" style="margin-top: 30px">
+                                <textarea class="description" rows="10" id="acceptance" placeholder="验收标准"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-spaceId="" data-attachmentId=""
+                            data-attachmentName="" id="createStorySubmit" style="display:inline-block" data-dismiss="modal">确定
+                    </button>
+                    <button type="button" id="cancelCreateStory" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modifyStoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">修改story</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="am-g">
+                        <form class="am-form am-u-sm-11 am-u-md-10 am-u-lg-8 am-u-sm-centered" data-am-validator>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="m_taskId" name="taskId">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="m_id" name="id">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="text" class="name" id="m_name" name="name" placeholder="故事名称" required>
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="text" class="name" id="m_storyPoint" name="storyPoint" placeholder="故事点数">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="text" class="name" id="m_priority" name="priority" placeholder="优先级">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="m_posId" name="posId">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="m_groupName" name="groupName">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 10px">
+                                <input type="hidden" class="name" id="m_iteration" name="iteration">
+                            </div>
+                            <div class="am-form-group" style="margin-top: 30px">
+                                <textarea class="description" rows="10" id="m_description" placeholder="故事描述"></textarea>
+                            </div>
+                            <div class="am-form-group" style="margin-top: 30px">
+                                <textarea class="description" rows="10" id="m_acceptance" placeholder="验收标准"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-spaceId="" data-attachmentId=""
+                            data-attachmentName="" id="modifyStorySubmit" style="display:inline-block" data-dismiss="modal">确定
+                    </button>
+                    <button type="button" id="cancelModifyStory" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script th:src="${'//cdn.bootcss.com/jquery/3.3.1/jquery.min.js'}"></script>
+<script th:src="${'//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js'}"></script>
+<div th:include="/common/onload_js::loadJS"></div>
 <script th:inline="javascript">
     var proId = [[${proId}]]
 </script>

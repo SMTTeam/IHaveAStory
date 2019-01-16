@@ -1,5 +1,6 @@
 function over(ele){
     var id = $(ele).children("div").attr("id")
+    // console.log(id)
     $("#"+id).css("display","")
 }
 
@@ -57,16 +58,16 @@ function createActivity(element,a_posId,t_posId){
         '                                </div>\n' +
         '                            </div>\n' +
         '                        </div>\n' +
-        '                        <div class="task-container">\n' +
-        '                            <div class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
+        '                        <ul class="task-container">\n' +
+        '                            <li class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
         '                                <textarea class="t-name-editor" maxlength="50" readonly="readonly" id="'+tarea_id+'">未命名task</textarea>\n' +
         '                                <div class="t-operation-menu" id="'+tmenu_id+'" style="display: none">\n' +
         '                                    <a onclick="deleteTask(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
         '                                    <a onclick="editTask(this)"><img class="edit" title="编辑" src="img/edit.png"></a>\n' +
         '                                    <a onclick="createTask(this,'+activityId+',1)"><img class="create" title="在右侧新建" src="img/create.png"></a>\n' +
         '                                </div>\n' +
-        '                            </div>\n' +
-        '                        </div>\n' +
+        '                            </li>\n' +
+        '                        </ul>\n' +
         '                    </div>\n' +
         '\n' +
         '                </div>'
@@ -102,14 +103,14 @@ function createTask(element,activityId,t_posId) {
     }
 
     var new_id = t_posId+1
-    var tmp = '<div class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
+    var tmp = '<li class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
         '                                <textarea class="t-name-editor" maxlength="50" readonly="readonly" id="'+tarea_id+'">未命名task</textarea>\n' +
         '                                <div class="t-operation-menu" id="'+tmenu_id+'" style="display: none">\n' +
         '                                    <a onclick="deleteTask(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
         '                                    <a onclick="editTask(this)"><img class="edit" title="编辑" src="img/edit.png"></a>\n' +
         '                                    <a onclick="createTask(this,'+activityId+','+new_id+')"><img class="create" title="在右侧新建" src="img/create.png"></a>\n' +
         '                                </div>\n' +
-        '                            </div>'
+        '                            </li>'
 
     if(t_posId!=0){
         $("#"+id).after(tmp)
@@ -119,6 +120,68 @@ function createTask(element,activityId,t_posId) {
     }
 
 }
+
+function createStory(element,taskId,s_posId,iteration) {
+    $("#taskId").val(taskId)
+    $("#posId").val(s_posId)
+    // alert(groupName)
+    var groupName = $("#group"+iteration).text()
+    $("#groupName").val(groupName)
+    $("#iteration").val(iteration)
+    var id = $(element).parent().parent().attr("id");
+    $("#preId").val(id)
+}
+
+$("#createStorySubmit").click(function () {
+    var taskId = $("#taskId").val()
+    var name = $("#name").val()
+    var storyPoint = $("#storyPoint").val()
+    var priority = $("#priority").val()
+    var description = $("#description").val()
+    var posId = $("#posId").val()
+    var acceptance = $("#acceptance").val()
+    var groupName = $("#groupName").val()
+    var iteration = $("#iteration").val()
+    var preId = $("#preId").val()
+    var data = {
+        "taskId": taskId,
+        "name": name,
+        "storyPoint": storyPoint,
+        "priority": priority,
+        "description": description,
+        "posId": posId,
+        "acceptance": acceptance,
+        "groupName": groupName,
+        "iteration": iteration,
+    }
+    var s_num ;
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8888/story/create",
+        dataType:"json",
+        contentType : 'application/json',
+        data:JSON.stringify(data),
+        async: false,
+        success: function (data) {
+            s_num = data.data.id
+            var scard_id = "scard-"+s_num
+            var smenu_id = "smenu-"+s_num
+            var sarea_id = "sarea-"+s_num
+            var new_posId = posId+1
+            var story = '<li class="issue-card board-card doing" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">' +
+                '<p class="card-title" title="'+name+'" id="' + sarea_id + '">' + name + '</p>' +
+                '<div class="operation-menu" id="' + smenu_id + '" style="display: none">' +
+                '   <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>\' +' +
+                '   <a data-toggle="modal" data-target="#modifyStoryModal" onclick="editStory(this,'+s_num+')"><img class="edit" title="编辑" src="img/edit.png"></a>' +
+                '   <a data-toggle="modal" data-target="#createStoryModal" onclick="createStory(this,' + taskId + ',' + new_posId + ','+iteration+')">' +
+                '       <img class="create" title="在下方新建" src="img/createBelow.png">' +
+                '   </a>' +
+                '</div>' +
+                '</li>'
+            $("#"+preId).after(story)
+        }
+    })
+})
 
 function editActivity(ele) {
     var id = $(ele).parent().prev().attr("id");
@@ -168,6 +231,64 @@ function editTask(ele) {
 
 }
 
+function editStory(ele,s_id) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8888/story/"+s_id,
+        data: {},
+        async: false,
+        success: function (data) {
+            var content = data.data
+            $("#m_taskId").val(content.taskId)
+            $("#m_id").val(content.id)
+            $("#m_name").val(content.name)
+            $("#m_storyPoint").val(content.storyPoint)
+            $("#m_priority").val(content.priority)
+            $("#m_posId").val(content.posId)
+            $("#m_groupName").val(content.groupName)
+            $("#m_iteration").val(content.iteration)
+            $("#m_description").val(content.description)
+            $("#m_acceptance").val(content.acceptance)
+        }
+    })
+}
+
+$("#modifyStorySubmit").click(function () {
+    var taskId = $("#m_taskId").val()
+    var name = $("#m_name").val()
+    var storyPoint = $("#m_storyPoint").val()
+    var priority = $("#m_priority").val()
+    var description = $("#m_description").val()
+    var posId = $("#m_posId").val()
+    var acceptance = $("#m_acceptance").val()
+    var groupName = $("#m_groupName").val()
+    var iteration = $("#m_iteration").val()
+    var id = $("#m_id").val()
+    var data = {
+        "taskId": taskId,
+        "name": name,
+        "storyPoint": storyPoint,
+        "priority": priority,
+        "description": description,
+        "posId": posId,
+        "acceptance": acceptance,
+        "groupName": groupName,
+        "iteration": iteration,
+    }
+    var s_num ;
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8888/story/modify?id="+id,
+        dataType:"json",
+        contentType : 'application/json',
+        data:JSON.stringify(data),
+        async: false,
+        success: function (data) {
+
+        }
+    })
+})
+
 function deleteActivity(ele) {
     var conf = confirm("此操作会删除该activity以及对应的所有task和story，确定要删除吗？");
     if(conf===true) {
@@ -175,6 +296,10 @@ function deleteActivity(ele) {
         var activity_id = id.substr(id.lastIndexOf("-")+1);
         $("#"+id).remove();
         //TODO delete story
+        $(".feature-block-list").each(function () {
+            var acolumn_id = "acolumn-"+activity_id+$(this).attr("id")
+            $("#"+acolumn_id).parent().parent().remove();
+        })
         $.ajax({
             type: "POST",
             url: "http://localhost:8888/activity/delete",
@@ -203,6 +328,10 @@ function deleteTask(ele) {
         }
         container.append(new_card);
         $("#"+tcard_id).remove()
+        $(".feature-block-list").each(function () {
+            var tcolumn_id = "tcolumn-"+task_id+$(this).attr("id")
+            $("#"+tcolumn_id).parent().remove();
+        })
         $.ajax({
             type: "POST",
             url: "http://localhost:8888/task/delete",
@@ -215,10 +344,25 @@ function deleteTask(ele) {
         //TODO delete story
     }
 
-
-
 }
+
+function deleteStory(ele) {
+    var id = $(ele).parent().parent().attr("id");
+    var story_id = id.substr(id.lastIndexOf("-")+1);
+    $("#"+id).remove();
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8888/story/delete",
+        data: {"id": story_id},
+        async: false,
+        success: function (data) {
+
+        }
+    })
+}
+
 $(document).ready(function () {
+    getIteration(proId)
     getActivity(proId)
 })
 
@@ -247,6 +391,17 @@ function getActivity(proId) {
                     var aarea_id="aarea-"+a_id
                     var tmp=""
 
+                    $(".feature-block-list").each(function () {
+                        var acolumn_id = "acolumn-"+a_id+$(this).attr("id")
+                        var feature_block = '<li class="feature-block">' +
+                            '<div class="feature-block-expanded">' +
+                            '<ul class="feature-column-list non-list flat-list" id="'+acolumn_id+'">' +
+                            '</ul>' +
+                            '</div>'
+                            '</li>'
+                        $(this).append(feature_block)
+                    })
+
                     $.ajax({
                         type: "GET",
                         url: "http://localhost:8888/task/list/"+a_id,
@@ -254,7 +409,7 @@ function getActivity(proId) {
                         async: false,
                         success: function (data) {
                             var tlist=data.data;
-                            var task='<div class="task-container">'
+                            var task='<ul class="task-container">'
                             var t_posId
                             for(var j in tlist) {
                                 var t_name = tlist[j].name
@@ -264,16 +419,69 @@ function getActivity(proId) {
                                 var tcard_id = "tcard-"+t_id
                                 var tmenu_id = "tmenu-"+t_id
                                 var tarea_id = "tarea-"+t_id
-                                task+='<div class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
+                                task+='<li class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
                                     '                                <textarea class="t-name-editor" maxlength="50" readonly="readonly" id="'+tarea_id+'">'+t_name+'</textarea>\n' +
                                     '                                <div class="t-operation-menu" id="'+tmenu_id+'" style="display: none">\n' +
                                     '                                    <a onclick="deleteTask(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
                                     '                                    <a onclick="editTask(this)"><img class="edit" title="编辑" src="img/edit.png"></a>\n' +
                                     '                                    <a onclick="createTask(this,'+activityId+','+t_posId+')"><img class="create" title="在右侧新建" src="img/create.png"></a>\n' +
                                     '                                </div>\n' +
-                                    '                            </div>\n'
+                                    '                            </li>\n'
+
+                                $(".feature-block-list").each(function () {
+                                    var acolumn_id = "acolumn-"+a_id+$(this).attr("id")
+                                    var tcolumn_id = "tcolumn-"+t_id+$(this).attr("id")
+                                    var feature_column = '<li class="feature-column vertical-list ">' +
+                                        '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                                        '</ul>' +
+                                        '</li>'
+                                    $("#"+acolumn_id).append(feature_column)
+                                })
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://localhost:8888/story/list/" + t_id,
+                                    data: {},
+                                    async: false,
+                                    success: function (data) {
+                                        var slist = data.data;
+                                        var s_posId
+                                        for (var k in slist) {
+                                            var s_name = slist[k].name
+                                            var s_id = slist[k].id
+                                            s_posId = slist[k].posId
+                                            var groupname = String(slist[k].groupName)
+                                            var iteration = slist[k].iteration
+                                            var iterid = "release"+iteration
+                                            var acolumn_id = "tcolumn-"+t_id+iterid
+                                            var scard_id = "scard-" + s_id
+                                            var smenu_id = "smenu-" + s_id
+                                            // console.log(smenu_id)
+                                            var sarea_id = "sarea-" + s_id
+                                            // var story = '<div class="story-card" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">\n' +
+                                            //     '                                <textarea class="s-name-editor" maxlength="50" readonly="readonly" id="' + sarea_id + '">' + s_name + '</textarea>\n' +
+                                            //     '                                <div class="s-operation-menu" id="' + smenu_id + '" style="display: none">\n' +
+                                            //     '                                    <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
+                                            //     '                                    <a onclick="editStory(this)"><img class="edit" title="编辑" src="img/edit.png"></a>\n' +
+                                            //     '                                    <a onclick="createStory(this,' + t_id + ',' + s_posId + ')"><img class="create" title="在下方新建" src="img/create.png"></a>\n' +
+                                            //     '                                </div>\n' +
+                                            //     '                            </div>\n'
+                                            var story = '<li class="issue-card board-card doing" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">' +
+                                                '<p class="card-title" title="'+s_name+'" id="' + sarea_id + '">' + s_name + '</p>' +
+                                                '<div class="operation-menu" id="' + smenu_id + '" style="display: none">' +
+                                                '   <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>\' +' +
+                                                '   <a data-toggle="modal" data-target="#modifyStoryModal" onclick="editStory(this,'+s_id+')"><img class="edit" title="编辑" src="img/edit.png"></a>' +
+                                                '   <a data-toggle="modal" data-target="#createStoryModal" onclick="createStory(this,' + t_id + ',' + s_posId + ','+iteration+')">' +
+                                                '       <img class="create" title="在下方新建" src="img/createBelow.png">' +
+                                                '   </a>' +
+                                                '</div>' +
+                                                '</li>'
+                                            $("#"+acolumn_id).append(story)
+                                        }
+                                    }
+                                })
                             }
-                            task+="</div>"
+                            task+="</ul>"
                             tmp = '<div class="column" id="'+column_id+'"><div class="column-container"><div class="activity-container">\n' +
                                 '                            <div class="activity-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+acard_id+'">\n' +
                                 '                                <textarea class="a-name-editor" maxlength="50" readonly="readonly" id="'+aarea_id+'">'+a_name+'</textarea>\n' +
@@ -299,3 +507,63 @@ function getActivity(proId) {
         }
     })
 }
+
+function getIteration(proId) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8888/story/iterList/" + proId,
+        data: {},
+        async: false,
+        success: function (data) {
+            var ilist = data.data;
+            for (var k in ilist) {
+                var iteration = ilist[k].iteration
+                var groupName = ilist[k].groupName
+                // alert(iteration)
+                // alert(groupName)
+                var release = '<div class="release-group">\n' +
+                    '                <div class="release-header">\n' +
+                    '                    <div class="expand-switcher">\n' +
+                    '                        <i class="fa fa-minus"></i>\n' +
+                    '                    </div>\n' +
+                    '                    <div class="release-name">\n' +
+                    '                        <span id="group'+iteration+'">' + groupName + '</span>\n' +
+                    '                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">\n' +
+                    '                    </div>\n' +
+                    '                    <div class="dropdown">\n' +
+                    '                        <button class="transparent-btn dropdown-toggle" type="button" data-toggle="dropdown">\n' +
+                    '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
+                    '                        </button>\n' +
+                    '                        <ul class="dropdown-menu">\n' +
+                    '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
+                    '                            <li class="disabled" title="有从属卡片不能被删除"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
+                    '                            <li><a href="javascript: void(0)" class="create-release below">在下方新建分组</a></li>\n' +
+                    '                        </ul>\n' +
+                    '                    </div>\n' +
+                    '                </div>\n' +
+                    '            </div>'
+                var block_container = '<div class="feature-block-container expanded">' +
+                    '<ul class="feature-block-list non-list flat-list" id="release' + iteration + '">' +
+                    '</ul>' +
+                    '</div>'
+                release+=block_container
+                $(".board-body").prepend(release)
+            }
+            var block_container_df = '<div class="feature-block-container expanded">' +
+                '<ul class="feature-block-list non-list flat-list">' +
+                '</ul>' +
+                '</div>'
+            $(".board-body").append(block_container_df)
+        }
+    })
+}
+
+// function releaseExist(groupname) {
+//     $("div.release-name").each(function(){
+//         var group=$(this).children().first()
+//         if (typeof groupname != typeof undefined && group==groupname){
+//             return true
+//         }
+//     })
+//     return false
+// }

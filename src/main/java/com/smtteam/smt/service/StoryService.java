@@ -1,8 +1,10 @@
 package com.smtteam.smt.service;
 
+import com.smtteam.smt.common.bean.IterationVO;
 import com.smtteam.smt.model.Story;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StoryService {
 
@@ -17,4 +19,6 @@ public interface StoryService {
     List<Story> getByTask(int taskId);
 
     int findMaxID();
+
+    List<IterationVO> findIterNum(int proId);
 }

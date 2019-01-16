@@ -20,9 +20,11 @@ public class StoryVO {
 
     private String acceptance;
 
+    private String groupName;
+
     private Integer iteration;
 
-    public StoryVO(Integer taskId, String name, Integer storyPoint, Integer priority, String description, Integer posId, String acceptance, Integer iteration) {
+    public StoryVO(Integer taskId, String name, Integer storyPoint, Integer priority, String description, Integer posId, String acceptance, String groupName, Integer iteration) {
         this.taskId = taskId;
         this.name = name;
         this.storyPoint = storyPoint;
@@ -30,6 +32,7 @@ public class StoryVO {
         this.description = description;
         this.posId = posId;
         this.acceptance = acceptance;
+        this.groupName = groupName;
         this.iteration = iteration;
     }
 
@@ -43,6 +46,7 @@ public class StoryVO {
                 ", description='" + description + '\'' +
                 ", posId=" + posId +
                 ", acceptance='" + acceptance + '\'' +
+                ", groupName='" + groupName + '\'' +
                 ", iteration=" + iteration +
                 '}';
     }
