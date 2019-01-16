@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:include="/common/head :: loadHeader('编辑项目')"></head>
+
+<body>
+    <div th:include="/common/nav :: loadNav"></div>
+    <canvas id="J_dotLine"></canvas>
+    <!-- code from here -->
+    <div class="am-container">
+        <div class="am-g smt-title">
+            <div class="am-u-sm-12">
+                <h2>项目详情</h2>
+            </div>
+        </div>
+        <div class="am-g smt-block">
+            <form class="am-form" data-am-validator>
+                <div class="am-form-group smt-input-row">
+                    <span class="am-fl smt-input-label">项目名称:</span>
+                    <p class="smt-input-wrapper">
+                        <input type="text" class="smt-input-for-row" id="name" name="name" placeholder="" required>
+                    </p>
+                </div>
+                <div class="am-form-group smt-input-row">
+                    <span class="am-fl smt-input-label">项目详情:</span>
+                    <p class="smt-input-wrapper">
+                        <textarea class="smt-input-for-row am-scrollable-vertical" rows="4" name="description" id="description" placeholder="" required></textarea>
+                    </p>
+                </div>
+                <!--<div class="am-form-group smt-input-row">-->
+                    <!--<button type="submit" class="am-fr am-btn smt-bnt smt-small-btn">修改项目</button>-->
+                <!--</div>-->
+                <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
+                    <div class="am-g">
+                        <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;margin-top: 10px">修改项目</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="am-g smt-title">
+            <div class="am-u-sm-6">
+                <h2>项目成员</h2>
+            </div>
+        </div>
+
+        <!--<div class="am-g smt-title" style="margin: -40px 0 0">-->
+            <!--<div class="am-u-sm-12" style="padding: 20px 32px;margin: -75px auto 0;">-->
+                <!--<button class="am-fr am-btn smt-bnt smt-small-btn">邀请成员</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="am-g smt-block">
+            <ul class="am-g smt-lines">
+                <li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >
+                    <div class="am-g smt-line">
+                        <div class="am-u-sm-2">
+                            <img class="smt-line-icon" src="/img/boy.png">
+                        </div>
+                        <div class="am-u-sm-2">
+                            <p>小王</p>
+                        </div>
+                        <div class="am-u-sm-3">
+                            <p class="smt-line-role" style="width: auto">可编辑</p>
+                            <!--<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">-->
+                        </div>
+                        <div class="am-u-sm-3">
+                            <p>邀请中</p>
+                        </div>
+                        <div class="am-u-sm-2">
+                            <img class="smt-line-operator" src="/img/common/delete.png">
+                        </div>
+                    </div>
+                </li>
+                <li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >
+                    <div class="am-g smt-line">
+                        <div class="am-u-sm-2">
+                            <img class="smt-line-icon" src="/img/boy.png">
+                        </div>
+                        <div class="am-u-sm-2">
+                            <p>小王</p>
+                        </div>
+                        <div class="am-u-sm-3">
+                            <p class="smt-line-role" style="width: auto">可编辑</p>
+                            <!--<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">-->
+                        </div>
+                        <div class="am-u-sm-3">
+                            <p>邀请中</p>
+                        </div>
+                        <div class="am-u-sm-2">
+                            <img class="smt-line-operator" src="/img/common/delete.png">
+                        </div>
+                    </div>
+                </li>
+                <li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >
+                    <div class="am-g smt-line">
+                        <div class="am-u-sm-2">
+                            <img class="smt-line-icon" src="/img/boy.png">
+                        </div>
+                        <div class="am-u-sm-2">
+                            <p>小王</p>
+                        </div>
+                        <div class="am-u-sm-3">
+                            <p class="smt-line-role" style="width: auto">可编辑</p>
+                            <!--<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">-->
+                        </div>
+                        <div class="am-u-sm-3">
+                            <p>邀请中</p>
+                        </div>
+                        <div class="am-u-sm-2">
+                            <img class="smt-line-operator" src="/img/common/delete.png">
+                        </div>
+                    </div>
+                </li>
+                <li class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
+                    <div class="am-g">
+                        <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;">邀请成员</button>
+                    </div>
+                </li>
+            </ul>
+            <!--<div class="am-g" style="margin: 0 auto">-->
+                <!--<div class="am-u-sm-12" style="margin: 0 auto;">-->
+                    <!--<button class="am-fr am-btn smt-bnt smt-small-btn">邀请成员</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="am-g smt-title">
+            <div class="am-u-sm-6">
+                <h2>邀请成员</h2>
+            </div>
+        </div>
+        <div class="am-g smt-block">
+            <!--<form class="am-form" data-am-validator>-->
+                <!--<div class="am-form-group smt-input-row">-->
+                    <!--<span class="am-fl smt-input-label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱:</span>-->
+                    <!--<p class="smt-input-wrapper">-->
+                        <!--<input type="text" class="smt-input-for-row" id="email" name="email" placeholder="" required>-->
+                    <!--</p>-->
+                <!--</div>-->
+                <!--<div class="am-form-group smt-input-row">-->
+                    <!--<span class="am-fl smt-input-label">权&nbsp;&nbsp;&nbsp;&nbsp;限:</span>-->
+                    <!--<p class="smt-input-wrapper">-->
+                        <!--<select id="doc-select-1" class="smt-input-for-row">-->
+                            <!--<option value="option1">可查看</option>-->
+                            <!--<option value="option2">可编辑</option>-->
+                            <!--<option value="option3">可管理</option>-->
+                        <!--</select>-->
+                    <!--</p>-->
+                <!--</div>-->
+                <!--<div class="am-form-group smt-input-row">-->
+                    <!--<button type="submit" class="am-fr am-btn smt-bnt smt-small-btn">立即邀请</button>-->
+                <!--</div>-->
+            <!--</form>-->
+
+            <form class="am-form am-form-inline" role="form" data-am-validator style="margin-top: 20px">
+                <div class="am-form-group am-u-sm-7" style="padding: .1em">
+                    <span class="am-fl smt-input-label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱:</span>
+                    <p class="smt-input-wrapper" style="margin-top: 0">
+                        <input type="email" class="am-form-field smt-input-for-row"  placeholder="" required>
+                    </p>
+                    <!--<input type="email" class="am-form-field smt-input-for-row"  placeholder="邮箱" required>-->
+                </div>
+
+                <div class="am-form-group am-u-sm-5" style="padding: .1em">
+                    <span class="am-fl smt-input-label" style="margin-left: 40px">权&nbsp;&nbsp;&nbsp;&nbsp;限:</span>
+                    <p class="smt-input-wrapper" style="margin-top: 0">
+                        <select id="doc-select-1" class="smt-input-for-row">
+                            <option value="option1">可查看</option>
+                            <option value="option2">可编辑</option>
+                            <option value="option3">可管理</option>
+                        </select>
+                    </p>
+                    <!--<label for="doc-select-1">下拉多选框</label>-->
+                    <!--<select id="doc-select-1" class="smt-input-for-row">-->
+                        <!--<option value="option1">可查看</option>-->
+                        <!--<option value="option2">可编辑</option>-->
+                        <!--<option value="option3">可管理</option>-->
+                    <!--</select>-->
+                    <!--<span class="am-form-caret"></span>-->
+                </div>
+                <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered">
+                    <div class="am-g">
+                        <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;margin: 15px auto">立即邀请</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div th:include="/common/onload_js::loadJS"></div>
+    <script th:src="@{/js/edit_project.js}"></script>
+</body>
+</html>

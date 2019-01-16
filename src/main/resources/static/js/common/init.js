@@ -16,6 +16,12 @@ $(function () {
             cl:'#000',//颜色
             dis:100//触发连线的距离
         },option);
+        //限制
+        if(this.opt.cw < 648){
+            this.opt.ds = 100;
+        }else if(this.opt.cw<1024){
+            this.opt.ds = 200;
+        }
         this.c = document.getElementById(this.opt.dom);//canvas元素id
         this.ctx = this.c.getContext('2d');
         this.c.width = this.opt.cw;//canvas宽
