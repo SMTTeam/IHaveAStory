@@ -205,7 +205,7 @@ $('#registerButton').click(function () {
     // }
 });
 
-$('#loginButton1')[0].click(function () {
+$('#loginButton1').click(function () {
     alert('222');
-   window.location.href('/loginsmt');
+   window.location.href = '/loginsmt';
 });

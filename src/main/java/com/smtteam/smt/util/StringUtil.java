@@ -21,6 +21,8 @@ public class StringUtil {
             'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X',
             'C', 'V', 'B', 'N', 'M', '+', '-' };
 
+    private static Random random = new Random();
+
     /**
      * 获取盐
      * @return
@@ -35,9 +37,9 @@ public class StringUtil {
      * @param length
      * @return
      */
-    public static String getRandomString(int length){
-        Random random=new Random();
-        StringBuffer sb=new StringBuffer();
+    private static String getRandomString(int length){
+       //Random random=new Random();
+        StringBuilder sb=new StringBuilder();
         for(int i=0;i<length;i++){
             int number=random.nextInt(array.length);
             sb.append(array[number]);

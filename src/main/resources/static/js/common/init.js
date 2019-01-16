@@ -152,3 +152,49 @@ $(function () {
     };
     window.Dotline = Dotline;
 }(window));
+
+
+function sendGet(url, success) {
+    $.get(url, function (res) {
+        var obj = objectRes(res);
+        if (obj.code === 200) {
+            success(obj.data);
+        } else{
+            smt_alert("提示", obj.message);
+        }
+    });
+}
+
+
+function sendPost(url, data, success) {
+    $.post(url, data, function (response) {
+        if (response.code === 200) {
+            success(response.data);
+        } else {
+            smt_alert("提示", response.message);
+        }
+    });
+}
+
+//判断字符串是否为空 , $blank 为是否可以含空格
+function isEmptyStr($str, $blank) {
+    if ($str == null || $str === "") {
+        return true;
+    }
+    if (!$blank) {
+        if ($str.trim() === "") {
+            return true;
+        }
+    }
+    return false;
+}
+
+function objectRes(res) {
+    return typeof res === 'object' ? res : JSON.parse(res);
+}
+
+function smt_alert(title, message) {
+    $('#smt-alert-title').text(title);
+    $('#smt-alert-content').text(message);
+    $('#smt-alert').modal();
+}
