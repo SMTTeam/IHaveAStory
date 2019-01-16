@@ -1,0 +1,54 @@
+.login-background{
+    background-image: url(../img/background.jpg);
+    /*background-image: url(http://img1.imgtn.bdimg.com/it/u=3281018393,1135547142&fm=26&gp=0.jpg);*/
+    /*background-color: #0a1115;*/
+    /*background-size: 100%;*/
+    background-position: right bottom, left top;
+    background-repeat: no-repeat, repeat;
+    /*padding: 15px;*/
+    /*background-color: #0a1115;*/
+
+}
+.login-welcom-label{
+    font-size: 20px;
+
+    color: #303133;
+    line-height:30px;
+    margin: 0 auto;
+    width: -moz-max-content;
+    /*align-content: center;*/
+    text-align:center;
+}
+
+.a-forgetpsw{
+    font-size: 16px;
+    color: #303133;
+}
+
+.smt-register-btn{
+    color: #303133;
+    background-color: #fff;
+    border-color: #303133;
+
+    border-radius: 1rem;
+    font-size: 1.6rem;
+}
+
+.smt-register-btn:hover,
+.smt-register-btn:focus,
+.smt-register-btn:active,
+.smt-register-btn.am-active,
+.smt-register-btn.am-dropdown-toggle {
+    color: #303133;
+    background-color: #9f8eb4;
+    /*color: #fff;*/
+    /*color: #303133;*/
+    /*background-color: #ffffff;*/
+    border-color: #a39cb4;
+    /*border-radius: 0;*/
+
+}
+
+.login-teamcontact{
+    padding: 15px !important;
+}

@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * createdBy: weishixin
  * date: 2018/01/06
@@ -75,7 +78,7 @@ public class RegisterController {
      * @return ModelAndView 实现点击验证链接，自动跳转
      */
     @GetMapping("/acceptverifyemail/{code}")
-    public ModelAndView acceptVerifyEmail(@PathVariable String code){
+    public ModelAndView acceptVerifyEmail(@PathVariable String code, HttpServletRequest request){
         System.out.println("验证邮件里的url后的code："+code);
         if(code == null || code.isEmpty()){
             return new ModelAndView("redirect:/login");//重定向到login界面
@@ -83,13 +86,16 @@ public class RegisterController {
         User user = null;
         try {
             user = verifyService.acceptVerifyEmail(code);
-
         }catch (NoAccessException e){
 //            return new ResultVO<>(e.getMessage());
             return new ModelAndView("redirect:/login");//重定向到login界面
         }
 //        return new ResultVO<>(user);
-        ModelAndView modelAndView = new ModelAndView("redirect:/main");//验证成功登录进主界面
+        HttpSession session = request.getSession();
+        session.setAttribute("useremail" , user.getEmail());
+        session.setAttribute("userid", user.getId());
+        session.setAttribute("user",user);
+        ModelAndView modelAndView = new ModelAndView("redirect:/project");//验证成功登录进主界面
         modelAndView.addObject("userid",user.getId());//将userid传到主界面
         return modelAndView;
     }

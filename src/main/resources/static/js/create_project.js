@@ -11,4 +11,9 @@ $(function () {
         cl: '#DCDFE6',
         dis:100//触发连线的距离
     }).start();
+
+    function click_reate() {
+        $('#smt-alert').modal({});
+    }
 });
+
