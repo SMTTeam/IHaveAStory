@@ -11,9 +11,34 @@ $(function () {
         cl: '#DCDFE6',
         dis:100//触发连线的距离
     }).start();
-
-    function click_reate() {
-        $('#smt-alert').modal({});
-    }
+    $('#project-form').validate({
+        errorPlacement: function(error, element) {}
+    });
 });
+
+
+function createProject() {
+    if($('#project-form').valid()){
+        var data = $('#project-form').serializeObject();
+        console.log(data);
+        popLoading();
+        sendPost('/api/project/create', data, function (data) {
+            closeLoading();
+            popMsg("创建项目成功！", 1000, function () {
+                window.location.href = '/project';
+            });
+        });
+    }
+    // $('#project-form').validator({
+    //     onValid: function (validity) {
+    //         var data = $('#project-form').serializeObject();
+    //         console.log(data);
+    //         sendPost('/api/project/create', data, function () {
+    //             window.location.href = '/project';
+    //         });
+    //     }
+    // });
+
+}
+
 
