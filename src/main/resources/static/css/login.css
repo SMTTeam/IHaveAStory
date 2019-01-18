@@ -25,10 +25,12 @@
     color: #303133;
 }
 
+
+
 .smt-register-btn{
     color: #303133;
-    background-color: #a39cb4;
-    border-color: #F2F6FC;
+    background-color: #ffffff;
+    border-color: #303133;
 
     border-radius: 1rem;
     font-size: 1.6rem;
@@ -39,16 +41,50 @@
 .smt-register-btn:active,
 .smt-register-btn.am-active,
 .smt-register-btn.am-dropdown-toggle {
-    color: #303133;
-    background-color: #9f8eb4;
+    color: #fff;
+    background-color: #333333;
     /*color: #fff;*/
     /*color: #303133;*/
     /*background-color: #ffffff;*/
-    border-color: #a39cb4;
+    border-color: #303133;
+    /*border-radius: 0;*/
+
+}
+
+.smt-login-btn{
+    color: #303133;
+    background-color: #ffffff;
+    border-color: #303133;
+
+    border-radius: 1rem;
+    font-size: 1.6rem;
+}
+
+.smt-login-btn:hover,
+.smt-login-btn:focus,
+.smt-login-btn:active,
+.smt-login-btn.am-active,
+.smt-login-btn.am-dropdown-toggle {
+    color: #fff;
+    /*background-color: #b3b3b4;*/
+    background-color: #333333;
+    /*color: #fff;*/
+    /*color: #303133;*/
+    /*background-color: #ffffff;*/
+    /*border-color: #F2F6FC;*/
+    border-color: #303133;
     /*border-radius: 0;*/
 
 }
 
 .login-teamcontact{
     padding: 15px !important;
+    margin-bottom: 10px;
+}
+
+.smt-userstatus{
+    background-color: #303133 !important;
+    width: 28px;
+    height: 28px;
+    margin: 8px auto;
 }

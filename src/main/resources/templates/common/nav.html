@@ -19,12 +19,29 @@
                         <li><a href="/attended">与我协作</a></li>
                     </ul>
 
-                    <div class="am-topbar-right">
-                        <button class="am-btn am-topbar-btn am-btn-sm smt-nav-button" onclick="window.location.href='/loginsmt'">注册</button>
+                    <div id="topbar_login" class="am-topbar-right" >
+                        <button class="am-btn am-topbar-btn am-btn-sm smt-nav-button" onclick="window.location.href='/register'">注册</button>
                     </div>
 
-                    <div class="am-topbar-right">
-                        <button class="am-btn am-topbar-btn am-btn-sm smt-nav-button" onclick="window.location.href='/loginsmt'">登录</button>
+                    <div id="topbar_register" class="am-topbar-right" >
+                        <button class="am-btn am-topbar-btn am-btn-sm smt-nav-button " onclick="window.location.href='/login'">登录</button>
+                    </div>
+
+                    <!--style="display: none;"-->
+                    <div id="topbar_user" class="am-topbar-right am-dropdown " style="display: none;" data-am-dropdown>
+                        <span class="am-dropdown-toggle" data-am-dropdown-toggle>
+                            <img class="smt-userstatus "  src="/img/mycenter.png">
+                            <span class="am-icon-caret-down"></span>
+                        </span>
+                        <ul class="am-dropdown-content">
+                            <!--<li class="am-dropdown-header">您可以</li>-->
+                            <li><a href="#">个人设置</a></li>
+                            <!--<li class="am-active"><a href="#">最荣幸是</a></li>-->
+                            <li><a href="/exit">退出</a></li>
+                            <!--<li class="am-disabled"><a href="#">就站在光明的角落</a></li>-->
+                            <!--<li class="am-divider"></li>-->
+                            <!--<li><a href="#">天空海阔 要做最坚强的泡沫</a></li>-->
+                        </ul>
                     </div>
                 </div>
             </div>

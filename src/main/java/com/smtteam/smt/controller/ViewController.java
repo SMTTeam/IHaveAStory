@@ -22,14 +22,14 @@ public class ViewController {
         return modelAndView;
     }
 
-    @RequestMapping("/loginsmt")
+    @RequestMapping("/login")
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView("login2");
         return modelAndView;
 //        return "login";
     }
 
-    @RequestMapping("/registersmt")
+    @RequestMapping("/register")
     public ModelAndView register(){
         ModelAndView modelAndView = new ModelAndView("register2");
         return modelAndView;

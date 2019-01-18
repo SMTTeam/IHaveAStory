@@ -1,6 +1,22 @@
 var isemailExist ;
 var commitStatus = false;
 
+//初始化
+$(function () {
+    $('.am-nav li').removeClass('am-active');
+
+    var dotline_register = new Dotline({
+        dom:'J_dotLine',//画布id
+        cw: $(window).width(),//画布宽
+        ch: $(window).height() - 40,//画布高
+        ds: 300,//点的个数
+        r: 0.5,//圆点半径
+        // cl:'#12FC41',//粒子线颜色
+        cl: '#DCDFE6',
+        dis:100//触发连线的距离
+    }).start();
+});
+
 $("#signupInputEmail").parsley().addAsyncValidator("checkEmail" , function (xhr) {
             var jsonData = JSON.parse(xhr.responseText);
             // alert('emmmmm1'+jsonData.code.toString());
@@ -205,7 +221,6 @@ $('#registerButton').click(function () {
     // }
 });
 
-$('#loginButton1')[0].click(function () {
-    alert('222');
-   window.location.href('/loginsmt');
+$('#loginButton1').click(function () {
+   window.location.href='/login';
 });

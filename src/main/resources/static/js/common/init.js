@@ -2,6 +2,8 @@ $(function () {
     $(window).resize(function(){
         location.reload()
     });
+
+    checkLoginState();  //检查用户登录状态
 })
 
 
@@ -151,4 +153,38 @@ $(function () {
         }, 100);
     };
     window.Dotline = Dotline;
+
+
 }(window));
+
+//初始化将登录和注册按钮隐藏，显示个人中心图标
+function changeLoginStatusToLogin() {
+    document.getElementById("topbar_login").style.display="none";
+
+    document.getElementById("topbar_register").style.display="none";
+
+    document.getElementById("topbar_user").style.display="";//显示个人中心图标
+};
+
+//检查用户的登录状态
+function checkLoginState() {
+
+    $.ajax({
+        type:'GET',
+        url:'/getuserloginstate',
+        dataType:'json',
+        timeout:10000,
+        error:function () {
+            // alert('发送请求有错误');
+        },
+        success:function (result) {
+            if( result.code===200){
+                console.log('这里已经登录过了！');
+                changeLoginStatusToLogin();
+            }else {
+                console.log('尚未登录！');
+            }
+        }
+    })
+
+}

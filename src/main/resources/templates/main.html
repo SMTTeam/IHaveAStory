@@ -1,10 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Main 用于测试</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="/common/head::loadHeader('首页')">
 </head>
 <body>
-    Hello World!
+<div th:include="/common/nav :: loadNav"></div>
+<!-- code from here -->
+<div class="am-container">
+    <div class="am-g" style="margin: 40px auto;height: 40px;">
+        <div class="am-u-sm-6">
+            <h2 style="margin-bottom: 0; line-height: inherit">我发布的项目</h2>
+        </div>
+        <div class="am-u-sm-6">
+            <a href="/project/create"><button class="am-fr am-btn smt-bnt">新建项目</button></a>
+        </div>
+    </div>
+
+    <ul class="am-g smt-cards">
+        <li class="am-u-sm-11 am-u-sm-centered" >
+            <div class="am-g smt-card">
+                <div class="am-u-sm-10">
+                    <h3>培训小程序开发</h3>
+                    <p class="line-clamp">功能描述：参考佳一数学，爱学习，高思数学，做一个学数学小程序，参考 忘忧围棋题库，做一个围棋小程序，题库，视频已有</p>
+                </div>
+                <div class="am-u-sm-2 smt-card-btn-group">
+                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
+                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
+                </div>
+            </div>
+        </li>
+        <li class="am-u-sm-11 am-u-sm-centered" >
+            <div class="am-g smt-card">
+                <div class="am-u-sm-10">
+                    <h3>便利店小程序</h3>
+                    <p class="line-clamp">功能描述：商品展示、下单、买卖、定位、会员管理、积分管理、收银系统、预定功能（可能有做早餐 就可以预定）、连锁的便利店</p>
+                </div>
+                <div class="am-u-sm-2 smt-card-btn-group">
+                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
+                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
+                </div>
+            </div>
+        </li>
+        <li class="am-u-sm-11 am-u-sm-centered" >
+            <div class="am-g smt-card">
+                <div class="am-u-sm-10">
+                    <h3>平面设计</h3>
+                    <p class="line-clamp">功能描述：参考佳一数学，爱学习，高思数学，做一个学数学小程序，参考 忘忧围棋题库，做一个围棋小程序，题库，视频已有</p>
+                </div>
+                <div class="am-u-sm-2 smt-card-btn-group">
+                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
+                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
+                </div>
+            </div>
+        </li>
+        <li class="am-u-sm-11 am-u-sm-centered" >
+            <div class="am-g smt-card">
+                <div class="am-u-sm-10">
+                    <h3>政府内部门户网站开发</h3>
+                    <p class="line-clamp">功能:一、设计页面、包括主页和子页面、做出效果图，确定再制作网站；
+                        二、在主页面制作页面里有7-10栏目名称，图标链接、导航、搜索、排序。
+                        三、后台管理</p>
+                </div>
+                <div class="am-u-sm-2 smt-card-btn-group">
+                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
+                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
+                </div>
+            </div>
+        </li>
+        <li class="am-u-sm-11 am-u-sm-centered" >
+            <div class="am-g smt-card">
+                <div class="am-u-sm-10">
+                    <h3>windows 桌面便签开发</h3>
+                    <p class="line-clamp">功能描述：开发一款极为小巧简便且的桌面便签记事备忘工具，它能让你随手地往 Windows 桌面贴上清新、直观且颇有感觉的“便签”</p>
+                </div>
+                <div class="am-u-sm-2 smt-card-btn-group">
+                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
+                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div th:include="/common/onload_js::loadJS"></div>
+<script th:src="@{js/projects.js}"></script>
 </body>
 </html>

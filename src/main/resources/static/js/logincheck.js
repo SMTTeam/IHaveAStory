@@ -1,3 +1,19 @@
+// 初始化
+$(function () {
+    $('.am-nav li').removeClass('am-active');
+
+    var dotline_register = new Dotline({
+        dom:'J_dotLine',//画布id
+        cw: $(window).width(),//画布宽
+        ch: $(window).height() - 40,//画布高
+        ds: 300,//点的个数
+        r: 0.5,//圆点半径
+        // cl:'#12FC41',//粒子线颜色
+        cl: '#DCDFE6',
+        dis:100//触发连线的距离
+    }).start();
+});
+
 // $(function(){
 //         window.Parsley.addAsyncValidator("checkExisting" , function (xhr) {
 //             // var responsedata = $.parseJSON(xhr.responseText);
@@ -20,6 +36,11 @@
 //         },'/checkEmail',{"dataType": "json","data":{"emailname":function(){return $('#loginMailOrName').val();}}});
 //     }
 // )
+
+// window.onload = function () {
+//     alert('aaaa');
+// }
+
 
 function focusNextInput(thisInput){
     var inputs = document.getElementsByTagName("input");
@@ -94,7 +115,7 @@ $("#loginButton").click(function () {
             tip.html("登录失败！请重试。");
         },
         success:function(result){
-            alert('dddd');
+            // alert('dddd');
             var tip = $("#formtip");
             //result为json数据  类似{"code":200,"message":"用户名或密码错误","data":null}
             if(result.code === 200){
@@ -109,10 +130,9 @@ $("#loginButton").click(function () {
                 $("#loginPsd").val('');
             }
         }
-    })
+    });
 });
 
 $("#registerButton").click(function () {
-   window.location.href='/registersmt';
-
+   window.location.href='/register';
 });

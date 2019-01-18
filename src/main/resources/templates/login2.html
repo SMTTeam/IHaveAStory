@@ -1,32 +1,33 @@
+<!--<!DOCTYPE html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="/common/head::loadHeader('登 录')">
 </head>
 <!--style="background-image: url('../static/img/background.jpg'); background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;"-->
 <!--login-background"-->
-<body class=""  >
+<body>
     <div th:include="/common/nav :: loadNav"></div>
+    <canvas id="J_dotLine"></canvas>
 
     <div class="am-container"  >
         <!--<div class="am-u-lg-10 am-u-md-12 am-u-sm-centered">   style="background-color: black"  -->
-        <div class="am-g"  style="margin-top: 110px" >
+        <div class="am-g"  style="margin-top: 150px" >
             <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-4" >-->
                 <div class="am-u-sm-4 am-u-md-4 am-u-lg-4  am-u-sm-centered am-u-md-centered am-u-lg-centered">
-                    <label class="am-u-sm-offset-2 am-u-md-offset-2 am-u-lg-offset-2 login-welcom-label "  >欢迎登录!</label>
+                    <!--<label class="am-u-sm-offset-2 am-u-md-offset-2 am-u-lg-offset-2 login-welcom-label "  >欢迎登录</label>-->
+                    <p class="am-text-xxl am-text-center">欢迎登录</p>
                 </div>
 
-                <form id="form"  class="am-form am-u-sm-4 am-u-md-4 am-u-lg-4 am-u-sm-centered" method="post" data-parsley-validate onsubmit="return false;" onkeydown="if(event.which==13) { return false;}">
+                <form id="form"  class="am-form am-u-sm-8 am-u-md-6 am-u-lg-5 am-u-sm-centered am-u-md-centered am-u-lg-centered" method="post" data-parsley-validate onsubmit="return false;" onkeydown="if(event.which==13) { return false;}">
                     <div class="am-form-group " style="margin-top: 60px;">
                         <!--required="required"-->
                         <!--<input type="email" id="doc-vld-email-2" placeholder="输入邮箱" required/>-->
                         <input id="loginEmail"  type="email" name="loginEmail" placeholder="邮箱"
-
                                data-parsley-trigger="change" required="required"
                                 data-parsley-required="true"
                                data-parsley-required-message="邮箱地址不能为空"
                                data-parsley-type-message="请输入正确的邮箱地址"
                                onkeydown="if(event.which==13) { focusNextInput(this); }"/>
-
                     </div>
 
                     <div class="am-form-group" style="margin-top: 30px;" >
@@ -54,14 +55,14 @@
                         <button id="registerButton" type="button" class="am-btn smt-register-btn  am-u-sm-centered" >立即注册</button>
                     </div>
                 </form>
-                <div class="login-teamcontact text-center">
-                    <span>&copy;</span>
-                    <span>2018</span>
-                    <span>-</span>
-                    <span>2019</span>
-                    <br/>
-                    <span>smt_group@163.com</span>
-                </div>
+                <!--<div class="login-teamcontact text-center">-->
+                    <!--<span>&copy;</span>-->
+                    <!--<span>2018</span>-->
+                    <!--<span>-</span>-->
+                    <!--<span>2019</span>-->
+                    <!--<br/>-->
+                    <!--<span>smt_group@163.com</span>-->
+                <!--</div>-->
             <!--</div>-->
                 <!--<a href="/registersmt"  class=""></a>-->
             <!--</div>-->
