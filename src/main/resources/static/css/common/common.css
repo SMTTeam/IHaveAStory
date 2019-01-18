@@ -55,6 +55,57 @@ canvas{
     }
 }
 
+/*.am-icon-warning{*/
+    /*display: none !important;*/
+/*}*/
+
+.am-form-error .am-icon-warning{
+    display: block !important;
+}
+
+body.smt-loading {
+    position: relative;
+    overflow: hidden;
+}
+
+body.smt-loading::after {
+    content: "";
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.5) url("/img/common/loading.gif") no-repeat center fixed;
+}
+
+body.smt-loading > *:not(.u-shade) {
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.smt-pop {
+    position: fixed;
+    display: block;
+    left: 50%;
+    top: 50%;
+    padding: 10px 20px;
+    max-width: 50%;
+    border-radius: 5px;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    -webkit-animation: pop .2s;
+    -o-animation: pop .2s;
+    animation: pop .2s;
+}
+
+.smt-msg {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 19999;
+}
+
 
 .smt-bnt{
     color: #fff;

@@ -2,8 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
     <div th:fragment="loadJS">
+        <div class="am-modal am-modal-alert" tabindex="-1" id="smt-alert">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd" id="smt-alert-title">提示</div>
+                <div class="am-modal-bd" id="smt-alert-content">
+                    Hello world！
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn">确定</span>
+                </div>
+            </div>
+        </div>
+
         <script th:src="${'//cdn.bootcss.com/jquery/3.3.1/jquery.min.js'}"></script>
         <script th:src="${'//cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js'}"></script>
+        <script th:src="${'//cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js'}"></script>
+        <script th:src="${'//cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/additional-methods.min.js'}"></script>
         <script th:src="@{/js/common/init.js}"></script>
     </div>
 </body>

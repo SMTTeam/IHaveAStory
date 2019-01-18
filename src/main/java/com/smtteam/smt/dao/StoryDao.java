@@ -1,5 +1,6 @@
 package com.smtteam.smt.dao;
 
+import com.smtteam.smt.common.bean.IterationVO;
 import com.smtteam.smt.model.Story;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 类说明：
@@ -28,4 +30,11 @@ public interface StoryDao extends JpaRepository<Story, Integer> {
 
     @Query("select max(s.id) from Story s ")
     int findMaxID();
+
+    @Query("SELECT new map(s.iteration,s.groupName) FROM Story s WHERE task_id IN (\n" +
+            "  SELECT id FROM Task WHERE activity_id IN (\n" +
+            "    SELECT id FROM Activity WHERE pro_id=:proId\n" +
+            "  )\n" +
+            ")ORDER BY iteration DESC")
+    List<Map<String,IterationVO>> findIterByProId(@Param("proId")int proId);
 }

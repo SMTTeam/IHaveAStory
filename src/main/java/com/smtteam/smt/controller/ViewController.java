@@ -45,4 +45,5 @@ public class ViewController {
 
     @RequestMapping("example")
     public String example(){ return "example";}
+
 }

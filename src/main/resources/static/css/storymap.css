@@ -1,5 +1,7 @@
 .head-container{
     border-top: 1px solid #ccc;
+    min-width: 100%;
+    white-space: nowrap
 }
 .column{
     position: relative;
@@ -76,7 +78,8 @@ textarea::selection{
 }
 
 .init-card {
-    display: inline-block;
+    /*display: inline-block;*/
+    float: left;
     position: relative;
     margin: 6px;
     border: 1px dashed #ccc;
@@ -96,7 +99,8 @@ textarea::selection{
 }
 
 .task-card{
-    display: inline-block;
+    /*display: inline-block;*/
+    float: left;
     position: relative;
     margin: 6px;
     color: #8B572A;
@@ -115,4 +119,293 @@ textarea::selection{
     width: 120px;
     height: 60px;
     overflow: hidden;
+}
+
+body {
+    background-color: #fff;
+    min-width: 1000px;
+    min-height: 600px;
+}
+
+.mapping-board {
+    min-width: 100%;
+    min-height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background-color: #f2f2f2;
+    position: relative;
+    /*min-height: 388px;*/
+    font-size: 12px;
+}
+
+.board-head {
+    min-width: 200%;
+    z-index: 4;
+    padding-bottom: 5px
+}
+
+.board-body {
+    width: 200%;
+    /*position: relative;*/
+    /*overflow: hidden*/
+}
+
+.fixed-to-top {
+    position: fixed;
+    top: 0;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #D3D8E7
+}
+
+.release-group {
+    min-width: 100%;
+    border-bottom: 1px dashed #ccc
+}
+
+.release-header {
+    padding-left: 10px;
+    display: inline-block;
+    vertical-align: baseline;
+    /*background-color: #f2f2f2;*/
+    height: 20px;
+    line-height: 20px;
+    color: #3B71DF;
+    margin-bottom: -3px;
+    position: relative
+}
+
+.release-header div {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.release-name>input {
+    display: none;
+    height: 20px;
+    padding: 0 12px
+}
+
+.expand-switcher {
+    width: 20px;
+    height: 20px;
+    cursor: pointer
+}
+
+.expand-switcher>i {
+    position: relative;
+    left: 5px
+}
+
+.dropdown>.transparent-btn {
+    border: 0;
+    padding-left: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline: 0;
+    background-color: transparent;
+    width: 20px;
+    height: 20px
+}
+
+.dropdown>.transparent-btn>i {
+    display: block;
+    margin-left: -5px
+}
+
+.dropdown-menu li:not(.disabled)>a:hover {
+    color: #FFF;
+    background-color: #3798E9
+}
+
+.s-name-editor{
+    background-color: #FFFFFF;
+    border: none;
+    width: 118px;
+    height: 60px;
+    resize: none;
+    outline: none;
+    cursor: default;
+}
+
+.s-operation-menu {
+    width: 118px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    padding: 1px;
+    background-color: #FFFFFF;
+}
+
+.story-card{
+    display: inline-block;
+    position: relative;
+    margin: 6px;
+    color: #000000;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(213,213,213,.86);
+    width: 120px;
+    height: 70px;
+}
+
+.mapping-board .feature-block-container.expanded {
+    min-height: 295px
+}
+
+.mapping-board .feature-block-container.expanded .feature-block-list {
+    height: 100%;
+    min-width: 100%;
+    white-space: nowrap
+}
+
+.mapping-board .feature-block-container.expanded .feature-block {
+    /*margin: 0 5px;*/
+    border-right:1px dashed #ccc;
+    height: 100%
+}
+
+.mapping-board .feature-block-container.expanded .feature-block .feature-column-list {
+    margin: 0 5px;
+    height: 100%;
+    min-width: 132px
+}
+
+.mapping-board .feature-block-container.expanded .feature-block .feature-column {
+    min-height: 295px;
+    /*padding-top: 5px;*/
+    /*width: 100%;*/
+    padding: 0;
+    margin: 0;
+
+}
+
+.mapping-board .feature-block-container.expanded .feature-block .feature-column .card-placeholder {
+    width: 120px;
+    height: 70px;
+    margin: 0 0 5px;
+    border: 1px dashed #BDBDBD
+}
+
+.mapping-board .feature-block-container.expanded .feature-block .feature-column .card-placeholder .card-title {
+    color: #3798E9;
+    font-size: 12px;
+    line-height: 1.3;
+    padding: 5px 0 5px 5px;
+    cursor: pointer;
+    margin: 0
+}
+
+.mapping-board .feature-block-container.expanded .feature-block .feature-block-collapsed {
+    width: 22px;
+    margin: 5px
+}
+
+.mapping-board .feature-block-container.expanded .feature-block-sortable-helper {
+    display: none;
+    vertical-align: top;
+    margin: 0 5px;
+    height: 100%
+}
+
+.mapping-board .feature-block-container.expanded .feature-block-sortable-helper .feature-column-list {
+    height: 100%;
+    min-width: 130px
+}
+
+.mapping-board .feature-block-container.expanded .feature-column-sortable-helper {
+    display: none;
+    width: 120px;
+    margin: 0 5px;
+    min-height: 295px;
+    padding: 5px 0
+}
+
+.mapping-board .feature-block-footer {
+    display: block;
+    min-width: 100%;
+    height: 40px
+}
+
+.mapping-board .card-list {
+    min-height: 295px
+}
+
+.non-list {
+    display: block;
+    list-style: none;
+    padding: 0
+}
+
+.flat-list {
+    font-size: 0
+}
+
+.flat-list>li {
+    display: inline-block;
+    vertical-align: top
+}
+
+.flat-list>li p {
+    white-space: normal;
+    padding: 0 2px
+}
+
+.vertical-list {
+    width: 132px;
+    margin: 0 5px;
+    padding: 0
+}
+
+.vertical-list .issue-card {
+    width: 120px;
+    height: 70px;
+    margin: 6px;
+    border: 1px solid rgba(213,213,213,.86);
+    background-color: #FFF;
+    position: relative;
+    /*display: inline-block;*/
+}
+
+.vertical-list .issue-card .card-title {
+    color: #333;
+    font-size: 12px;
+    line-height: 1.3;
+    height: 60px;
+    overflow: hidden;
+    padding: 5px;
+    margin: 0;
+    word-wrap: break-word
+}
+
+.vertical-list .issue-card.selected {
+    border: 1px solid #3B71DF!important
+}
+
+.vertical-list .issue-card:not(.sticky) {
+    cursor: move
+}
+
+.vertical-list .issue-card .operation-menu {
+    /*display: none;*/
+    right: 0;
+    /*float: right;*/
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 118px;
+    height: 20px;
+    padding: 1px
+}
+
+.vertical-list .issue-card .operation-menu span {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-left: 2px
+}
+
+.task-container {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }

@@ -1,10 +1,13 @@
 package com.smtteam.smt.service.impl;
 
 import com.smtteam.smt.dao.ActivityDao;
+import com.smtteam.smt.dao.StoryDao;
 import com.smtteam.smt.dao.TaskDao;
 import com.smtteam.smt.model.Activity;
 import com.smtteam.smt.model.Task;
+import com.smtteam.smt.model.Story;
 import com.smtteam.smt.service.ActivityService;
+import com.smtteam.smt.service.StoryService;
 import com.smtteam.smt.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,10 @@ public class ActivityServiceImpl implements ActivityService {
     private TaskDao taskDao;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private StoryDao storyDao;
+    @Autowired
+    private StoryService storyService;
 
     @Override
     @Transactional
@@ -41,6 +48,10 @@ public class ActivityServiceImpl implements ActivityService {
         List<Task> taskList = taskDao.findByActivityIdOrderByPosId(id);
         for(Task task: taskList) {
             taskService.deleteTask(task.getId());
+            List<Story> storyList = storyDao.findByTaskId(task.getId());
+            for (Story story: storyList) {
+                storyService.deleteStory(story.getId());
+            }
         }
 //        activityDao.updateDeletePosID(activity.getPosId());
         activityDao.delete(activity);

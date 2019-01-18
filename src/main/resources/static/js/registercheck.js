@@ -36,8 +36,6 @@ $("#signupInputEmail").parsley().addAsyncValidator("checkEmail" , function (xhr)
         },'/register/checkemail',{"dataType": "json","data":{"emailname":function(){return $('#signupInputEmail').val();}}
 });
 
-
-
 //聚焦到下一个输入框
 function focusNextInput(thisInput){
     var inputs = document.getElementsByTagName("input");
@@ -59,7 +57,7 @@ function focusNextInput(thisInput){
         }
     }
     return false;
-}
+};
 function submitForm() {
     if(commitStatus==false)
         //提交表单后，讲提交状态改为true

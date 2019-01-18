@@ -122,7 +122,7 @@ $("#loginButton").click(function () {
                 //若登录成功，跳转到"/main.html"
                 tip.html('');//清空提示文字
                 alert('成功');
-                window.location.href='/main';
+                window.location.href='/project';
             }else {
                 alert('失败');
                 tip.css("color","red");

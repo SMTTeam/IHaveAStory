@@ -155,9 +155,10 @@ $(function () {
     window.Dotline = Dotline;
 
 
+
 }(window));
 
-//初始化将登录和注册按钮隐藏，显示个人中心图标
+//初始化将登录和注册按钮隐藏，显示个人中心图标 ，表示已经登录
 function changeLoginStatusToLogin() {
     document.getElementById("topbar_login").style.display="none";
 
@@ -187,4 +188,115 @@ function checkLoginState() {
         }
     })
 
+};
+
+
+
+function sendGet(url, success) {
+    $.get(url, function (res) {
+        var obj = objectRes(res);
+        if (obj.code === 200) {
+            if (success) {
+                success(obj.data);;
+            }
+        } else{
+            smt_alert("提示", obj.message);
+        }
+    }).error(function () {
+        closeLoading();
+    });
 }
+
+
+function sendPost(url, data, success) {
+    $.post(url, data, function (response) {
+        if (response.code === 200) {
+            if (success) {
+                success(response.data);
+            }
+        } else {
+            popMsg(response.message);
+        }
+    }).error(function (obj) {
+        closeLoading();
+        console.log(obj);
+        popMsg("操作失败!")
+    });
+}
+
+//判断字符串是否为空 , $blank 为是否可以含空格
+function isEmptyStr($str, $blank) {
+    if ($str == null || $str === "") {
+        return true;
+    }
+    if (!$blank) {
+        if ($str.trim() === "") {
+            return true;
+        }
+    }
+    return false;
+}
+
+function objectRes(res) {
+    return typeof res === 'object' ? res : JSON.parse(res);
+}
+
+/**
+ * 自动将form表单封装成json对象
+ */
+$.fn.serializeObject = function() {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
+            if (!o[this.name].push) {
+                o[this.name] = [ o[this.name] ];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+function smt_alert(title, message) {
+    $('#smt-alert-title').text(title);
+    $('#smt-alert-content').text(message);
+    $('#smt-alert').modal();
+}
+
+/**
+ * 覆盖加载遮罩
+ */
+function popLoading() {
+    $('body').addClass('smt-loading');
+}
+
+/**
+ * 关闭加载遮罩
+ */
+function closeLoading() {
+    $('body').removeClass('smt-loading');
+}
+
+// 弹出消息
+function popMsg(msg, mills, c) {
+    var time = 1500, callback = $.noop, $msg;
+    if (mills) {
+        if ($.isFunction(mills))
+            callback = mills;
+        else {
+            time = parseInt(mills);
+            if (c)
+                callback = c;
+        }
+    }
+    $('body').append($msg = $('<div class="smt-pop smt-msg"><span>' + msg + '</span></div>'));
+    setTimeout(function () {
+        $msg.remove();
+        callback();
+    }, time);
+}
+
+

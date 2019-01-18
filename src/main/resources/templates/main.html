@@ -3,6 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="/common/head::loadHeader('首页')">
 </head>
+
 <body>
 <div th:include="/common/nav :: loadNav"></div>
 <!-- code from here -->
@@ -84,5 +85,6 @@
 
 <div th:include="/common/onload_js::loadJS"></div>
 <script th:src="@{js/projects.js}"></script>
+
 </body>
 </html>
