@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface ProjectDao extends JpaRepository<Project, Integer> {
 
-    List<Project> findByUserId(int userId);
+    List<Project> findByUserIdOrderByIdDesc(int userId);
 
     List<Project> findByIdIn(List<Integer> projectIdList);
 }

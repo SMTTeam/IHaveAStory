@@ -210,12 +210,13 @@ function sendGet(url, success) {
         var obj = objectRes(res);
         if (obj.code === 200) {
             if (success) {
-                success(obj.data);;
+                success(obj.data);
             }
         } else{
-            smt_alert("提示", obj.message);
+            popMsg(obj.message);
         }
-    }).error(function () {
+    }).fail(function (obj) {
+        console.log(obj);
         closeLoading();
     });
 }

@@ -306,6 +306,12 @@ body.smt-loading > *:not(.u-shade) {
     color: #409EFF;
 }
 
+.smt-empty-msg{
+    text-align: center;
+    height: 128px;
+    line-height: 128px;
+}
+
 
 
 

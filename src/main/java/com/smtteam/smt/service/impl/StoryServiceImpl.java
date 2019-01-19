@@ -42,12 +42,17 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public List<Story> getByTask(int taskId){
-        return storyDao.findByTaskIdOrderByPosId(taskId);
+        return storyDao.findByTaskIdOrderByPosIdDesc(taskId);
     }
 
     @Override
-    public int findMaxID(){
-        return storyDao.findMaxID();
+    public int findMaxPosID(){
+        Integer num = storyDao.findMaxPosID();
+        if(num==null){
+            return 0;
+        }else {
+            return num;
+        }
     }
 
     @Override
