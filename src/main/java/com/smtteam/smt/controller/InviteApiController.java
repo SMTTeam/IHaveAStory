@@ -13,6 +13,7 @@ import com.smtteam.smt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -96,6 +97,15 @@ public class InviteApiController {
             return new ResultVO<>(e.getMessage());
         }
         return new ResultVO<>();
+    }
+
+    /**
+     * 获取用户对项目的权限
+     */
+    @GetMapping("role")
+    public ResultVO<ProjectUser> getProjectRole(@RequestParam Integer proId, @RequestParam Integer userId, HttpServletRequest request){
+        ProjectUser role  = inviteService.findProjectUser(proId, userId);
+        return new ResultVO<>(role);
     }
 
 }

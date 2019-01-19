@@ -30,16 +30,6 @@ function createProject() {
             });
         });
     }
-    // $('#project-form').validator({
-    //     onValid: function (validity) {
-    //         var data = $('#project-form').serializeObject();
-    //         console.log(data);
-    //         sendPost('/api/project/create', data, function () {
-    //             window.location.href = '/project';
-    //         });
-    //     }
-    // });
-
-};
+}
 
 
