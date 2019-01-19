@@ -32,4 +32,12 @@ public interface InviteService {
      * @return
      */
     ProjectUser acceptInvitation(String code) throws NoAccessException;
+
+    /**
+     * 查看用户对项目的权限
+     * @param proId
+     * @param userId
+     * @return
+     */
+    ProjectUser findProjectUser(Integer proId, Integer userId);
 }

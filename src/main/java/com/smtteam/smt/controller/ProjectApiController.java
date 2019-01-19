@@ -1,13 +1,16 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ResultVO;
+import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
 import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.Project;
+import com.smtteam.smt.service.InviteService;
 import com.smtteam.smt.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -25,25 +28,38 @@ public class ProjectApiController {
 
     /**
      * 创建项目
-     * @param name
+     * @param proName
      * @param description
      * @return
      */
     @PostMapping("create")
-    public ResultVO<Project> createProject(@RequestParam String name, @RequestParam String description){
-        //TODO 获取用户ID
-        Project project = new Project(1, name, description);
+    public ResultVO<Project> createProject(@RequestParam String proName, @RequestParam String description, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        Integer userId = showUser.getId();
+
+        Project project = new Project(userId, proName, description);
         Project result = projectService.createProject(project);
         return new ResultVO<>(result);
     }
 
+    /**
+     * 修改项目
+     * @param proId
+     * @param proName
+     * @param description
+     * @param request
+     * @return
+     */
     @PostMapping("modify")
-    public ResultVO<Project> modifyProject(@RequestParam Integer proId, @RequestParam String name, @RequestParam String description){
-        //TODO 获取用户ID
-        Integer userId = 1;
+    public ResultVO<Project> modifyProject(@RequestParam Integer proId, @RequestParam String proName, @RequestParam String description, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        Integer userId = showUser.getId();
+
         Project project = null;
         try {
-            project = projectService.modifyProject(proId, userId, name, description);
+            project = projectService.modifyProject(proId, userId, proName, description);
         } catch (NoAccessException e) {
             return new ResultVO<>(ResultCode.NOT_ACCESS, "没有权限访问这个项目。");
         }
@@ -56,9 +72,12 @@ public class ProjectApiController {
      * @return
      */
     @GetMapping("list")
-    public ResultVO<List<Project>> getReleaseList(){
-        //TODO 获取用户ID
-        List<Project> projectList = projectService.findReleaseList(1);
+    public ResultVO<List<Project>> getReleaseList(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        Integer userId = showUser.getId();
+
+        List<Project> projectList = projectService.findReleaseList(userId);
         return new ResultVO<>(projectList);
     }
 
@@ -67,9 +86,26 @@ public class ProjectApiController {
      * @return
      */
     @GetMapping("attended")
-    public ResultVO<List<Project>> getAttendedList(){
-        //TODO 获取用户ID
-        List<Project> projectList = projectService.findAttendList(1);
+    public ResultVO<List<Project>> getAttendedList(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        Integer userId = showUser.getId();
+
+        List<Project> projectList = projectService.findAttendList(userId);
         return new ResultVO<>(projectList);
     }
+
+    /**
+     * 获取项目详情
+     * @param proId
+     * @param request
+     * @return
+     */
+    @GetMapping("detail")
+    public ResultVO<Project> getProjectDetail(@RequestParam Integer proId, HttpServletRequest request){
+        Project project  = projectService.findById(proId);
+        return new ResultVO<>(project);
+    }
+
+
 }

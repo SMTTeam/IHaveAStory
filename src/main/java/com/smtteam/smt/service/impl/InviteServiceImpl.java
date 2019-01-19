@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.NoSuchElementException;
 
@@ -84,5 +83,16 @@ public class InviteServiceImpl implements InviteService {
         //更新状态
         projectUser.setStatus(Constants.PROJECT_INVITED);
         return projectUserDao.saveAndFlush(projectUser);
+    }
+
+    /**
+     * 查看用户对项目的权限
+     * @param proId
+     * @param userId
+     * @return
+     */
+    @Override
+    public ProjectUser findProjectUser(Integer proId, Integer userId) {
+        return projectUserDao.findByUserIdAndProId(userId, proId);
     }
 }

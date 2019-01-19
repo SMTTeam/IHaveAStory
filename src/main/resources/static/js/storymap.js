@@ -551,6 +551,9 @@ function getActivity(proId) {
                         success: function (data) {
                             var tlist=data.data;
                             var task='<ul class="task-container">'
+                            if(tlist.length==0){
+                                task+='<div class="init-card" onclick="createTask(this,'+a_id+',0)"><div class="title-placeholder">新建标签</div></div>';
+                            }
                             var t_posId
                             for(var j in tlist) {
                                 var t_name = tlist[j].name
