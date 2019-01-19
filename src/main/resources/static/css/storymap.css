@@ -5,7 +5,7 @@
 }
 .column{
     position: relative;
-    border-right:1px dashed #ccc;
+    /*border-right:1px dashed #ccc;*/
     display: inline-block;
 }
 
@@ -137,7 +137,12 @@ body {
     /*min-height: 388px;*/
     font-size: 12px;
 }
-
+.column-border-line{
+    position:absolute;
+    top:0;
+    border-right:1px dashed #ccc;
+    right:-1px
+}
 .board-head {
     /*min-width: 200%;*/
     z-index: 4;
@@ -260,7 +265,7 @@ body {
 
 .mapping-board .feature-block-container.expanded .feature-block {
     /*margin: 0 5px;*/
-    border-right:1px dashed #ccc;
+    /*border-right:1px dashed #ccc;*/
     height: 100%
 }
 

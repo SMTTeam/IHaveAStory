@@ -51,7 +51,7 @@ function createActivity(element,a_posId,t_posId){
     var tmenu_id = "tmenu-"+t_num
     var tarea_id = "tarea-"+t_num
     var tmp='<div class="column" id="'+column_id+'">\n' +
-        '                    <div class="column-container">\n' +
+        '                    <div class="column-container"><div class="column-border-line" style="min-height: 600px;"></div>\n' +
         '                        <div class="activity-container">\n' +
         '                            <div class="activity-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+acard_id+'">\n' +
         '                                <textarea class="a-name-editor" maxlength="50" readonly="readonly" id="'+aarea_id+'">未命名activity</textarea>\n' +
@@ -310,6 +310,7 @@ $("#createStorySubmit").click(function () {
             else {
                 $("#"+preId).after(story)
             }
+            changeLineHeight()
         }
     })
     $("#name").val("")
@@ -515,7 +516,14 @@ $(document).ready(function () {
     getRole()
     getIteration(proId)
     getActivity(proId)
+
+    changeLineHeight()
 })
+
+function changeLineHeight(){
+    var winHeight = $(document).height();
+    $(".column-border-line").css("height",winHeight);
+}
 
 function init () {
     var init_card = '<div class="column" id="init-column"><div class="column-container"><div class="init-card" id="init-card" onclick="createActivity(this,0,0)">\n' +
@@ -659,7 +667,7 @@ function getActivity(proId) {
                                 })
                             }
                             task+="</ul>"
-                            tmp = '<div class="column" id="'+column_id+'"><div class="column-container"><div class="activity-container">\n' +
+                            tmp = '<div class="column" id="'+column_id+'"><div class="column-container"><div class="column-border-line" style="min-height: 600px;"></div><div class="activity-container">\n' +
                                 '                            <div class="activity-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+acard_id+'">\n' +
                                 '                                <textarea class="a-name-editor" maxlength="50" readonly="readonly" id="'+aarea_id+'">'+a_name+'</textarea>\n' +
                                 '                                <div class="a-operation-menu" id="'+amenu_id+'" style="display: none">\n' +
