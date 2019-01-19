@@ -62,6 +62,7 @@ public class LoginController {
     @GetMapping("/getuserloginstate")
     public ResultVO<ShowUser> getUserLoginState( HttpServletRequest request){
         HttpSession session = request.getSession();
+
         ShowUser showUser = (ShowUser) session.getAttribute("user");
         if( showUser == null){
             ResultVO<ShowUser> resultVO = new ResultVO<>();
