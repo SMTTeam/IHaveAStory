@@ -75,8 +75,67 @@ function createActivity(element,a_posId,t_posId){
     if(a_posId==0){
         $("#init-column").remove()
         $("#head-container").append(tmp)
+        $(".feature-block-list").each(function (index,element) {
+            var acolumn_id= "acolumn-"+activityId+$(element).attr("id")
+            var feature_block = '<li class="feature-block">' +
+                '<div class="feature-block-expanded">' +
+                '<ul class="feature-column-list non-list flat-list" id="'+acolumn_id+'">' +
+                '</ul>' +
+                '</div>'
+            '</li>'
+            $(element).append(feature_block)
+            var tcolumn_id = "tcolumn-"+t_num+$(element).attr("id")
+            var feature_column
+            if (index != $(".feature-block-list").length-1) {
+                feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_num+')">' +
+                    '<p class="title-placeholder">新建标签</p></div>' +
+                    '</ul>' +
+                    '</li>'
+            }
+            else {
+                feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '</ul>' +
+                    '</li>'
+            }
+            $("#"+acolumn_id).append(feature_column)
+        })
     }else {
         $("#"+id).after(tmp)
+        var aindex = id.lastIndexOf("-")
+        var preActivityId = id.substr(aindex+1)
+
+        $(".feature-block-list").each(function (index,element) {
+            var acolumn_id= "acolumn-"+activityId+$(element).attr("id")
+            var feature_block = '<li class="feature-block">' +
+                '<div class="feature-block-expanded">' +
+                '<ul class="feature-column-list non-list flat-list" id="'+acolumn_id+'">' +
+                '</ul>' +
+                '</div>'
+            '</li>'
+            var preacolumn = "acolumn-"+preActivityId+$(element).attr("id")
+            $("#"+preacolumn).parent().parent().after(feature_block)
+
+            var tcolumn_id = "tcolumn-"+t_num+$(element).attr("id")
+            var feature_column
+            if (index != $(".feature-block-list").length-1) {
+                feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_num+')">' +
+                    '<p class="title-placeholder">新建标签</p></div>' +
+                    '</ul>' +
+                    '</li>'
+            }
+            else {
+                feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '</ul>' +
+                    '</li>'
+            }
+            $("#"+acolumn_id).append(feature_column)
+        })
     }
 
 }
@@ -114,11 +173,52 @@ function createTask(element,activityId,t_posId) {
 
     if(t_posId!=0){
         $("#"+id).after(tmp)
+        var tindex = id.lastIndexOf("-")
+        var preTaskId = id.substr(tindex+1)
+        $(".feature-block-list").each(function (index,element) {
+            var tcolumn_id = "tcolumn-"+t_num+$(element).attr("id")
+            var feature_column
+            if (index != $(".feature-block-list").length-1) {
+                feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_num+')">' +
+                    '<p class="title-placeholder">新建标签</p></div>' +
+                    '</ul>' +
+                    '</li>'
+            }
+            else {
+                feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '</ul>' +
+                    '</li>'
+            }
+            var pretcolumn = "tcolumn-"+preTaskId+$(element).attr("id")
+            $("#"+pretcolumn).parent().after(feature_column)
+        })
     }else {
         $(element).parent().append(tmp)
         $(element).remove()
+        $(".feature-block-list").each(function (index,element) {
+            var acolumn_id = "acolumn-"+activityId+$(element).attr("id")
+            var tcolumn_id = "tcolumn-"+t_num+$(element).attr("id")
+            var feature_column
+            if (index != $(".feature-block-list").length-1) {
+                feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_num+')">' +
+                    '<p class="title-placeholder">新建标签</p></div>' +
+                    '</ul>' +
+                    '</li>'
+            }
+            else {
+                feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '</ul>' +
+                    '</li>'
+            }
+            $("#"+acolumn_id).append(feature_column)
+        })
     }
-
 }
 
 function createStory(element,taskId,s_posId,iteration) {
@@ -130,6 +230,27 @@ function createStory(element,taskId,s_posId,iteration) {
     $("#iteration").val(iteration)
     var id = $(element).parent().parent().attr("id");
     $("#preId").val(id)
+}
+
+function labelCreateStory(element,taskId) {
+    $("#taskId").val(taskId)
+    var prev_obj = $(element).prev()
+    var s_posId = -1
+    var preId = -1
+    if (prev_obj.length > 0) {
+        var s_posStr = prev_obj.children("div").children().eq(2).attr("id")
+        var index = s_posStr.lastIndexOf("-")
+        s_posId = s_posStr.substr(index+1)
+        preId = prev_obj.attr("id")
+    }
+    $("#posId").val(s_posId)
+    var iterationStr = $(element).parent().attr("id")
+    var iter_index = iterationStr.lastIndexOf("-")
+    var iteration = iterationStr.substr(iter_index+1)
+    var groupName = $("#group"+iteration).text()
+    $("#groupName").val(groupName)
+    $("#iteration").val(iteration)
+    $("#preId").val(preId)
 }
 
 $("#createStorySubmit").click(function () {
@@ -173,14 +294,25 @@ $("#createStorySubmit").click(function () {
                 '<div class="operation-menu" id="' + smenu_id + '" style="display: none">' +
                 '   <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>\' +' +
                 '   <a data-toggle="modal" data-target="#modifyStoryModal" onclick="editStory(this,'+s_num+')"><img class="edit" title="编辑" src="img/edit.png"></a>' +
-                '   <a data-toggle="modal" data-target="#createStoryModal" onclick="createStory(this,' + taskId + ',' + new_posId + ','+iteration+')">' +
+                '   <a data-toggle="modal" data-target="#createStoryModal" onclick="createStory(this,' + taskId + ',' + new_posId + ','+iteration+')" id="'+new_posId+'">' +
                 '       <img class="create" title="在下方新建" src="img/createBelow.png">' +
                 '   </a>' +
                 '</div>' +
                 '</li>'
-            $("#"+preId).after(story)
+            if (preId == -1) {
+                var tcolumn_id = "tcolumn-"+taskId+"release-"+iteration
+                $("#"+tcolumn_id).prepend(story)
+            }
+            else {
+                $("#"+preId).after(story)
+            }
         }
     })
+    $("#name").val("")
+    $("#storyPoint").val("")
+    $("#priority").val("")
+    $("#description").val("")
+    $("#acceptance").val("")
 })
 
 function editActivity(ele) {
@@ -243,7 +375,16 @@ function editStory(ele,s_id) {
             $("#m_id").val(content.id)
             $("#m_name").val(content.name)
             $("#m_storyPoint").val(content.storyPoint)
-            $("#m_priority").val(content.priority)
+            if (content.priority == 2) {
+                $("#m_priority").val('高')
+            }
+            else if (content.priority == 1) {
+                $("#m_priority").val('中')
+            }
+            else {
+                $("#m_priority").val('低')
+            }
+            // $("#m_priority").val(content.priority)
             $("#m_posId").val(content.posId)
             $("#m_groupName").val(content.groupName)
             $("#m_iteration").val(content.iteration)
@@ -341,7 +482,7 @@ function deleteTask(ele) {
 
             }
         })
-        //TODO delete story
+        //TODO fixbug
     }
 
 }
@@ -392,7 +533,7 @@ function getActivity(proId) {
                     var tmp=""
 
                     $(".feature-block-list").each(function () {
-                        var acolumn_id = "acolumn-"+a_id+$(this).attr("id")
+                        var acolumn_id= "acolumn-"+a_id+$(this).attr("id")
                         var feature_block = '<li class="feature-block">' +
                             '<div class="feature-block-expanded">' +
                             '<ul class="feature-column-list non-list flat-list" id="'+acolumn_id+'">' +
@@ -428,13 +569,24 @@ function getActivity(proId) {
                                     '                                </div>\n' +
                                     '                            </li>\n'
 
-                                $(".feature-block-list").each(function () {
-                                    var acolumn_id = "acolumn-"+a_id+$(this).attr("id")
-                                    var tcolumn_id = "tcolumn-"+t_id+$(this).attr("id")
-                                    var feature_column = '<li class="feature-column vertical-list ">' +
-                                        '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
-                                        '</ul>' +
-                                        '</li>'
+                                $(".feature-block-list").each(function (index,element) {
+                                    var acolumn_id = "acolumn-"+a_id+$(element).attr("id")
+                                    var tcolumn_id = "tcolumn-"+t_id+$(element).attr("id")
+                                    var feature_column
+                                    if (index != $(".feature-block-list").length-1) {
+                                        feature_column = '<li class="feature-column vertical-list ">' +
+                                            '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                                            '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_id+')">' +
+                                            '<p class="title-placeholder">新建标签</p></div>' +
+                                            '</ul>' +
+                                            '</li>'
+                                    }
+                                    else {
+                                        feature_column = '<li class="feature-column vertical-list ">' +
+                                            '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                                            '</ul>' +
+                                            '</li>'
+                                    }
                                     $("#"+acolumn_id).append(feature_column)
                                 })
 
@@ -452,12 +604,13 @@ function getActivity(proId) {
                                             s_posId = slist[k].posId
                                             var groupname = String(slist[k].groupName)
                                             var iteration = slist[k].iteration
-                                            var iterid = "release"+iteration
+                                            var iterid = "release-"+iteration
                                             var acolumn_id = "tcolumn-"+t_id+iterid
                                             var scard_id = "scard-" + s_id
                                             var smenu_id = "smenu-" + s_id
                                             // console.log(smenu_id)
                                             var sarea_id = "sarea-" + s_id
+                                            var spos_id = "spos-" + s_posId
                                             // var story = '<div class="story-card" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">\n' +
                                             //     '                                <textarea class="s-name-editor" maxlength="50" readonly="readonly" id="' + sarea_id + '">' + s_name + '</textarea>\n' +
                                             //     '                                <div class="s-operation-menu" id="' + smenu_id + '" style="display: none">\n' +
@@ -471,12 +624,12 @@ function getActivity(proId) {
                                                 '<div class="operation-menu" id="' + smenu_id + '" style="display: none">' +
                                                 '   <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>\' +' +
                                                 '   <a data-toggle="modal" data-target="#modifyStoryModal" onclick="editStory(this,'+s_id+')"><img class="edit" title="编辑" src="img/edit.png"></a>' +
-                                                '   <a data-toggle="modal" data-target="#createStoryModal" onclick="createStory(this,' + t_id + ',' + s_posId + ','+iteration+')">' +
+                                                '   <a data-toggle="modal" data-target="#createStoryModal" onclick="createStory(this,' + t_id + ',' + s_posId + ','+iteration+')" id="'+spos_id+'">' +
                                                 '       <img class="create" title="在下方新建" src="img/createBelow.png">' +
                                                 '   </a>' +
                                                 '</div>' +
                                                 '</li>'
-                                            $("#"+acolumn_id).append(story)
+                                            $("#"+acolumn_id).prepend(story)
                                         }
                                     }
                                 })
@@ -543,14 +696,14 @@ function getIteration(proId) {
                     '                </div>\n' +
                     '            </div>'
                 var block_container = '<div class="feature-block-container expanded">' +
-                    '<ul class="feature-block-list non-list flat-list" id="release' + iteration + '">' +
+                    '<ul class="feature-block-list non-list flat-list" id="release-' + iteration + '">' +
                     '</ul>' +
                     '</div>'
                 release+=block_container
                 $(".board-body").prepend(release)
             }
             var block_container_df = '<div class="feature-block-container expanded">' +
-                '<ul class="feature-block-list non-list flat-list">' +
+                '<ul class="feature-block-list non-list flat-list" id="release-df">' +
                 '</ul>' +
                 '</div>'
             $(".board-body").append(block_container_df)

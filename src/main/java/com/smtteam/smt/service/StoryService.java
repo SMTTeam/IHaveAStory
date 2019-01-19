@@ -18,7 +18,7 @@ public interface StoryService {
 
     List<Story> getByTask(int taskId);
 
-    int findMaxID();
+    int findMaxPosID();
 
     List<IterationVO> findIterNum(int proId);
 }

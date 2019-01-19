@@ -12,7 +12,7 @@ public class StoryVO {
 
     private Integer storyPoint;
 
-    private Integer priority;
+    private String priority;
 
     private String description;
 
@@ -24,7 +24,7 @@ public class StoryVO {
 
     private Integer iteration;
 
-    public StoryVO(Integer taskId, String name, Integer storyPoint, Integer priority, String description, Integer posId, String acceptance, String groupName, Integer iteration) {
+    public StoryVO(Integer taskId, String name, Integer storyPoint, String priority, String description, Integer posId, String acceptance, String groupName, Integer iteration) {
         this.taskId = taskId;
         this.name = name;
         this.storyPoint = storyPoint;
@@ -42,7 +42,7 @@ public class StoryVO {
                 "taskId=" + taskId +
                 ", name='" + name + '\'' +
                 ", storyPoint=" + storyPoint +
-                ", priority=" + priority +
+                ", priority=" + priority + '\'' +
                 ", description='" + description + '\'' +
                 ", posId=" + posId +
                 ", acceptance='" + acceptance + '\'' +

@@ -24,12 +24,12 @@ public interface StoryDao extends JpaRepository<Story, Integer> {
     @Query("update Story set posId=posId+1 where posId>:posId")
     void updateCreatePosID(@Param("posId") int posId);
 
-    List<Story> findByTaskIdOrderByPosId(int taskId);
+    List<Story> findByTaskIdOrderByPosIdDesc(int taskId);
 
     List<Story> findByTaskId(int taskId);
 
-    @Query("select max(s.id) from Story s ")
-    int findMaxID();
+    @Query("select max(s.posId) from Story s ")
+    Integer findMaxPosID();
 
     @Query("SELECT new map(s.iteration,s.groupName) FROM Story s WHERE task_id IN (\n" +
             "  SELECT id FROM Task WHERE activity_id IN (\n" +

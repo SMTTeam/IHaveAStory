@@ -25,7 +25,15 @@ public class StoryController {
      */
     @PostMapping("/create")
     public ResultVO<Story> createStory(@RequestBody StoryVO storyInput){
-        Story story = new Story(storyInput.getTaskId(), storyInput.getName(), storyInput.getStoryPoint(), storyInput.getPriority(),
+        String priorityInput = storyInput.getPriority();
+        int priority = 0;
+        if (priorityInput.equals("中")) {
+            priority = 1;
+        }
+        else if (priorityInput.equals("高")) {
+            priority = 2;
+        }
+        Story story = new Story(storyInput.getTaskId(), storyInput.getName(), storyInput.getStoryPoint(), priority,
                 storyInput.getDescription(), storyInput.getPosId()+1, storyInput.getAcceptance(), storyInput.getGroupName(), storyInput.getIteration());
         Story result = storyService.createStory(story);
         return new ResultVO<>(result);
@@ -42,7 +50,15 @@ public class StoryController {
         story.setTaskId(storyInput.getTaskId());
         story.setName(storyInput.getName());
         story.setStoryPoint(storyInput.getStoryPoint());
-        story.setPriority(storyInput.getPriority());
+        String priorityInput = storyInput.getPriority();
+        int priority = 0;
+        if (priorityInput.equals("中")) {
+            priority = 1;
+        }
+        else if (priorityInput.equals("高")) {
+            priority = 2;
+        }
+        story.setPriority(priority);
         story.setDescription(storyInput.getDescription());
         story.setPosId(storyInput.getPosId());
         story.setAcceptance(storyInput.getAcceptance());
@@ -58,7 +74,7 @@ public class StoryController {
      * @return
      */
     @GetMapping("/{id}")
-    public ResultVO<Story> modifyStory(@PathVariable int id){
+    public ResultVO<Story> getStoryById(@PathVariable int id){
         Story result = storyService.getStoryById(id);
         return new ResultVO<>(result);
     }
@@ -90,9 +106,9 @@ public class StoryController {
      * @param
      * @return
      */
-    @GetMapping("/maxId")
-    public ResultVO<Integer> getStoryNum(){
-        int num = storyService.findMaxID();
+    @GetMapping("/maxPosId")
+    public ResultVO<Integer> getStoryMaxPosID(){
+        int num = storyService.findMaxPosID();
         return new ResultVO<>(num);
     }
 
