@@ -13,6 +13,7 @@ $(function () {
         dis:100//触发连线的距离
     }).start();
 
+    checkLoginState();
 
 });
 
