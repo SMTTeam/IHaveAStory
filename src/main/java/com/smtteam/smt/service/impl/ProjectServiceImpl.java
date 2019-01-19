@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public List<Project> findReleaseList(int userId) {
-        return projectDao.findByUserId(userId);
+        return projectDao.findByUserIdOrderByIdDesc(userId);
     }
 
     /**
@@ -63,8 +63,8 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> findAttendList(int userId) {
         List<ProjectUser> list = projectUserDao.findByUserIdAndStatus(userId, Constants.PROJECT_INVITED);
         List<Integer> projectIdList = list.stream().map(ProjectUser::getProId).collect(Collectors.toList());
-        List<Project> projectList = projectDao.findByIdIn(projectIdList);
-        return projectList;
+        List<Project> projects = projectDao.findByIdIn(projectIdList);
+        return projects;
     }
 
     /**
