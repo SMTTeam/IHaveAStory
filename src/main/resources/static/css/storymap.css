@@ -139,13 +139,13 @@ body {
 }
 
 .board-head {
-    min-width: 200%;
+    /*min-width: 200%;*/
     z-index: 4;
     padding-bottom: 5px
 }
 
 .board-body {
-    width: 200%;
+    /*width: 200%;*/
     /*position: relative;*/
     /*overflow: hidden*/
 }
