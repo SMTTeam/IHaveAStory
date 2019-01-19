@@ -13,17 +13,21 @@
             </div>
         </div>
         <div class="am-g smt-block">
-            <form class="am-form" data-am-validator>
-                <div class="am-form-group smt-input-row">
+            <form class="am-form" data-am-validator id="project-form" onsubmit="return false" method="post">
+                <input type="text" class="smt-input-for-row" name="proId" placeholder="" required style="display: none">
+
+                <div class="am-form-group am-form-icon am-form-feedback smt-input-row">
                     <span class="am-fl smt-input-label">项目名称:</span>
                     <p class="smt-input-wrapper">
-                        <input type="text" class="smt-input-for-row" id="name" name="name" placeholder="" required>
+                        <input type="text" class="smt-input-for-row" id="name" name="proName" placeholder="" required>
+                        <span class="am-icon-warning" style="display: none"></span>
                     </p>
                 </div>
-                <div class="am-form-group smt-input-row">
+                <div class="am-form-group am-form-icon am-form-feedback smt-input-row">
                     <span class="am-fl smt-input-label">项目详情:</span>
                     <p class="smt-input-wrapper">
                         <textarea class="smt-input-for-row am-scrollable-vertical" rows="4" name="description" id="description" placeholder="" required></textarea>
+                        <span class="am-icon-warning" style="display: none"></span>
                     </p>
                 </div>
                 <!--<div class="am-form-group smt-input-row">-->
@@ -31,7 +35,7 @@
                 <!--</div>-->
                 <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
                     <div class="am-g">
-                        <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;margin-top: 10px">修改项目</button>
+                        <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;margin-top: 10px" onclick="modifyProject()">修改项目</button>
                     </div>
                 </div>
             </form>

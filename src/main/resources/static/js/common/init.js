@@ -4,6 +4,18 @@ $(function () {
     });
 
     checkLoginState();  //检查用户登录状态
+
+    $('#personalSetting').on('click', function() {
+        $('#my-prompt').modal({
+            relatedTarget: this,
+            onConfirm: function(e) {
+                alert('你输入的是：' + e.data || '')
+            },
+            onCancel: function(e) {
+                alert('不想说!');
+            }
+        });
+    });
 })
 
 
@@ -161,11 +173,16 @@ $(function () {
 //初始化将登录和注册按钮隐藏，显示个人中心图标 ，表示已经登录
 function changeLoginStatusToLogin() {
     document.getElementById("topbar_login").style.display="none";
-
     document.getElementById("topbar_register").style.display="none";
-
     document.getElementById("topbar_user").style.display="";//显示个人中心图标
 };
+
+//初始化将个人中心图标隐藏，显示登录和注册按钮，表示用户未登录
+function changeLoginStatusToUnLogin() {
+    document.getElementById("topbar_login").style.display="";//显示登录按钮
+    document.getElementById("topbar_register").style.display="";//显示注册按钮
+    document.getElementById("topbar_user").style.display="none";
+}
 
 //检查用户的登录状态
 function checkLoginState() {
@@ -175,8 +192,12 @@ function checkLoginState() {
         url:'/getuserloginstate',
         dataType:'json',
         timeout:10000,
-        error:function () {
-            // alert('发送请求有错误');
+        async:false,
+        error:function (XMLHttpRequest, textStatus, errorThrown) {
+            // alert(XMLHttpRequest.status); 不知道为啥这里 始终error 失败
+            // alert(XMLHttpRequest.readyState);
+            // alert(textStatus.toString());
+            // console.log(errorThrown.toString());
         },
         success:function (result) {
             if( result.code===200){
@@ -184,6 +205,8 @@ function checkLoginState() {
                 changeLoginStatusToLogin();
             }else {
                 console.log('尚未登录！');
+                changeLoginStatusToUnLogin();
+                popMsg('尚未登录');
             }
         }
     })
@@ -300,4 +323,10 @@ function popMsg(msg, mills, c) {
     }, time);
 }
 
+//获取url中的参数
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
 

@@ -1,6 +1,7 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ResultVO;
+import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.UserService;
@@ -29,7 +30,7 @@ public class LoginController {
      * @return
      */
     @PostMapping("/checklogin")
-    public ResultVO<User> checkLogin(@RequestParam String email , @RequestParam String pwd , HttpServletRequest request1){
+    public ResultVO<User> checkLogin(@RequestParam String email , @RequestParam String pwd , HttpServletRequest request){
         User result = userService.findByEmailAndPsw(email,pwd);
 
         if( result == null ){
@@ -41,10 +42,14 @@ public class LoginController {
         }else {
             ResultVO<User> resultVO = new ResultVO<>(result);
             System.out.println(resultVO.getCode());
-            HttpSession session = request1.getSession();
-            session.setAttribute("useremail",email);
-            session.setAttribute("password",pwd);
-            session.setAttribute("user",result);
+            HttpSession session = request.getSession();
+//            session.setAttribute("useremail",email);
+//            session.setAttribute("password",pwd);
+            ShowUser showUser = new ShowUser();//使用showUser屏蔽用户密码
+            showUser.setId(result.getId());
+            showUser.setEmail(result.getEmail());
+            showUser.setUsername(result.getUsername());
+            session.setAttribute("user",showUser);
             return resultVO;
         }
     }
@@ -55,17 +60,18 @@ public class LoginController {
      * @return
      */
     @GetMapping("/getuserloginstate")
-    public ResultVO<User> getUserLoginState( HttpServletRequest request){
+    public ResultVO<ShowUser> getUserLoginState( HttpServletRequest request){
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        if( user == null){
-            ResultVO<User> resultVO = new ResultVO<>();
+
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        if( showUser == null){
+            ResultVO<ShowUser> resultVO = new ResultVO<>();
             resultVO.setCode(ResultCode.NOT_FOUND.getCode());
             resultVO.setMessage("用户尚未登录");
             return resultVO;
         }else {
-            ResultVO<User> resultVO = new ResultVO<>(user);
-            System.out.println("查询成功，用户一登录！");
+            ResultVO<ShowUser> resultVO = new ResultVO<>(showUser);
+            System.out.println("查询成功，用户已登录！");
             return resultVO;
         }
     }

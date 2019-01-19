@@ -8,7 +8,6 @@ $(function () {
             $('.smt-empty-msg').removeAttr("hidden");
         }else{
             $.each(list, function (index, project) {
-                console.log(project);
                 $('#project-list').append('<li class="am-u-sm-11 am-u-sm-centered">' +
                     '                <div class="am-g smt-card">' +
                     '                    <div class="am-u-sm-10">' +

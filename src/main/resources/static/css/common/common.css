@@ -235,7 +235,7 @@ body.smt-loading > *:not(.u-shade) {
 }
 
 .smt-input-for-row{
-    display: inline-block !important;
+    /*display: inline-block !important;*/
     width: 100% !important;
     vertical-align: middle !important;
     line-height: inherit !important;
