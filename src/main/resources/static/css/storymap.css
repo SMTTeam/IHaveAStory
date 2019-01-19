@@ -381,9 +381,6 @@ body {
     border: 1px solid #3B71DF!important
 }
 
-.vertical-list .issue-card:not(.sticky) {
-    cursor: move
-}
 
 .vertical-list .issue-card .operation-menu {
     /*display: none;*/
