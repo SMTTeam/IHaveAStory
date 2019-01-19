@@ -33,9 +33,10 @@
                             <img class="smt-userstatus "  src="/img/mycenter.png">
                             <span class="am-icon-caret-down"></span>
                         </span>
+
                         <ul class="am-dropdown-content">
                             <!--<li class="am-dropdown-header">您可以</li>-->
-                            <li><a href="#">个人设置</a></li>
+                            <li><a href="javascript:void(0);" id="personalSetting">个人设置</a></li>
                             <!--<li class="am-active"><a href="#">最荣幸是</a></li>-->
                             <li><a href="/exit">退出</a></li>
                             <!--<li class="am-disabled"><a href="#">就站在光明的角落</a></li>-->
@@ -43,9 +44,40 @@
                             <!--<li><a href="#">天空海阔 要做最坚强的泡沫</a></li>-->
                         </ul>
                     </div>
+
+
                 </div>
             </div>
         </header>
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+            <div class="am-modal-dialog smt-mycenter">
+                <div class="navbar ">
+                    <span class="am-header-nav-title smt-mycenter-title">
+                        个人信息
+                    </span>
+                    <span class="am-icon-close smt-mycenter-close"><span class=""></span></span>
+                </div>
+                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                <div class="row" >
+
+                </div>
+            </div>
+
+            <!--<div class="am-modal-dialog">-->
+                <!--<div class="am-modal-hd">个人资料</div>-->
+                <!--<div class="am-modal-bd">-->
+                    <!--来来来，吐槽点啥吧-->
+                    <!--<input type="text" class="am-modal-prompt-input">-->
+                <!--</div>-->
+                <!--<div class="am-modal-footer">-->
+                    <!--<span class="am-modal-btn" data-am-modal-cancel>取消</span>-->
+                    <!--<span class="am-modal-btn" data-am-modal-confirm>提交</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
     </div>
+
+
 </body>
 </html>

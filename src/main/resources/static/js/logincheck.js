@@ -12,6 +12,8 @@ $(function () {
         cl: '#DCDFE6',
         dis:100//触发连线的距离
     }).start();
+
+
 });
 
 // $(function(){
@@ -96,6 +98,7 @@ function submitForm() {
 
 
 $("#loginButton").click(function () {
+
     var email = $.trim($("#loginEmail").val());
     var password = $.trim($("#loginPsd").val());
     if (email=='' || password=='' ){
@@ -121,10 +124,10 @@ $("#loginButton").click(function () {
             if(result.code === 200){
                 //若登录成功，跳转到"/main.html"
                 tip.html('');//清空提示文字
-                alert('成功');
+                popMsg('登录成功!');
                 window.location.href='/project';
             }else {
-                alert('失败');
+                popMsg('登录失败!');
                 tip.css("color","red");
                 tip.html(result.message);//设置提示文字
                 $("#loginPsd").val('');

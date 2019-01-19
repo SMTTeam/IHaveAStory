@@ -1,6 +1,6 @@
 package com.smtteam.smt.interceptor;
 
-import com.smtteam.smt.model.User;
+import com.smtteam.smt.common.bean.ShowUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -27,9 +27,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         //从Session里面获取User user引用判断是否为空 来实现登录拦截逻辑
         HttpSession session = request.getSession();
 
-        User user = (User) session.getAttribute("user");
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
 
-        if ( user == null){
+        if ( showUser == null){
 
             System.out.println("您尚未登录!");
             response.sendRedirect("/login");//让用户进行登录

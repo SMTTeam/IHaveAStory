@@ -4,6 +4,18 @@ $(function () {
     });
 
     checkLoginState();  //检查用户登录状态
+
+    $('#personalSetting').on('click', function() {
+        $('#my-prompt').modal({
+            relatedTarget: this,
+            onConfirm: function(e) {
+                alert('你输入的是：' + e.data || '')
+            },
+            onCancel: function(e) {
+                alert('不想说!');
+            }
+        });
+    });
 })
 
 
@@ -184,6 +196,7 @@ function checkLoginState() {
                 changeLoginStatusToLogin();
             }else {
                 console.log('尚未登录！');
+                popMsg('尚未登录');
             }
         }
     })

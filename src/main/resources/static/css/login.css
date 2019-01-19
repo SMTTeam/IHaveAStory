@@ -29,11 +29,8 @@
 
 .smt-register-btn{
     color: #303133;
-<<<<<<< HEAD
     background-color: #ffffff;
-=======
-    background-color: #fff;
->>>>>>> 44db92392b8e89777c633785c47a2c1a610da33e
+
     border-color: #303133;
 
     border-radius: 1rem;
@@ -91,4 +88,27 @@
     width: 28px;
     height: 28px;
     margin: 8px auto;
+}
+
+.smt-mycenter{
+    padding-bottom: 0;
+    background-color: #FFF;
+    width: 850px;
+    height: 600px;
+    /*text-align: inherit;*/
+}
+
+.smt-mycenter-title{
+    font-size: 20px;
+    float: left;
+    margin: 20px auto auto 20px;
+}
+
+.smt-mycenter-close{
+    width: 40px;
+    height: 40px;
+    float: right;
+    margin: 20px 20px auto auto;
+    /*cursor: pointer;*/
+    background-image: url(../img/close.png) ;
 }
