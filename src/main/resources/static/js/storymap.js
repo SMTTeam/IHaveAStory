@@ -1,12 +1,16 @@
 function over(ele){
-    var id = $(ele).children("div").attr("id")
-    // console.log(id)
-    $("#"+id).css("display","")
+    if(role!=1){
+        var id = $(ele).children("div").attr("id")
+        // console.log(id)
+        $("#"+id).css("display","")
+    }
 }
 
 function leave(ele){
-    var id = $(ele).children("div").attr("id")
-    $("#"+id).css("display","none")
+    if(role!=1){
+        var id = $(ele).children("div").attr("id")
+        $("#"+id).css("display","none")
+    }
 }
 
 function createActivity(element,a_posId,t_posId){
@@ -22,7 +26,7 @@ function createActivity(element,a_posId,t_posId){
     var activityId;
     $.ajax({
         type: "POST",
-        url: "http://localhost:8888/activity/create",
+        url: "/activity/create",
         data: {"proId":proId, "name":a_name, "posId":a_posId},
         async: false,
         success: function (data){
@@ -30,7 +34,7 @@ function createActivity(element,a_posId,t_posId){
             a_num = activityId
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8888/task/create",
+                url: "/task/create",
                 data: {"activityId": activityId, "name": t_name, "posId": t_posId},
                 async: false,
                 success: function (data) {
@@ -146,7 +150,7 @@ function createTask(element,activityId,t_posId) {
     var t_name = "未命名task";
     $.ajax({
         type: "POST",
-        url: "http://localhost:8888/task/create",
+        url: "/task/create",
         data: {"activityId": activityId, "name": t_name, "posId": t_posId},
         async: false,
         success: function (data) {
@@ -278,7 +282,7 @@ $("#createStorySubmit").click(function () {
     var s_num ;
     $.ajax({
         type: "POST",
-        url: "http://localhost:8888/story/create",
+        url: "/story/create",
         dataType:"json",
         contentType : 'application/json',
         data:JSON.stringify(data),
@@ -328,7 +332,7 @@ function editActivity(ele) {
         var name = $("#"+id).val()
         $.ajax({
             type: "POST",
-            url: "http://localhost:8888/activity/modify",
+            url: "/activity/modify",
             data: {"id": activityId, "name": name},
             async: false,
             success: function (data) {
@@ -352,7 +356,7 @@ function editTask(ele) {
         var name = $("#"+id).val()
         $.ajax({
             type: "POST",
-            url: "http://localhost:8888/task/modify",
+            url: "/task/modify",
             data: {"id": taskId, "name": name},
             async: false,
             success: function (data) {
@@ -366,7 +370,7 @@ function editTask(ele) {
 function editStory(ele,s_id) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8888/story/"+s_id,
+        url: "/story/"+s_id,
         data: {},
         async: false,
         success: function (data) {
@@ -419,7 +423,7 @@ $("#modifyStorySubmit").click(function () {
     var s_num ;
     $.ajax({
         type: "POST",
-        url: "http://localhost:8888/story/modify?id="+id,
+        url: "/story/modify?id="+id,
         dataType:"json",
         contentType : 'application/json',
         data:JSON.stringify(data),
@@ -436,20 +440,23 @@ function deleteActivity(ele) {
         var id = $(ele).parent().parent().parent().parent().parent().attr("id");
         var activity_id = id.substr(id.lastIndexOf("-")+1);
         $("#"+id).remove();
-        //TODO delete story
         $(".feature-block-list").each(function () {
             var acolumn_id = "acolumn-"+activity_id+$(this).attr("id")
             $("#"+acolumn_id).parent().parent().remove();
         })
         $.ajax({
             type: "POST",
-            url: "http://localhost:8888/activity/delete",
+            url: "/activity/delete",
             data: {"id": activity_id},
             async: false,
             success: function (data) {
 
             }
         })
+
+        if($("#head-container").children().length==0){
+            init()
+        }
     }
 
 }
@@ -475,7 +482,7 @@ function deleteTask(ele) {
         })
         $.ajax({
             type: "POST",
-            url: "http://localhost:8888/task/delete",
+            url: "/task/delete",
             data: {"id": task_id},
             async: false,
             success: function (data) {
@@ -493,7 +500,7 @@ function deleteStory(ele) {
     $("#"+id).remove();
     $.ajax({
         type: "POST",
-        url: "http://localhost:8888/story/delete",
+        url: "/story/delete",
         data: {"id": story_id},
         async: false,
         success: function (data) {
@@ -503,6 +510,9 @@ function deleteStory(ele) {
 }
 
 $(document).ready(function () {
+    $('.am-nav li').removeClass('am-active');
+    $('.am-nav li:eq(1)').addClass('am-active');
+    getRole()
     getIteration(proId)
     getActivity(proId)
 })
@@ -513,10 +523,21 @@ function init () {
     $("#head-container").append(init_card)
 }
 
+function getRole() {
+    $.ajax({
+        type: "GET",
+        url: '/api/invite/role?proId='+proId+'&userId='+userId,
+        async: false,
+        success: function (data) {
+            role = data.data.role
+        }
+    })
+
+}
 function getActivity(proId) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8888/activity/list/"+proId,
+        url: "/activity/list/"+proId,
         data: {},
         async: false,
         success: function (data) {
@@ -545,7 +566,7 @@ function getActivity(proId) {
 
                     $.ajax({
                         type: "GET",
-                        url: "http://localhost:8888/task/list/"+a_id,
+                        url: "/task/list/"+a_id,
                         data: {},
                         async: false,
                         success: function (data) {
@@ -595,7 +616,7 @@ function getActivity(proId) {
 
                                 $.ajax({
                                     type: "GET",
-                                    url: "http://localhost:8888/story/list/" + t_id,
+                                    url: "/story/list/" + t_id,
                                     data: {},
                                     async: false,
                                     success: function (data) {
@@ -667,7 +688,7 @@ function getActivity(proId) {
 function getIteration(proId) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8888/story/iterList/" + proId,
+        url: "/story/iterList/" + proId,
         data: {},
         async: false,
         success: function (data) {
