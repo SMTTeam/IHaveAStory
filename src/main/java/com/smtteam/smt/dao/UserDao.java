@@ -1,5 +1,6 @@
 package com.smtteam.smt.dao;
 
+import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -25,6 +26,8 @@ public interface UserDao extends JpaRepository<User, Integer> {
     User findByEmail(String email);
 
     User findByEmailAndPsw(String email , String psw);
+
+    User findByEmailAndStatus(String email , Integer status);
 
     @Modifying//更新查询
     @Transactional//开启事务

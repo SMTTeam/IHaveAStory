@@ -35,7 +35,7 @@ public class ViewController {
 //            modelAndView.setViewName("login2");
             modelAndView = new ModelAndView("login2");
         }else {
-            modelAndView = new ModelAndView("redirect:/");
+            modelAndView = new ModelAndView("redirect:/project");
         }
         return modelAndView;
 //        return "login";

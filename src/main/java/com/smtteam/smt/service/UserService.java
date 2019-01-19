@@ -50,6 +50,13 @@ public interface UserService {
     User findByEmailAndPsw( String email , String psw);
 
     /**
+     * 根据email 和 status 查找用户
+     * @param email
+     * @param status
+     * @return
+     */
+    User findByEmailAndStatus( String email ,Integer status );
+    /**
      * 更新个人信息，主要更新username字段
      * @param useremail
      * @param username
