@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * created by Kimone
@@ -59,7 +60,8 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity getActivityById(int id) {
-        return activityDao.findById(id).get();
+        Optional<Activity> activity = activityDao.findById(id);
+        return activity.orElse(null);
     }
 
     @Override
