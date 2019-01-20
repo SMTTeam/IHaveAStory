@@ -47,11 +47,8 @@ public class VerifyServiceImpl implements VerifyService {
     @Override
     public User sendVerifyEmail(String email, String psw, String username)throws ExistException{
         //在发送前保存记录到数据库
-//        System.out.println("11111111111");
-
 
         User user1 = userDao.findByEmail(email);
-//        System.out.println("2222222222222");
         if(user1 != null && user1.getStatus()== Constants.USEREMAIL_VERIFYING) throw new ExistException("该邮箱已注册但未验证，请前往验证！");
         if(user1 != null && user1.getStatus()== Constants.USEREMAIL_VERIFIED) throw new ExistException("该邮箱已经注册验证了！");
 

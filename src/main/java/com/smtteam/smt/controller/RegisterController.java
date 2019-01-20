@@ -8,6 +8,8 @@ import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.UserService;
 import com.smtteam.smt.service.VerifyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +30,8 @@ public class RegisterController {
     @Autowired
     private VerifyService verifyService;
 
+
+    private final Logger logger = LoggerFactory.getLogger(RegisterController.class);
     /**
      * 检查用户输入的邮箱是否已经被注册（js中ajax请求）
      * @param emailname
@@ -66,7 +70,7 @@ public class RegisterController {
             System.out.println(user.getEmail()+" username:"+user.getUsername()+" userstatus:"+user.getStatus());
             return new ResultVO<>(user);
         }catch (ExistException e){
-            e.printStackTrace();
+            logger.info(e.getMessage());
             return new ResultVO<>(e.getMessage());
         }
 

@@ -1,9 +1,10 @@
 package com.smtteam.smt.service.impl;
 
 import com.smtteam.smt.SmtApplicationTests;
-import com.smtteam.smt.interceptor.LoginInterceptor;
 import com.smtteam.smt.service.VerifyService;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * created by weishixin
  * date 2019-01-20
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class VerifyServiceImplTest extends SmtApplicationTests {
     @Autowired
     private VerifyService verifyService;
@@ -20,7 +22,7 @@ public class VerifyServiceImplTest extends SmtApplicationTests {
 
 
     @Test
-    public void sendVerifyEmailTest(){
+    public void test01_sendVerifyEmailTest(){
         //测试 该邮箱已注册但未验证，请前往验证！
         try {
             verifyService.sendVerifyEmail("1204353094@qq.com","123","wsx");
@@ -43,7 +45,7 @@ public class VerifyServiceImplTest extends SmtApplicationTests {
     }
 
     @Test
-    public void acceptVerifyEmailTest(){
+    public void test02_acceptVerifyEmailTest(){
         //测试邮箱已经验证
         try {
             verifyService.acceptVerifyEmail("MTgyMDYyOTY3ODNAMTYzLmNvbSY0MjExZGEzM2QyN2I2NWNlNzg1OTk0OWEyYTY4OTQ4ZGI2ZmNiZDA4MzhiZTkyZmRiZTllZWFjM2IyMGRiOWM1");

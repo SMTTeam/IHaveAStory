@@ -1,10 +1,8 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ShowUser;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +16,11 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class ViewController {
+
+    @GetMapping("")
+    public String test(){
+        return "main";
+    }
 
     @RequestMapping("/storyMapping")
     public ModelAndView test(@RequestParam int proId){
@@ -54,8 +57,5 @@ public class ViewController {
         ModelAndView modelAndView = new ModelAndView("main");
         return modelAndView;
     }
-
-    @RequestMapping("example")
-    public String example(){ return "example";}
 
 }

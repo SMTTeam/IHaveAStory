@@ -20,11 +20,9 @@ public class StoryVO {
 
     private String acceptance;
 
-    private String groupName;
+    private Integer releaseId;
 
-    private Integer iteration;
-
-    public StoryVO(Integer taskId, String name, Integer storyPoint, String priority, String description, Integer posId, String acceptance, String groupName, Integer iteration) {
+    public StoryVO(Integer taskId, String name, Integer storyPoint, String priority, String description, Integer posId, String acceptance, Integer releaseId) {
         this.taskId = taskId;
         this.name = name;
         this.storyPoint = storyPoint;
@@ -32,8 +30,7 @@ public class StoryVO {
         this.description = description;
         this.posId = posId;
         this.acceptance = acceptance;
-        this.groupName = groupName;
-        this.iteration = iteration;
+        this.releaseId = releaseId;
     }
 
     @Override
@@ -46,8 +43,7 @@ public class StoryVO {
                 ", description='" + description + '\'' +
                 ", posId=" + posId +
                 ", acceptance='" + acceptance + '\'' +
-                ", groupName='" + groupName + '\'' +
-                ", iteration=" + iteration +
+                ", releaseId=" + releaseId +
                 '}';
     }
 }

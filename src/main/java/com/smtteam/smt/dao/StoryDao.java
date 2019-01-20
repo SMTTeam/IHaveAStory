@@ -31,10 +31,10 @@ public interface StoryDao extends JpaRepository<Story, Integer> {
     @Query("select max(s.posId) from Story s ")
     Integer findMaxPosID();
 
-    @Query("SELECT new map(s.iteration,s.groupName) FROM Story s WHERE task_id IN (\n" +
-            "  SELECT id FROM Task WHERE activity_id IN (\n" +
-            "    SELECT id FROM Activity WHERE pro_id=:proId\n" +
-            "  )\n" +
-            ")ORDER BY iteration")
-    List<Map<String,IterationVO>> findIterByProId(@Param("proId")int proId);
+//    @Query("SELECT new map(s.iteration,s.groupName) FROM Story s WHERE task_id IN (\n" +
+//            "  SELECT id FROM Task WHERE activity_id IN (\n" +
+//            "    SELECT id FROM Activity WHERE pro_id=:proId\n" +
+//            "  )\n" +
+//            ")ORDER BY iteration")
+//    List<Map<String,IterationVO>> findIterByProId(@Param("proId")int proId);
 }

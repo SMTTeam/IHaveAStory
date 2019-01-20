@@ -16,8 +16,6 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 public class SmtApplicationTests {
 
-
-
     @Autowired
     private WebApplicationContext context;
 
@@ -31,5 +29,7 @@ public class SmtApplicationTests {
     @Test
     public void contextLoads() {
     }
+
+
 }
 
