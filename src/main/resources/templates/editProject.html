@@ -19,14 +19,14 @@
                 <div class="am-form-group am-form-icon am-form-feedback smt-input-row">
                     <span class="am-fl smt-input-label">项目名称:</span>
                     <p class="smt-input-wrapper">
-                        <input type="text" class="smt-input-for-row" id="name" name="proName" placeholder="" required>
+                        <input type="text" class="smt-input-for-row" id="name" name="proName" placeholder="" maxlength="30" required>
                         <span class="am-icon-warning" style="display: none"></span>
                     </p>
                 </div>
                 <div class="am-form-group am-form-icon am-form-feedback smt-input-row">
                     <span class="am-fl smt-input-label">项目详情:</span>
                     <p class="smt-input-wrapper">
-                        <textarea class="smt-input-for-row am-scrollable-vertical" rows="4" name="description" id="description" placeholder="" required></textarea>
+                        <textarea class="smt-input-for-row am-scrollable-vertical" rows="4" name="description" id="description" maxlength="300" placeholder="" required></textarea>
                         <span class="am-icon-warning" style="display: none"></span>
                     </p>
                 </div>
@@ -52,85 +52,45 @@
             <!--</div>-->
         <!--</div>-->
         <div class="am-g smt-block">
-            <ul class="am-g smt-lines">
-                <li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >
-                    <div class="am-g smt-line">
-                        <div class="am-u-sm-2">
-                            <img class="smt-line-icon" src="/img/boy.png">
-                        </div>
-                        <div class="am-u-sm-2">
-                            <p>小王</p>
-                        </div>
-                        <div class="am-u-sm-3">
-                            <p class="smt-line-role" style="width: auto">可编辑</p>
-                            <!--<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">-->
-                        </div>
-                        <div class="am-u-sm-3">
-                            <p>邀请中</p>
-                        </div>
-                        <div class="am-u-sm-2">
-                            <img class="smt-line-operator" src="/img/common/delete.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >
-                    <div class="am-g smt-line">
-                        <div class="am-u-sm-2">
-                            <img class="smt-line-icon" src="/img/boy.png">
-                        </div>
-                        <div class="am-u-sm-2">
-                            <p>小王</p>
-                        </div>
-                        <div class="am-u-sm-3">
-                            <p class="smt-line-role" style="width: auto">可编辑</p>
-                            <!--<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">-->
-                        </div>
-                        <div class="am-u-sm-3">
-                            <p>邀请中</p>
-                        </div>
-                        <div class="am-u-sm-2">
-                            <img class="smt-line-operator" src="/img/common/delete.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >
-                    <div class="am-g smt-line">
-                        <div class="am-u-sm-2">
-                            <img class="smt-line-icon" src="/img/boy.png">
-                        </div>
-                        <div class="am-u-sm-2">
-                            <p>小王</p>
-                        </div>
-                        <div class="am-u-sm-3">
-                            <p class="smt-line-role" style="width: auto">可编辑</p>
-                            <!--<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">-->
-                        </div>
-                        <div class="am-u-sm-3">
-                            <p>邀请中</p>
-                        </div>
-                        <div class="am-u-sm-2">
-                            <img class="smt-line-operator" src="/img/common/delete.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
-                    <div class="am-g">
-                        <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;">邀请成员</button>
-                    </div>
-                </li>
+            <ul class="am-g smt-lines" id="project-users">
+                <!--<li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >-->
+                    <!--<div class="am-g smt-line">-->
+                        <!--<div class="am-u-sm-2">-->
+                            <!--<img class="smt-line-icon" src="/img/boy.png">-->
+                        <!--</div>-->
+                        <!--<div class="am-u-sm-2">-->
+                            <!--<p>小王</p>-->
+                        <!--</div>-->
+                        <!--<div class="am-u-sm-3">-->
+                            <!--<p class="smt-line-role" style="width: auto">可编辑</p>-->
+                            <!--&lt;!&ndash;<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="am-u-sm-3">-->
+                            <!--<p>邀请中</p>-->
+                        <!--</div>-->
+                        <!--<div class="am-u-sm-2">-->
+                            <!--<img class="smt-line-operator" src="/img/common/delete.png">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
             </ul>
+            <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
+                <div class="am-g">
+                    <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;" onclick="showInvite()">邀请成员</button>
+                </div>
+            </div>
             <!--<div class="am-g" style="margin: 0 auto">-->
                 <!--<div class="am-u-sm-12" style="margin: 0 auto;">-->
                     <!--<button class="am-fr am-btn smt-bnt smt-small-btn">邀请成员</button>-->
                 <!--</div>-->
             <!--</div>-->
         </div>
-        <div class="am-g smt-title">
+        <div class="am-g smt-title invite-area">
             <div class="am-u-sm-6">
                 <h2>邀请成员</h2>
             </div>
         </div>
-        <div class="am-g smt-block">
+        <div class="am-g smt-block invite-area">
             <!--<form class="am-form" data-am-validator>-->
                 <!--<div class="am-form-group smt-input-row">-->
                     <!--<span class="am-fl smt-input-label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱:</span>-->
@@ -153,23 +113,25 @@
                 <!--</div>-->
             <!--</form>-->
 
-            <form class="am-form am-form-inline" role="form" data-am-validator style="margin-top: 20px">
-                <div class="am-form-group am-u-sm-7" style="padding: .1em">
+            <form class="am-form am-form-inline" role="form" data-am-validator style="margin-top: 20px" id="invite-form" onsubmit="return false" method="post">
+                <div class="am-form-group am-u-sm-7 am-form-icon am-form-feedback" style="padding: .1em">
                     <span class="am-fl smt-input-label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱:</span>
-                    <p class="smt-input-wrapper" style="margin-top: 0">
-                        <input type="email" class="am-form-field smt-input-for-row"  placeholder="" required>
+                    <p class="smt-input-wrapper" style="margin: 0 auto">
+                        <input type="email" class="am-form-field smt-input-for-row"  name="email" placeholder="" required>
+                        <span class="am-icon-warning" style="display: none"></span>
                     </p>
                     <!--<input type="email" class="am-form-field smt-input-for-row"  placeholder="邮箱" required>-->
                 </div>
 
-                <div class="am-form-group am-u-sm-5" style="padding: .1em">
+                <div class="am-form-group am-u-sm-5 am-form-icon am-form-feedback" style="padding: .1em">
                     <span class="am-fl smt-input-label" style="margin-left: 40px">权&nbsp;&nbsp;&nbsp;&nbsp;限:</span>
                     <p class="smt-input-wrapper" style="margin-top: 0">
-                        <select id="doc-select-1" class="smt-input-for-row">
-                            <option value="option1">可查看</option>
-                            <option value="option2">可编辑</option>
-                            <option value="option3">可管理</option>
+                        <select id="doc-select-1" class="smt-input-for-row" name="role">
+                            <option value="1">可查看</option>
+                            <option value="3">可编辑</option>
+                            <option value="7">可管理</option>
                         </select>
+                        <span class="am-icon-warning" style="display: none"></span>
                     </p>
                     <!--<label for="doc-select-1">下拉多选框</label>-->
                     <!--<select id="doc-select-1" class="smt-input-for-row">-->
@@ -181,7 +143,7 @@
                 </div>
                 <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered">
                     <div class="am-g">
-                        <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;margin: 15px auto">立即邀请</button>
+                        <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;margin: 15px auto" onclick="inviteUser()">立即邀请</button>
                     </div>
                 </div>
             </form>

@@ -1,10 +1,12 @@
 package com.smtteam.smt.service;
 
+import com.smtteam.smt.common.bean.ShowProjectUser;
 import com.smtteam.smt.common.exception.ExistException;
 import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.ProjectUser;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * 邀请相关
@@ -40,4 +42,11 @@ public interface InviteService {
      * @return
      */
     ProjectUser findProjectUser(Integer proId, Integer userId);
+
+    /**
+     * 获取项目的参与列表
+     * @param proId
+     * @return
+     */
+    List<ShowProjectUser> findInviteList(Integer proId);
 }

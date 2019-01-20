@@ -1,5 +1,6 @@
 package com.smtteam.smt.service.impl;
 
+import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.dao.UserDao;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.UserService;
@@ -82,5 +83,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateUserInfoByEmail(String useremail , String username){
         return userDao.updateUserInfoByEmail(username,useremail);
+    }
+
+    /**
+     * 查找验证过的邮箱用户
+     * @param email
+     * @return
+     */
+    @Override
+    public User findByEmailAndStatus(String email) {
+        return userDao.findByEmailAndStatus(email, Constants.USEREMAIL_VERIFIED);
     }
 }

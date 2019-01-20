@@ -30,4 +30,6 @@ public interface UserDao extends JpaRepository<User, Integer> {
     @Transactional//开启事务
     @Query("UPDATE User user SET user.username = :username WHERE user.email = :useremail")
     int updateUserInfoByEmail(@Param("username") String username, @Param("useremail") String useremail);
+
+    User findByEmailAndStatus(String email, Integer status);
 }

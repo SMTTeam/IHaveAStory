@@ -56,4 +56,11 @@ public interface UserService {
      * @return
      */
     int updateUserInfoByEmail(String useremail , String username);
+
+    /**
+     * 查找验证过的邮箱用户
+     * @param email
+     * @return
+     */
+    User findByEmailAndStatus(String email);
 }
