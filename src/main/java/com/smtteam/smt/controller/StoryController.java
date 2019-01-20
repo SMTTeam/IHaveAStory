@@ -34,7 +34,7 @@ public class StoryController {
             priority = 2;
         }
         Story story = new Story(storyInput.getTaskId(), storyInput.getName(), storyInput.getStoryPoint(), priority,
-                storyInput.getDescription(), storyInput.getPosId()+1, storyInput.getAcceptance(), storyInput.getGroupName(), storyInput.getIteration());
+                storyInput.getDescription(), storyInput.getPosId()+1, storyInput.getAcceptance(), storyInput.getReleaseId());
         Story result = storyService.createStory(story);
         return new ResultVO<>(result);
     }
@@ -62,8 +62,7 @@ public class StoryController {
         story.setDescription(storyInput.getDescription());
         story.setPosId(storyInput.getPosId());
         story.setAcceptance(storyInput.getAcceptance());
-        story.setGroupName(storyInput.getGroupName());
-        story.setIteration(storyInput.getIteration());
+        story.setReleaseId(storyInput.getReleaseId());
         Story result = storyService.modifyStory(story);
         return new ResultVO<>(result);
     }
@@ -102,34 +101,16 @@ public class StoryController {
     }
 
     /**
-     * 获取story数量
-     * @param
-     * @return
-     */
-    @GetMapping("/maxPosId")
-    public ResultVO<Integer> getStoryMaxPosID(){
-        int num = storyService.findMaxPosID();
-        return new ResultVO<>(num);
-    }
-
-    /**
      * 获取某个project的迭代
      * @param proId
      * @return
      */
-    @GetMapping("/iterList/{proId}")
-    public ResultVO<List<IterationVO>> getIterList(@PathVariable int proId){
-        List<IterationVO> list = new ArrayList<>();
-        list = storyService.findIterNum(proId);
-
-//        System.out.println("controller begin");
-//        for (IterationVO i:list){
-//            System.out.println(i);
-//        }
-        ResultVO<List<IterationVO>> res;
-        res=new ResultVO<>(list);
-//        System.out.println(res.getData());
-//        System.out.println("controller end");
-        return res;
-    }
+//    @GetMapping("/iterList/{proId}")
+//    public ResultVO<List<IterationVO>> getIterList(@PathVariable int proId){
+//        List<IterationVO> list = new ArrayList<>();
+//        list = storyService.findIterNum(proId);
+//        ResultVO<List<IterationVO>> res;
+//        res=new ResultVO<>(list);
+//        return res;
+//    }
 }
