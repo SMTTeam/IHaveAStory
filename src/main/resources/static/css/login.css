@@ -110,5 +110,34 @@
     float: right;
     margin: 20px 20px auto auto;
     /*cursor: pointer;*/
+    background-color: #FFFFFF;
     background-image: url(../img/close.png) ;
+}
+
+.smt-mycenter-ul{
+    float: left;
+}
+
+.smt-mycenter-li-baseinfo{
+    margin:10px auto 10px 5px;
+    font-size: 15px;
+}
+
+.smt-mycenter-li-updatepwd{
+    margin: 20px auto auto 5px;
+}
+
+.smt-mycenter-ul>li>span{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.smt-mycenter-ul .am-active{
+    border-left: 4px solid #3798e9;
+}
+
+.smt-mycenter-ul>.am-active>span , .smt-mycenter-ul>.am-active>span:focus{
+    background-color: #fff;
+    color: #3798e9;
 }

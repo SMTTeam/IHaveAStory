@@ -2,6 +2,7 @@ package com.smtteam.smt.controller;
 
 
 import com.smtteam.smt.common.bean.ResultVO;
+import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.UserService;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * created by weishixin
@@ -22,7 +26,7 @@ public class UserInfoController {
     private UserService userService;
 
     @PostMapping("/update")
-    public ResultVO<Integer> updateInfo(@RequestParam String useremail, @RequestParam String username){
+    public ResultVO<Integer> updateInfo(@RequestParam String useremail, @RequestParam String username , HttpServletRequest request){
         User user = userService.findByEmail(useremail);
         if( user == null ){
             ResultVO<Integer> resultVO = new ResultVO<>();
@@ -32,6 +36,13 @@ public class UserInfoController {
         }else {
             int userResult = userService.updateUserInfoByEmail(useremail,username);
             ResultVO<Integer> resultVO = new ResultVO<>(userResult);
+            /*更新session中的user对象*/
+            ShowUser showUser = new ShowUser();
+            showUser.setEmail(user.getEmail());
+            showUser.setUsername(user.getUsername());
+            HttpSession session = request.getSession();
+            session.setAttribute("user",showUser);
+
             System.out.println(resultVO.getCode());
             return resultVO;
         }

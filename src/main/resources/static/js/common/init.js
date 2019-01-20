@@ -3,21 +3,44 @@ $(function () {
         location.reload()
     });
 
-    checkLoginState();  //检查用户登录状态
 
-    $('#personalSetting').on('click', function() {
-        $('#my-prompt').modal({
-            relatedTarget: this,
-            onConfirm: function(e) {
-                alert('你输入的是：' + e.data || '')
-            },
-            onCancel: function(e) {
-                alert('不想说!');
-            }
-        });
-    });
+    checkLoginState();  //检查用户登录状态
+    // var username= sessionStorage.getItem("user").uername;
+    // var showUser = [[${session.user}]];
+    var username="";
+
+    $('#user-name').val(username);
 })
 
+//点击个人中心下拉框
+$('#personalSetting').on('click', function() {
+    // popMsg(username);
+    if( showUser!=null){
+        username = showUser.username;
+
+    }
+    $('#user-name').val(username);
+    $('#my-prompt').modal("hide");
+    $('#my-prompt').modal({
+        backdrop: "static",//点击空白处不关闭对话框
+        keyboard: false,//键盘关闭对话框
+        show:true//弹出对话框
+    });
+    // $("#my-prompt").modal({
+    //     // relatedTarget: this,
+    //     backdrop: "static",//点击空白处不关闭对话框
+    //     // show:true,
+    //     keyboard: false//触发键盘esc事件时不关闭。
+    //
+    //     // onConfirm: function(e) {
+    //     //     alert('你输入的是：' + e.data || '')
+    //     // },
+    //     // onCancel: function(e) {
+    //     //     alert('不想说!');
+    //     // }
+    // });
+    // var currentPassword = $sessionScope.user.password;
+});
 
 ;(function(window){
     function Dotline(option){
@@ -330,3 +353,63 @@ function getUrlParam(name) {
     if (r != null) return unescape(r[2]); return null; //返回参数值
 }
 
+$('#smt-close-modal').click(function () {
+    // event.stopPropagation();
+    // $('#my-prompt').on('hide.bs.modal', function () {
+    //     console.log('关闭模态框！');
+    // });
+    // popMsg("点击了关闭按钮");
+    $('#my-prompt').modal('close');
+});
+//点击"基本信息"
+$('#smt-li-baseinfo').click(function () {
+    // var tempClass = $('#smt-li-baseinfo').getAttributeNames("class");
+    if( $('#smt-li-baseinfo').hasClass("am-active")){
+        return;
+    }else {
+        $('#smt-li-baseinfo').addClass("am-active");
+        $('#smt-li-changepsw').removeClass("aam-active");
+    }
+});
+
+//点击"修改密码" （用span实现tab导航功能），不过目前没起作用
+function clickToCloseModal() {
+    // var tempClass = $('#smt-li-baseinfo').getAttributeNames("class");
+    if( $('#smt-li-changepsw').hasClass("am-active")){
+        return;
+    }else {
+        $('#smt-li-changepsw').addClass("am-active");
+        $('#smt-li-baseinfo').removeClass("aam-active");
+    }
+};
+
+//点击“保存”按钮，提交修改信息
+$('#btn-updatebaseinfo').click(function () {
+    var email = $.trim($("#user-em").val());
+    var nickname =  $.trim($("#user-name").val());
+
+    if ( nickname =='' ){
+        popMsg('昵称不能为空',2000);
+        return ;
+    }
+    $.ajax({
+        type:'POST',
+        url:'/userinfo/update',
+        data:{"useremail":email,"username":nickname},
+        dataType:'json',
+        timeout:1000,
+        error:function () {
+            popMsg("请求更改信息失败，请重试",3000);
+        },
+        success:function (result) {
+            if( result.code === 200){
+                popMsg('保存信息成功');
+                showUser.username = $("#user-name").val();
+                username = showUser.username;
+                // popMsg(username);
+            }else {
+                popMsg('信息修改失败！');
+            }
+        }
+    });
+});
