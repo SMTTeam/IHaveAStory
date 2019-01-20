@@ -1,90 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:include="/common/head::loadHeader('首页')">
-</head>
-
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:include="/common/head :: loadHeader('首页')"></head>
+<link rel="stylesheet" th:href="@{css/main.css}">
 <body>
-<div th:include="/common/nav :: loadNav"></div>
-<!-- code from here -->
-<div class="am-container">
-    <div class="am-g" style="margin: 40px auto;height: 40px;">
-        <div class="am-u-sm-6">
-            <h2 style="margin-bottom: 0; line-height: inherit">我发布的项目</h2>
-        </div>
-        <div class="am-u-sm-6">
-            <a href="/project/create"><button class="am-fr am-btn smt-bnt">新建项目</button></a>
-        </div>
+    <div th:include="/common/nav :: loadNav"></div>
+    <!-- code from here -->
+    <div data-am-widget="slider" class="am-slider am-slider-i2" data-am-flexslider="{controlNav:false}">
+        <ul class="am-slides">
+            <li class="am-slider-images" style="background-image: url(/img/banner.jpg)">
+                <div class="am-container am-slider-desc">
+                    <div class="am-slider-content">
+                        <h2 class="am-slider-title am-animation-slide-left" data-am-scrollspy="{animation: 'slide-left', delay: 100}">Story Mapping Tool</h2>
+                        <p data-am-scrollspy="{animation:'slide-right', delay: 600}" class="am-animation-slide-right" style="margin-top: 5px">紧密贴合敏捷优秀实践，来自未来的高能版工具</p>
+                        <a href="/project" class="am-btn-s am-btn am-btn-danger am-radius am-animation-slide-bottom am-animation-delay-1" rel="nofollow" data-am-scrollspy="{animation:'slide-bottom', delay: 100}">即刻开启</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
+    <div class="m-services m-home-box">
+        <section class="am-container">
+            <hgroup class="am-animation-slide-bottom am-animation-delay-1" data-am-scrollspy="{animation:'slide-bottom', delay: 100}">
+                <h2>我们的服务</h2>
+                <p style="margin-bottom: 0">每个需求的背后都有要讲述的故事, 从Product Backlog 到 User Story, 利用我们故事地图工具的强大功能来讲述您的故事, 实现您的敏捷之旅。</p>
+            </hgroup>
+        </section>
+    </div>
+    <!--<div class="am-container m-home-box">-->
+        <!--<hgroup data-am-scrollspy="{animation:'slide-bottom', delay: 100}">-->
+            <!--<h2>案例展示</h2>-->
+            <!--<p>多终端一体化创新设计解决方案响应式自适应设计。</p>-->
+        <!--</hgroup>-->
+        <!--<section class="m-case-list">-->
+            <!--<ul class="am-avg-sm-1 am-avg-md-3 am-avg-lg-3 am-thumbnails">-->
 
-    <ul class="am-g smt-cards">
-        <li class="am-u-sm-11 am-u-sm-centered" >
-            <div class="am-g smt-card">
-                <div class="am-u-sm-10">
-                    <h3>培训小程序开发</h3>
-                    <p class="line-clamp">功能描述：参考佳一数学，爱学习，高思数学，做一个学数学小程序，参考 忘忧围棋题库，做一个围棋小程序，题库，视频已有</p>
-                </div>
-                <div class="am-u-sm-2 smt-card-btn-group">
-                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
-                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
-                </div>
-            </div>
-        </li>
-        <li class="am-u-sm-11 am-u-sm-centered" >
-            <div class="am-g smt-card">
-                <div class="am-u-sm-10">
-                    <h3>便利店小程序</h3>
-                    <p class="line-clamp">功能描述：商品展示、下单、买卖、定位、会员管理、积分管理、收银系统、预定功能（可能有做早餐 就可以预定）、连锁的便利店</p>
-                </div>
-                <div class="am-u-sm-2 smt-card-btn-group">
-                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
-                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
-                </div>
-            </div>
-        </li>
-        <li class="am-u-sm-11 am-u-sm-centered" >
-            <div class="am-g smt-card">
-                <div class="am-u-sm-10">
-                    <h3>平面设计</h3>
-                    <p class="line-clamp">功能描述：参考佳一数学，爱学习，高思数学，做一个学数学小程序，参考 忘忧围棋题库，做一个围棋小程序，题库，视频已有</p>
-                </div>
-                <div class="am-u-sm-2 smt-card-btn-group">
-                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
-                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
-                </div>
-            </div>
-        </li>
-        <li class="am-u-sm-11 am-u-sm-centered" >
-            <div class="am-g smt-card">
-                <div class="am-u-sm-10">
-                    <h3>政府内部门户网站开发</h3>
-                    <p class="line-clamp">功能:一、设计页面、包括主页和子页面、做出效果图，确定再制作网站；
-                        二、在主页面制作页面里有7-10栏目名称，图标链接、导航、搜索、排序。
-                        三、后台管理</p>
-                </div>
-                <div class="am-u-sm-2 smt-card-btn-group">
-                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
-                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
-                </div>
-            </div>
-        </li>
-        <li class="am-u-sm-11 am-u-sm-centered" >
-            <div class="am-g smt-card">
-                <div class="am-u-sm-10">
-                    <h3>windows 桌面便签开发</h3>
-                    <p class="line-clamp">功能描述：开发一款极为小巧简便且的桌面便签记事备忘工具，它能让你随手地往 Windows 桌面贴上清新、直观且颇有感觉的“便签”</p>
-                </div>
-                <div class="am-u-sm-2 smt-card-btn-group">
-                    <a href="/project/edit"><button class="am-btn smt-bnt am-vertical-align-middle">编辑项目</button></a>
-                    <a href="/project/map"><button class="am-btn smt-bnt am-vertical-align-middle">进入地图</button></a>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+                <!--<li data-am-scrollspy="{animation:'slide-bottom', delay: 196}">-->
+                    <!--<figure class="effect-lily">-->
+                        <!--<img src="/img/main/loading.gif" alt="某某网络品牌VI设计" data-echo="uploadfiles/image/201509/46.jpg" class="am-img-responsive">-->
+                        <!--<figcaption>-->
+                            <!--<h3>SOLOVE素乐</h3>-->
+                            <!--<p>我想我会遇见你，像恋人般重逢美丽</p>-->
+                        <!--</figcaption>-->
+                    <!--</figure>-->
+                <!--</li>-->
 
+                <!--<li data-am-scrollspy="{animation:'slide-bottom', delay: 174}">-->
+                    <!--<figure class="effect-lily">-->
+                        <!--<img src="/img/main/loading.gif" alt="研磨时光菜单设计" data-echo="uploadfiles/image/201509/23.jpg" class="am-img-responsive">-->
+                        <!--<figcaption>-->
+                            <!--<h3>广州唯一印象婚纱摄影</h3>-->
+                            <!--<p>专注高端定制婚纱摄影</p>-->
+                        <!--</figcaption>-->
+                    <!--</figure>-->
+                <!--</li>-->
+
+                <!--<li data-am-scrollspy="{animation:'slide-bottom', delay: 119}">-->
+                    <!--<figure class="effect-lily">-->
+                        <!--<img src="/img/main/loading.gif" alt="鲜果果水果宣传单张设计与印刷" data-echo="uploadfiles/image/201509/32.jpg" class="am-img-responsive">-->
+                        <!--<figcaption>-->
+                            <!--<h3>南京启凡英语课程专题</h3>-->
+                            <!--<p>南京唯一一家欧洲教育管理培训中心</p>-->
+                        <!--</figcaption>-->
+                    <!--</figure>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</section>-->
+
+    <!--</div>-->
+    <!--<hr>-->
+    <section class="am-container m-home-box m-partner">
+
+        <hgroup data-am-scrollspy="{animation:'slide-bottom', delay: 100}">
+            <h2>合作伙伴</h2>
+            <p>互联网大厂，创业团队，开源社区，个人开发者，无论哪个团队，只要有用户故事地图的需求，都!在用我们的工具！</p>
+        </hgroup>
+        <ul class="am-avg-lg-8 am-avg-md-8 am-avg-sm-4  am-thumbnails" data-am-scrollspy="{animation:'slide-bottom', delay: 100}" style="margin: 80px auto 30px;">
+            <li data-am-scrollspy="{animation:'slide-bottom', delay: 44}">
+                <img src="/img/main/tencent.png" alt="腾讯" class="am-img-responsive"></li>
+            <li data-am-scrollspy="{animation:'slide-bottom', delay: 45}">
+                <img src="/img/main/ali.png" alt="阿里巴巴" class="am-img-responsive"></li>
+            <li data-am-scrollspy="{animation:'slide-bottom', delay: 399}">
+                <img src="/img/main/aliyun.png" alt="阿里云" class="am-img-responsive"></li>
+            <li data-am-scrollspy="{animation:'slide-bottom', delay: 286}">
+                <img src="/img/main/toutiao.png" alt="今日头条" class="am-img-responsive"></li>
+            <li data-am-scrollspy="{animation:'slide-bottom', delay: 114}">
+                <img src="/img/main/baidu.png" alt="百度" class="am-img-responsive"></li>
+            <li data-am-scrollspy="{animation:'slide-bottom', delay: 72}">
+                <img src="/img/main/microsoft.png" alt="微软" class="am-img-responsive"></li>
+            <li data-am-scrollspy="{animation:'slide-bottom', delay: 190}">
+                <img src="/img/main/apple.png" alt="苹果" class="am-img-responsive"></li>
+            <li data-am-scrollspy="{animation:'slide-bottom', delay: 99}">
+                <img src="/img/main/adobe.png" alt="adobe" class="am-img-responsive"></li>
+        </ul>
+    </section>
+    <div class="m-home-box m-contact">
+        <section class="am-container">
+            <hgroup data-am-scrollspy="{animation:'slide-bottom', delay: 100}">
+                <h2>作业相关</h2>
+                <p>您可以访问本次作业的其他工具使用情况</p>
+            </hgroup>
+            <ul class="am-avg-lg-4 am-avg-md-4 am-avg-sm-2 am-thumbnails">
+                <li data-am-scrollspy="{animation:'slide-bottom', delay: 2}"><a class="homework" href="http://139.196.75.247:8080/jenkins"><i class="am-icon-male"></i> Jenkins</a>
+                </li>
+                <li data-am-scrollspy="{animation:'slide-bottom', delay: 41}"><a class="homework" href="https://github.com/SMTTeam/IHaveAStory"><i class="am-icon-github"></i> Github</a>
+                </li>
+                <li data-am-scrollspy="{animation:'slide-bottom', delay: 51}">
+                    <a class="homework" href="https://trello.com/b/ynWxYdel/%E8%BF%AD%E4%BB%A3%E4%B8%80"><i class="am-icon-trello"></i> Trello</a>
+                </li>
+                <li data-am-scrollspy="{animation:'slide-bottom', delay: 211}">
+                    <a class="homework" href="https://sonarcloud.io/dashboard?id=SMTTeam_IHaveAStory"><i class="am-icon-area-chart"></i> Sonarqube</a>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <div class="m-contact-us">
+        <section class="am-container">
+            <div class="am-g">
+                <span class="m-u-sm-12 am-u-md-9 am-u-lg-10" data-am-scrollspy="{animation:'slide-left', delay: 100}">拥有不一样的敏捷体验，你还在等什么？马上开始使用吧！</span>
+                <span class="m-u-sm-12 am-u-md-3 am-u-lg-2" data-am-scrollspy="{animation:'slide-right', delay: 100}"></span>
+            </div>
+        </section>
+    </div>
 <div th:include="/common/onload_js::loadJS"></div>
-<script th:src="@{js/projects.js}"></script>
-
+    <script th:src="@{js/main.js}"></script>
 </body>
 </html>
