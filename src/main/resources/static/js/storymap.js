@@ -194,8 +194,8 @@ function createStory(element,taskId,s_posId,iteration) {
     $("#taskId").val(taskId)
     $("#posId").val(s_posId)
     // alert(groupName)
-    var groupName = $("#group"+iteration).text()
-    $("#groupName").val(groupName)
+    // var groupName = $("#group"+iteration).text()
+    // $("#groupName").val(groupName)
     $("#iteration").val(iteration)
     var id = $(element).parent().parent().attr("id");
     $("#preId").val(id)
@@ -216,8 +216,8 @@ function labelCreateStory(element,taskId) {
     var iterationStr = $(element).parent().attr("id")
     var iter_index = iterationStr.lastIndexOf("-")
     var iteration = iterationStr.substr(iter_index+1)
-    var groupName = $("#group"+iteration).text()
-    $("#groupName").val(groupName)
+    // var groupName = $("#group"+iteration).text()
+    // $("#groupName").val(groupName)
     $("#iteration").val(iteration)
     $("#preId").val(preId)
 }
@@ -234,7 +234,6 @@ $("#createStorySubmit").click(function () {
     var description = $("#description").val()
     var posId = $("#posId").val()
     var acceptance = $("#acceptance").val()
-    var groupName = $("#groupName").val()
     var iteration = $("#iteration").val()
     var preId = $("#preId").val()
     var data = {
@@ -245,8 +244,7 @@ $("#createStorySubmit").click(function () {
         "description": description,
         "posId": posId,
         "acceptance": acceptance,
-        "groupName": groupName,
-        "iteration": iteration,
+        "releaseId": iteration,
     }
     var s_num ;
     $.ajax({
@@ -358,10 +356,8 @@ function editStory(ele,s_id) {
             else {
                 $("#m_priority").val('低')
             }
-            // $("#m_priority").val(content.priority)
             $("#m_posId").val(content.posId)
-            $("#m_groupName").val(content.groupName)
-            $("#m_iteration").val(content.iteration)
+            $("#m_iteration").val(content.releaseId)
             $("#m_description").val(content.description)
             $("#m_acceptance").val(content.acceptance)
         }
@@ -380,7 +376,6 @@ $("#modifyStorySubmit").click(function () {
     var description = $("#m_description").val()
     var posId = $("#m_posId").val()
     var acceptance = $("#m_acceptance").val()
-    var groupName = $("#m_groupName").val()
     var iteration = $("#m_iteration").val()
     var id = $("#m_id").val()
     var data = {
@@ -391,8 +386,7 @@ $("#modifyStorySubmit").click(function () {
         "description": description,
         "posId": posId,
         "acceptance": acceptance,
-        "groupName": groupName,
-        "iteration": iteration,
+        "releaseId": iteration,
     }
     var s_num ;
     $.ajax({
@@ -606,29 +600,20 @@ function getActivity(proId) {
                                             var s_name = slist[k].name
                                             var s_id = slist[k].id
                                             s_posId = slist[k].posId
-                                            var groupname = String(slist[k].groupName)
-                                            var iteration = slist[k].iteration
-                                            var iterid = "release-"+iteration
-                                            var acolumn_id = "tcolumn-"+t_id+iterid
+                                            var releaseId = slist[k].releaseId
+                                            var releaseStr = "release-"+releaseId
+                                            var acolumn_id = "tcolumn-"+t_id+releaseStr
                                             var scard_id = "scard-" + s_id
                                             var smenu_id = "smenu-" + s_id
                                             // console.log(smenu_id)
                                             var sarea_id = "sarea-" + s_id
                                             var spos_id = "spos-" + s_posId
-                                            // var story = '<div class="story-card" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">\n' +
-                                            //     '                                <textarea class="s-name-editor" maxlength="50" readonly="readonly" id="' + sarea_id + '">' + s_name + '</textarea>\n' +
-                                            //     '                                <div class="s-operation-menu" id="' + smenu_id + '" style="display: none">\n' +
-                                            //     '                                    <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
-                                            //     '                                    <a onclick="editStory(this)"><img class="edit" title="编辑" src="img/edit.png"></a>\n' +
-                                            //     '                                    <a onclick="createStory(this,' + t_id + ',' + s_posId + ')"><img class="create" title="在下方新建" src="img/create.png"></a>\n' +
-                                            //     '                                </div>\n' +
-                                            //     '                            </div>\n'
                                             var story = '<li class="issue-card board-card doing" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">' +
                                                 '<p class="card-title" title="'+s_name+'" id="' + sarea_id + '">' + s_name + '</p>' +
                                                 '<div class="operation-menu" id="' + smenu_id + '" style="display: none">' +
                                                 '   <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>\' +' +
                                                 '   <a data-toggle="modal" data-target="#modifyStoryModal" onclick="editStory(this,'+s_id+')"><img class="edit" title="编辑" src="img/edit.png"></a>' +
-                                                '   <a data-toggle="modal" data-target="#createStoryModal" onclick="createStory(this,' + t_id + ',' + s_posId + ','+iteration+')" id="'+spos_id+'">' +
+                                                '   <a data-toggle="modal" data-target="#createStoryModal" onclick="createStory(this,' + t_id + ',' + s_posId + ','+releaseId+')" id="'+spos_id+'">' +
                                                 '       <img class="create" title="在下方新建" src="img/createBelow.png">' +
                                                 '   </a>' +
                                                 '</div>' +
@@ -672,17 +657,16 @@ function getActivity(proId) {
 function getIteration(proId) {
     $.ajax({
         type: "GET",
-        url: "/story/iterList/" + proId,
+        url: "/release/list/" + proId,
         data: {},
         async: false,
         success: function (data) {
             var ilist = data.data;
             if(ilist.length!=0) {
                 for (var k in ilist) {
-                    var iteration = ilist[k].iteration
-                    var groupName = ilist[k].groupName
-                    // alert(iteration)
-                    // alert(groupName)
+                    var releaseID = ilist[k].id
+                    var releaseName = ilist[k].name
+                    var posId = ilist[k].posId
                     var release = '<div class="release-group">\n' +
                         '                <div class="release-header">\n' +
                         '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
@@ -690,7 +674,7 @@ function getIteration(proId) {
                         '                        <i class="fa fa-minus"></i>\n' +
                         '                    </div>\n' +
                         '                    <div class="release-name">\n' +
-                        '                        <span id="group' + iteration + '">' + groupName + '</span>\n' +
+                        '                        <span id="group' + releaseID + '">' + releaseName + '</span>\n' +
                         '                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">\n' +
                         '                    </div>\n' +
                         '                    <div class="dropdown">\n' +
@@ -700,13 +684,13 @@ function getIteration(proId) {
                         '                        <ul class="dropdown-menu">\n' +
                         '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
                         '                            <li class="disabled" title="有从属卡片不能被删除"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
-                        '                            <li><a href="javascript: void(0)" class="create-release below">在下方新建分组</a></li>\n' +
+                        '                            <li><a onclick="createIter(this,'+posId+')" class="create-release below">在下方新建分组</a></li>\n' +
                         '                        </ul>\n' +
                         '                    </div>\n' +
                         '                </div>\n' +
                         '            </div>'
                     var block_container = '<div class="feature-block-container expanded">' +
-                        '<ul class="feature-block-list non-list flat-list" id="release-' + iteration + '">' +
+                        '<ul class="feature-block-list non-list flat-list" id="release-' + releaseID + '">' +
                         '</ul>' +
                         '</div>'
                     release += block_container
@@ -714,6 +698,17 @@ function getIteration(proId) {
                 }
             }
             else {
+                var releaseID
+                $.ajax({
+                    type: "GET",
+                    url: "/release/maxId",
+                    data: {},
+                    async: false,
+                    success: function (data) {
+                        releaseID = data.data+1
+                    }
+                })
+                //TODO add in database
                 var release = '<div class="release-group">\n' +
                     '                <div class="release-header">\n' +
                     '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
@@ -721,7 +716,7 @@ function getIteration(proId) {
                     '                        <i class="fa fa-minus"></i>\n' +
                     '                    </div>\n' +
                     '                    <div class="release-name">\n' +
-                    '                        <span id="group0">默认分组</span>\n' +
+                    '                        <span id="group' + releaseID + '">默认分组</span>\n' +
                     '                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">\n' +
                     '                    </div>\n' +
                     '                    <div class="dropdown">\n' +
@@ -729,13 +724,15 @@ function getIteration(proId) {
                     '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
                     '                        </button>\n' +
                     '                        <ul class="dropdown-menu">\n' +
-                    '                            <li><a href="javascript: void(0)" class="create-release below">在上方新建分组</a></li>\n' +
+                    '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
+                    '                            <li class="disabled"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
+                    '                            <li><a onclick="createIter(this,0)" class="create-release below">在下方新建分组</a></li>\n' +
                     '                        </ul>\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>'
                 var block_container = '<div class="feature-block-container expanded">' +
-                    '<ul class="feature-block-list non-list flat-list" id="release-0">' +
+                    '<ul class="feature-block-list non-list flat-list" id="release-' + releaseID + '">' +
                     '</ul>' +
                     '</div>'
                 release += block_container
@@ -745,12 +742,31 @@ function getIteration(proId) {
     })
 }
 
-// function releaseExist(groupname) {
-//     $("div.release-name").each(function(){
-//         var group=$(this).children().first()
-//         if (typeof groupname != typeof undefined && group==groupname){
-//             return true
-//         }
-//     })
-//     return false
+// function createIter(ele, preIter) {
+//     var newId = preIter+1
+//     var new_iter = '<div class="release-group">\n' +
+//         '                <div class="release-header">\n' +
+//         '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
+//         '                    <div class="expand-switcher">\n' +
+//         '                        <i class="fa fa-minus"></i>\n' +
+//         '                    </div>\n' +
+//         '                    <div class="release-name">\n' +
+//         '                        <span id="group' + newId + '">未命名分组</span>\n' +
+//         '                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">\n' +
+//         '                    </div>\n' +
+//         '                    <div class="dropdown">\n' +
+//         '                        <button class="transparent-btn dropdown-toggle" type="button" data-toggle="dropdown">\n' +
+//         '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
+//         '                        </button>\n' +
+//         '                        <ul class="dropdown-menu">\n' +
+//         '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
+//         '                            <li class="disabled"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
+//         '                            <li><a onclick="createIter(this,'+newId+')" class="create-release below">在下方新建分组</a></li>\n' +
+//         '                        </ul>\n' +
+//         '                    </div>\n' +
+//         '                </div>\n' +
+//         '            </div>'
+//     var preId = "release-"+preIter
+//     var pre_container = $("#"+preId).parent()
+//     pre_container.after()
 // }

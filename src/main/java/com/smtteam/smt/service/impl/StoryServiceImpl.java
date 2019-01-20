@@ -55,26 +55,21 @@ public class StoryServiceImpl implements StoryService {
         }
     }
 
-    @Override
-    public List<IterationVO> findIterNum(int proId){
-        List<Map<String,IterationVO>> list = storyDao.findIterByProId(proId);
-        List<IterationVO> vo = new ArrayList<>();
-//        System.out.println("serviceimpl begin");
-        for (Map<String,IterationVO> i:list){
-//            System.out.println(i);
-            List<Object> tmp=new ArrayList<>();
-            for (String key:i.keySet()){
-                tmp.add(i.get(key));
-            }
-            IterationVO tmpvo=new IterationVO(Integer.parseInt(tmp.get(0).toString()),tmp.get(1).toString());
-            if (vo.contains(tmpvo)) {
-//                System.out.println("contains");
-                continue;
-            }
-            vo.add(tmpvo);
-        }
-//        System.out.println(vo);
-//        System.out.println("serviceimpl end");
-        return vo;
-    }
+//    @Override
+//    public List<IterationVO> findIterNum(int proId){
+//        List<Map<String,IterationVO>> list = storyDao.findIterByProId(proId);
+//        List<IterationVO> vo = new ArrayList<>();
+//        for (Map<String,IterationVO> i:list){
+//            List<Object> tmp=new ArrayList<>();
+//            for (String key:i.keySet()){
+//                tmp.add(i.get(key));
+//            }
+//            IterationVO tmpvo=new IterationVO(Integer.parseInt(tmp.get(0).toString()),tmp.get(1).toString());
+//            if (vo.contains(tmpvo)) {
+//                continue;
+//            }
+//            vo.add(tmpvo);
+//        }
+//        return vo;
+//    }
 }

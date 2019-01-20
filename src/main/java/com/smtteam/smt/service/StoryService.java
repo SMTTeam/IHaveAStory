@@ -20,5 +20,5 @@ public interface StoryService {
 
     int findMaxPosID();
 
-    List<IterationVO> findIterNum(int proId);
+//    List<IterationVO> findIterNum(int proId);
 }

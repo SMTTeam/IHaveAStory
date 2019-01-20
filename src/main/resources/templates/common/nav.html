@@ -49,17 +49,67 @@
                 </div>
             </div>
         </header>
-        <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+        <div class="am-modal" tabindex="-1" id="my-prompt" >
             <div class="am-modal-dialog smt-mycenter">
                 <div class="navbar ">
                     <span class="am-header-nav-title smt-mycenter-title">
                         个人信息
                     </span>
-                    <span class="am-icon-close smt-mycenter-close"><span class=""></span></span>
+                    <span id="smt-close-modal" onclick="clickToCloseModal();" class="am-icon-close smt-mycenter-close"></span>
+                    <!--<button id="smt-close-modal" type="button" class="am-icon-close smt-mycenter-close"></button>-->
                 </div>
                 <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                <div class="row" >
+                <div class="col-sm-3 col-md-2 col-lg-2" style="padding-right: 0;" >
+                    <ul class="smt-mycenter-ul nav" >
+                        <li id="smt-li-baseinfo" class="am-active">
+                            <span id="smt-baseinfo" class=" smt-mycenter-li-baseinfo" >基本信息</span>
+                        </li>
+                        <li id="smt-li-changepsw" class>
+                            <span id="smt-changepsw" class=" smt-mycenter-li-updatepwd">修改密码</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-md-10 col-lg-10" style="border-left: 1px solid #eee ; min-height: 300px; ">
+                    <script th:inline="javascript">
+                        var showUser = [[${session.user}]];
+                    </script>
+                    <form class="am-form" style="margin-top: 50px;" th:object="${session.user}" method="post" onsubmit="return false;" >
+                        <!--th:object=user-->
+                        <div class="am-form-group ">
+                            <div class>
+                                    <label for="user-em" class="am-u-sm-5 am-u-md-6 am-u-lg-6 " >
+                                            邮箱
+                                    </label>
+                                    <div class="am-u-sm-6 am-u-md-7 am-u-lg-7 am-u-sm-centered am-u-md-centered am-u-lg-centered">
+                                        <!--<input type="text" th:if="${session.user==null}" class="am-form-field" value="" disabled="disabled">-->
+                                        <input th:if="${session.user!=null}" type="text" id="user-em" class="am-form-field" th:value="*{email}" disabled="disabled">
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="am-form-group ">
 
+                            <div class>
+                                   <label for="user-name" class="am-u-sm-5 am-u-md-6 am-u-lg-6 ">
+                                            昵称
+                                   </label>
+                                <!--am-u-sm-centered am-u-md-centered am-u-lg-centered-->
+                                    <div class="am-u-sm-6 am-u-md-7 am-u-lg-7 am-u-sm-centered am-u-md-centered am-u-lg-centered">
+                                        <!--<input type="text" th:if="${session.user==null}" class="am-form-field" value="" >-->
+                                        <input th:if="${session.user!=null}" type="text" id="user-name" class="am-form-field" th:value="*{username}" >
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="am-form-group " style="margin-top: 40px;" >
+                            <div class>
+                                <!--<label for="doc-button" class="am-u-sm-5 am-u-md-6 am-u-lg-6">-->
+                                <!--</label>-->
+                                <div class="am-u-sm-6 am-u-md-7 am-u-lg-7 am-u-sm-centered am-u-md-centered am-u-lg-centered">
+                                    <button id="btn-updatebaseinfo" type="submit" class="am-btn am-btn-primary">保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
