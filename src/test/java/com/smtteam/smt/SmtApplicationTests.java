@@ -31,6 +31,5 @@ public class SmtApplicationTests {
     @Test
     public void contextLoads() {
     }
-
 }
 

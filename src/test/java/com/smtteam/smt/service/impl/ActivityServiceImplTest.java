@@ -22,4 +22,6 @@ public class ActivityServiceImplTest extends SmtApplicationTests {
         Activity activity = activityService.getActivityById(id);
         System.out.println(activity.toString());
     }
+
+
 }

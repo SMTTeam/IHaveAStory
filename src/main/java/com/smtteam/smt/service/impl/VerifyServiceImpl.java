@@ -62,7 +62,7 @@ public class VerifyServiceImpl implements VerifyService {
 
         String url = email + "&" + EncryptUtil.SHA256(verify);
         url = server + "/register/acceptverifyemail/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
-        String content = "<html><head><title></title></head><body>亲爱的SMT用户您好，<br> &nbsp;&nbsp;&nbsp;您刚刚注册成为SMT用户，请点击以下链接完成邮箱验证：<br> &nbsp;&nbsp; <a href = \""+ url +"\">"+ url +"</a></body></html>";
+        String content = "<html><head><title></title></head><body>亲爱的SMT用户，<br> &nbsp;&nbsp;&nbsp;您刚刚注册成为SMT用户，请点击以下链接完成邮箱验证：<br> &nbsp;&nbsp; <a href = \""+ url +"\">"+ url +"</a></body></html>";
 
         System.out.println(content);
         String[] tos = new String[]{email};
