@@ -4,10 +4,7 @@ import com.smtteam.smt.common.bean.ResultVO;
 import com.smtteam.smt.model.Release;
 import com.smtteam.smt.service.ReleaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,5 +34,19 @@ public class ReleaseController {
     public ResultVO<Integer> getReleaseMaxID(){
         int num = releaseService.findMaxID();
         return new ResultVO<>(num);
+    }
+
+    /**
+     * 新增迭代
+     * @param proId
+     * @param name
+     * @param posId 前一个release的pos_id, 如果当前没有，传入0
+     * @return
+     */
+    @PostMapping("/create")
+    public ResultVO<Release> createRelease(@RequestParam int proId, @RequestParam String name, @RequestParam int posId) {
+        Release release = new Release(proId,name,posId+1);
+        Release result = releaseService.createRelease(release);
+        return new ResultVO<>(result);
     }
 }

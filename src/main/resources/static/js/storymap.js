@@ -699,16 +699,24 @@ function getIteration(proId) {
             }
             else {
                 var releaseID
+                // $.ajax({
+                //     type: "GET",
+                //     url: "/release/maxId",
+                //     data: {},
+                //     async: false,
+                //     success: function (data) {
+                //         releaseID = data.data+1
+                //     }
+                // })
                 $.ajax({
-                    type: "GET",
-                    url: "/release/maxId",
-                    data: {},
+                    type: "POST",
+                    url: "/release/create",
+                    data: {"proId": proId, "name": "默认分组", "posId": 0},
                     async: false,
                     success: function (data) {
-                        releaseID = data.data+1
+                        releaseID = data.data.id
                     }
                 })
-                //TODO add in database
                 var release = '<div class="release-group">\n' +
                     '                <div class="release-header">\n' +
                     '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
@@ -742,31 +750,68 @@ function getIteration(proId) {
     })
 }
 
-// function createIter(ele, preIter) {
-//     var newId = preIter+1
-//     var new_iter = '<div class="release-group">\n' +
-//         '                <div class="release-header">\n' +
-//         '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
-//         '                    <div class="expand-switcher">\n' +
-//         '                        <i class="fa fa-minus"></i>\n' +
-//         '                    </div>\n' +
-//         '                    <div class="release-name">\n' +
-//         '                        <span id="group' + newId + '">未命名分组</span>\n' +
-//         '                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">\n' +
-//         '                    </div>\n' +
-//         '                    <div class="dropdown">\n' +
-//         '                        <button class="transparent-btn dropdown-toggle" type="button" data-toggle="dropdown">\n' +
-//         '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
-//         '                        </button>\n' +
-//         '                        <ul class="dropdown-menu">\n' +
-//         '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
-//         '                            <li class="disabled"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
-//         '                            <li><a onclick="createIter(this,'+newId+')" class="create-release below">在下方新建分组</a></li>\n' +
-//         '                        </ul>\n' +
-//         '                    </div>\n' +
-//         '                </div>\n' +
-//         '            </div>'
-//     var preId = "release-"+preIter
-//     var pre_container = $("#"+preId).parent()
-//     pre_container.after()
-// }
+function createIter(ele, preId) {
+    var newId
+    $.ajax({
+        type: "POST",
+        url: "/release/create",
+        data: {"proId": proId, "name": "未命名分组", "posId": preId},
+        async: false,
+        success: function (data) {
+            newId = data.data.id
+        }
+    })
+    var new_iter = '<div class="release-group">\n' +
+        '                <div class="release-header">\n' +
+        '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
+        '                    <div class="expand-switcher">\n' +
+        '                        <i class="fa fa-minus"></i>\n' +
+        '                    </div>\n' +
+        '                    <div class="release-name">\n' +
+        '                        <span id="group' + newId + '">未命名分组</span>\n' +
+        '                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">\n' +
+        '                    </div>\n' +
+        '                    <div class="dropdown">\n' +
+        '                        <button class="transparent-btn dropdown-toggle" type="button" data-toggle="dropdown">\n' +
+        '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
+        '                        </button>\n' +
+        '                        <ul class="dropdown-menu">\n' +
+        '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
+        '                            <li class="disabled"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
+        '                            <li><a onclick="createIter(this,'+newId+')" class="create-release below">在下方新建分组</a></li>\n' +
+        '                        </ul>\n' +
+        '                    </div>\n' +
+        '                </div>\n' +
+        '            </div>\n' +
+        '            <div class="feature-block-container expanded">\n' +
+        '               <ul class="feature-block-list non-list flat-list" id="release-' + newId + '"></ul>\n' +
+        '            </div>'
+    var preStr = "release-"+preId
+    var pre_container = $("#"+preStr).parent()
+    pre_container.after(new_iter)
+    $(".task-container").each(function () {
+        var acolumn_id= "a"+$(this).parent().parent().attr("id")+"release-"+newId
+        var feature_block = '<li class="feature-block">' +
+            '<div class="feature-block-expanded">' +
+            '<ul class="feature-column-list non-list flat-list" id="'+acolumn_id+'">' +
+            '</ul>' +
+            '</div>'
+        '</li>'
+        $("#release-"+newId).append(feature_block)
+        $(this).children().each(function () {
+            if ($(this).attr("id")!=null){
+                var index = $(this).attr("id").lastIndexOf("-")
+                var t_id = $(this).attr("id").substr(index+1)
+                var tcolumn_id = "tcolumn-"+t_id+"release-"+newId
+                var feature_column = '<li class="feature-column vertical-list ">' +
+                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
+                    '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_id+')">' +
+                    '<p class="title-placeholder">新建标签</p></div>' +
+                    '</ul>' +
+                    '</li>'
+            }
+            $("#"+acolumn_id).append(feature_column)
+        })
+    })
+    changeColumnWidth()
+}

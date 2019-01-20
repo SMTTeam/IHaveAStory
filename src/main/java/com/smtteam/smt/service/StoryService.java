@@ -1,10 +1,8 @@
 package com.smtteam.smt.service;
 
-import com.smtteam.smt.common.bean.IterationVO;
 import com.smtteam.smt.model.Story;
 
 import java.util.List;
-import java.util.Map;
 
 public interface StoryService {
 
