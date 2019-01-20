@@ -35,6 +35,6 @@ public interface StoryDao extends JpaRepository<Story, Integer> {
             "  SELECT id FROM Task WHERE activity_id IN (\n" +
             "    SELECT id FROM Activity WHERE pro_id=:proId\n" +
             "  )\n" +
-            ")ORDER BY iteration DESC")
+            ")ORDER BY iteration")
     List<Map<String,IterationVO>> findIterByProId(@Param("proId")int proId);
 }

@@ -143,6 +143,14 @@ body {
     border-right:1px dashed #ccc;
     right:-1px
 }
+
+.release-border-line{
+    position:absolute;
+    left:0;
+    border-bottom:1px dashed #ccc;
+    bottom:-1px
+}
+
 .board-head {
     /*min-width: 200%;*/
     z-index: 4;
@@ -164,7 +172,7 @@ body {
 
 .release-group {
     min-width: 100%;
-    border-bottom: 1px dashed #ccc
+    /*border-bottom: 1px dashed #ccc*/
 }
 
 .release-header {

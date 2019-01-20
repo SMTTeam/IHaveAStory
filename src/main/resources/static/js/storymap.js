@@ -79,31 +79,22 @@ function createActivity(element,a_posId,t_posId){
     if(a_posId==0){
         $("#init-column").remove()
         $("#head-container").append(tmp)
-        $(".feature-block-list").each(function (index,element) {
-            var acolumn_id= "acolumn-"+activityId+$(element).attr("id")
+        $(".feature-block-list").each(function () {
+            var acolumn_id= "acolumn-"+activityId+$(this).attr("id")
             var feature_block = '<li class="feature-block">' +
                 '<div class="feature-block-expanded">' +
                 '<ul class="feature-column-list non-list flat-list" id="'+acolumn_id+'">' +
                 '</ul>' +
                 '</div>'
             '</li>'
-            $(element).append(feature_block)
-            var tcolumn_id = "tcolumn-"+t_num+$(element).attr("id")
-            var feature_column
-            if (index != $(".feature-block-list").length-1) {
-                feature_column = '<li class="feature-column vertical-list ">' +
+            $(this).append(feature_block)
+            var tcolumn_id = "tcolumn-"+t_num+$(this).attr("id")
+            var feature_column = '<li class="feature-column vertical-list ">' +
                     '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
                     '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_num+')">' +
                     '<p class="title-placeholder">新建标签</p></div>' +
                     '</ul>' +
                     '</li>'
-            }
-            else {
-                feature_column = '<li class="feature-column vertical-list ">' +
-                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
-                    '</ul>' +
-                    '</li>'
-            }
             $("#"+acolumn_id).append(feature_column)
         })
     }else {
@@ -111,37 +102,28 @@ function createActivity(element,a_posId,t_posId){
         var aindex = id.lastIndexOf("-")
         var preActivityId = id.substr(aindex+1)
 
-        $(".feature-block-list").each(function (index,element) {
-            var acolumn_id= "acolumn-"+activityId+$(element).attr("id")
+        $(".feature-block-list").each(function () {
+            var acolumn_id= "acolumn-"+activityId+$(this).attr("id")
             var feature_block = '<li class="feature-block">' +
                 '<div class="feature-block-expanded">' +
                 '<ul class="feature-column-list non-list flat-list" id="'+acolumn_id+'">' +
                 '</ul>' +
                 '</div>'
             '</li>'
-            var preacolumn = "acolumn-"+preActivityId+$(element).attr("id")
+            var preacolumn = "acolumn-"+preActivityId+$(this).attr("id")
             $("#"+preacolumn).parent().parent().after(feature_block)
 
-            var tcolumn_id = "tcolumn-"+t_num+$(element).attr("id")
-            var feature_column
-            if (index != $(".feature-block-list").length-1) {
-                feature_column = '<li class="feature-column vertical-list ">' +
+            var tcolumn_id = "tcolumn-"+t_num+$(this).attr("id")
+            var feature_column= '<li class="feature-column vertical-list ">' +
                     '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
                     '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_num+')">' +
                     '<p class="title-placeholder">新建标签</p></div>' +
                     '</ul>' +
                     '</li>'
-            }
-            else {
-                feature_column = '<li class="feature-column vertical-list ">' +
-                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
-                    '</ul>' +
-                    '</li>'
-            }
             $("#"+acolumn_id).append(feature_column)
         })
     }
-
+    changeColumnWidth()
 }
 
 function createTask(element,activityId,t_posId) {
@@ -179,50 +161,33 @@ function createTask(element,activityId,t_posId) {
         $("#"+id).after(tmp)
         var tindex = id.lastIndexOf("-")
         var preTaskId = id.substr(tindex+1)
-        $(".feature-block-list").each(function (index,element) {
-            var tcolumn_id = "tcolumn-"+t_num+$(element).attr("id")
-            var feature_column
-            if (index != $(".feature-block-list").length-1) {
-                feature_column = '<li class="feature-column vertical-list ">' +
+        $(".feature-block-list").each(function () {
+            var tcolumn_id = "tcolumn-"+t_num+$(this).attr("id")
+            var feature_column = '<li class="feature-column vertical-list ">' +
                     '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
                     '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_num+')">' +
                     '<p class="title-placeholder">新建标签</p></div>' +
                     '</ul>' +
                     '</li>'
-            }
-            else {
-                feature_column = '<li class="feature-column vertical-list ">' +
-                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
-                    '</ul>' +
-                    '</li>'
-            }
-            var pretcolumn = "tcolumn-"+preTaskId+$(element).attr("id")
+            var pretcolumn = "tcolumn-"+preTaskId+$(this).attr("id")
             $("#"+pretcolumn).parent().after(feature_column)
         })
     }else {
         $(element).parent().append(tmp)
         $(element).remove()
-        $(".feature-block-list").each(function (index,element) {
-            var acolumn_id = "acolumn-"+activityId+$(element).attr("id")
-            var tcolumn_id = "tcolumn-"+t_num+$(element).attr("id")
-            var feature_column
-            if (index != $(".feature-block-list").length-1) {
-                feature_column = '<li class="feature-column vertical-list ">' +
+        $(".feature-block-list").each(function () {
+            var acolumn_id = "acolumn-"+activityId+$(this).attr("id")
+            var tcolumn_id = "tcolumn-"+t_num+$(this).attr("id")
+            var feature_column= '<li class="feature-column vertical-list ">' +
                     '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
                     '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_num+')">' +
                     '<p class="title-placeholder">新建标签</p></div>' +
                     '</ul>' +
                     '</li>'
-            }
-            else {
-                feature_column = '<li class="feature-column vertical-list ">' +
-                    '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
-                    '</ul>' +
-                    '</li>'
-            }
             $("#"+acolumn_id).append(feature_column)
         })
     }
+    changeColumnWidth()
 }
 
 function createStory(element,taskId,s_posId,iteration) {
@@ -260,6 +225,10 @@ function labelCreateStory(element,taskId) {
 $("#createStorySubmit").click(function () {
     var taskId = $("#taskId").val()
     var name = $("#name").val()
+    if (name == "") {
+        alert("story名称不能为空")
+        return
+    }
     var storyPoint = $("#storyPoint").val()
     var priority = $("#priority").val()
     var description = $("#description").val()
@@ -402,6 +371,10 @@ function editStory(ele,s_id) {
 $("#modifyStorySubmit").click(function () {
     var taskId = $("#m_taskId").val()
     var name = $("#m_name").val()
+    if (name == "") {
+        alert("story名称不能为空")
+        return
+    }
     var storyPoint = $("#m_storyPoint").val()
     var priority = $("#m_priority").val()
     var description = $("#m_description").val()
@@ -430,7 +403,10 @@ $("#modifyStorySubmit").click(function () {
         data:JSON.stringify(data),
         async: false,
         success: function (data) {
-
+            var sarea_id = "sarea-" + id
+            var nameobj = $("#"+sarea_id)
+            nameobj.text(name)
+            nameobj.attr("title",name)
         }
     })
 })
@@ -490,7 +466,6 @@ function deleteTask(ele) {
 
             }
         })
-        //TODO fixbug
     }
 
 }
@@ -518,11 +493,17 @@ $(document).ready(function () {
     getActivity(proId)
 
     changeLineHeight()
+    changeColumnWidth()
 })
 
 function changeLineHeight(){
     var winHeight = $(document).height();
     $(".column-border-line").css("height",winHeight);
+}
+
+function changeColumnWidth(){
+    var winWidth = $(document).width();
+    $(".release-border-line").css("width",winWidth);
 }
 
 function init () {
@@ -601,24 +582,15 @@ function getActivity(proId) {
                                     '                                </div>\n' +
                                     '                            </li>\n'
 
-                                $(".feature-block-list").each(function (index,element) {
-                                    var acolumn_id = "acolumn-"+a_id+$(element).attr("id")
-                                    var tcolumn_id = "tcolumn-"+t_id+$(element).attr("id")
-                                    var feature_column
-                                    if (index != $(".feature-block-list").length-1) {
-                                        feature_column = '<li class="feature-column vertical-list ">' +
+                                $(".feature-block-list").each(function () {
+                                    var acolumn_id = "acolumn-"+a_id+$(this).attr("id")
+                                    var tcolumn_id = "tcolumn-"+t_id+$(this).attr("id")
+                                    var feature_column = '<li class="feature-column vertical-list ">' +
                                             '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
                                             '<div class="init-card" data-toggle="modal" data-target="#createStoryModal" onclick="labelCreateStory(this,'+t_id+')">' +
                                             '<p class="title-placeholder">新建标签</p></div>' +
                                             '</ul>' +
                                             '</li>'
-                                    }
-                                    else {
-                                        feature_column = '<li class="feature-column vertical-list ">' +
-                                            '<ul class="card-list non-list ui-sortable" id="'+tcolumn_id+'">' +
-                                            '</ul>' +
-                                            '</li>'
-                                    }
                                     $("#"+acolumn_id).append(feature_column)
                                 })
 
@@ -691,6 +663,10 @@ function getActivity(proId) {
 
         }
     })
+    if (role == 1) {
+        $(".init-card").attr("onclick","")
+        $(".init-card").attr("data-target","")
+    }
 }
 
 function getIteration(proId) {
@@ -701,18 +677,51 @@ function getIteration(proId) {
         async: false,
         success: function (data) {
             var ilist = data.data;
-            for (var k in ilist) {
-                var iteration = ilist[k].iteration
-                var groupName = ilist[k].groupName
-                // alert(iteration)
-                // alert(groupName)
+            if(ilist.length!=0) {
+                for (var k in ilist) {
+                    var iteration = ilist[k].iteration
+                    var groupName = ilist[k].groupName
+                    // alert(iteration)
+                    // alert(groupName)
+                    var release = '<div class="release-group">\n' +
+                        '                <div class="release-header">\n' +
+                        '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
+                        '                    <div class="expand-switcher">\n' +
+                        '                        <i class="fa fa-minus"></i>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="release-name">\n' +
+                        '                        <span id="group' + iteration + '">' + groupName + '</span>\n' +
+                        '                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">\n' +
+                        '                    </div>\n' +
+                        '                    <div class="dropdown">\n' +
+                        '                        <button class="transparent-btn dropdown-toggle" type="button" data-toggle="dropdown">\n' +
+                        '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
+                        '                        </button>\n' +
+                        '                        <ul class="dropdown-menu">\n' +
+                        '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
+                        '                            <li class="disabled" title="有从属卡片不能被删除"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
+                        '                            <li><a href="javascript: void(0)" class="create-release below">在下方新建分组</a></li>\n' +
+                        '                        </ul>\n' +
+                        '                    </div>\n' +
+                        '                </div>\n' +
+                        '            </div>'
+                    var block_container = '<div class="feature-block-container expanded">' +
+                        '<ul class="feature-block-list non-list flat-list" id="release-' + iteration + '">' +
+                        '</ul>' +
+                        '</div>'
+                    release += block_container
+                    $(".board-body").append(release)
+                }
+            }
+            else {
                 var release = '<div class="release-group">\n' +
                     '                <div class="release-header">\n' +
+                    '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
                     '                    <div class="expand-switcher">\n' +
                     '                        <i class="fa fa-minus"></i>\n' +
                     '                    </div>\n' +
                     '                    <div class="release-name">\n' +
-                    '                        <span id="group'+iteration+'">' + groupName + '</span>\n' +
+                    '                        <span id="group0">默认分组</span>\n' +
                     '                        <input type="text" class="form-control name-editor" placeholder="请输入release名称" maxlength="50">\n' +
                     '                    </div>\n' +
                     '                    <div class="dropdown">\n' +
@@ -720,25 +729,18 @@ function getIteration(proId) {
                     '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
                     '                        </button>\n' +
                     '                        <ul class="dropdown-menu">\n' +
-                    '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
-                    '                            <li class="disabled" title="有从属卡片不能被删除"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
-                    '                            <li><a href="javascript: void(0)" class="create-release below">在下方新建分组</a></li>\n' +
+                    '                            <li><a href="javascript: void(0)" class="create-release below">在上方新建分组</a></li>\n' +
                     '                        </ul>\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>'
                 var block_container = '<div class="feature-block-container expanded">' +
-                    '<ul class="feature-block-list non-list flat-list" id="release-' + iteration + '">' +
+                    '<ul class="feature-block-list non-list flat-list" id="release-0">' +
                     '</ul>' +
                     '</div>'
-                release+=block_container
-                $(".board-body").prepend(release)
+                release += block_container
+                $(".board-body").append(release)
             }
-            var block_container_df = '<div class="feature-block-container expanded">' +
-                '<ul class="feature-block-list non-list flat-list" id="release-df">' +
-                '</ul>' +
-                '</div>'
-            $(".board-body").append(block_container_df)
         }
     })
 }
