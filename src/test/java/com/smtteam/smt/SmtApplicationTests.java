@@ -31,5 +31,8 @@ public class SmtApplicationTests {
     }
 
 
+    public MockMvc getMockMvc(){
+        return mockMvc;
+    }
 }
 

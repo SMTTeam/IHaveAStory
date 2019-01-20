@@ -6,8 +6,6 @@ import com.smtteam.smt.service.UserService;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -18,8 +16,6 @@ import static org.junit.Assert.*;
 public class UserServiceImplTest extends SmtApplicationTests {
     @Autowired
     private UserService userService;
-
-    private final Logger logger = LoggerFactory.getLogger(UserServiceImplTest.class);
 
     @Test
     public void test0_findByEmailLike(){

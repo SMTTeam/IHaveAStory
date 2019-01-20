@@ -52,8 +52,6 @@ public class LoginController {
                 ResultVO<User> resultVO = new ResultVO<>(result);
                 System.out.println(resultVO.getCode());
                 HttpSession session = request.getSession();
-//            session.setAttribute("useremail",email);
-//            session.setAttribute("password",pwd);
                 ShowUser showUser = new ShowUser();//使用showUser屏蔽用户密码
                 showUser.setId(result.getId());
                 showUser.setEmail(result.getEmail());
