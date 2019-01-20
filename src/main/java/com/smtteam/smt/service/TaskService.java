@@ -20,5 +20,4 @@ public interface TaskService {
 
     List<Task> getByActivity(int activityId);
 
-    int findMaxID();
 }
