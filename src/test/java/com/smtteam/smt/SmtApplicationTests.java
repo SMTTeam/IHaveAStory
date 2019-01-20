@@ -28,9 +28,9 @@ public class SmtApplicationTests {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
-    @Test
-    public void contextLoads() {
-    }
+//    @Test
+//    public void contextLoads() {
+//    }
 
 }
 

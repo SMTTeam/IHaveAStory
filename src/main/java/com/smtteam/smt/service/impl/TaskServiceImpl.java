@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * created by Kimone
@@ -36,7 +37,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task getTaskById(int id) {
-        return taskDao.findById(id).get();
+        Optional<Task> task = taskDao.findById(id);
+        return task.orElse(null);
     }
 
     @Override
