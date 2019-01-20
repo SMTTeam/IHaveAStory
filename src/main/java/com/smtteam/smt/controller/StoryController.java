@@ -1,6 +1,5 @@
 package com.smtteam.smt.controller;
 
-import com.smtteam.smt.common.bean.IterationVO;
 import com.smtteam.smt.common.bean.ResultVO;
 import com.smtteam.smt.common.bean.StoryVO;
 import com.smtteam.smt.model.Story;
@@ -8,9 +7,7 @@ import com.smtteam.smt.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/story")
