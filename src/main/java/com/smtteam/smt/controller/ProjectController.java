@@ -66,10 +66,8 @@ public class ProjectController {
             ShowUser showUser = user.toShowUser();
             session.setAttribute("user",showUser);
             response.sendRedirect("/storyMapping?proId=" + projectUser.getProId());
-        } catch (NoAccessException | NumberFormatException e) {
+        } catch (NoAccessException | NumberFormatException | IOException e) {
             return "error";
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return "error";
     }
