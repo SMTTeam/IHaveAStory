@@ -5,7 +5,7 @@
 }
 .column{
     position: relative;
-    border-right:1px dashed #ccc;
+    /*border-right:1px dashed #ccc;*/
     display: inline-block;
 }
 
@@ -132,20 +132,25 @@ body {
     min-height: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    background-color: #f2f2f2;
+    /*background-color: #f2f2f2;*/
     position: relative;
     /*min-height: 388px;*/
     font-size: 12px;
 }
-
+.column-border-line{
+    position:absolute;
+    top:0;
+    border-right:1px dashed #ccc;
+    right:-1px
+}
 .board-head {
-    min-width: 200%;
+    /*min-width: 200%;*/
     z-index: 4;
     padding-bottom: 5px
 }
 
 .board-body {
-    width: 200%;
+    /*width: 200%;*/
     /*position: relative;*/
     /*overflow: hidden*/
 }
@@ -260,7 +265,7 @@ body {
 
 .mapping-board .feature-block-container.expanded .feature-block {
     /*margin: 0 5px;*/
-    border-right:1px dashed #ccc;
+    /*border-right:1px dashed #ccc;*/
     height: 100%
 }
 
@@ -381,9 +386,6 @@ body {
     border: 1px solid #3B71DF!important
 }
 
-.vertical-list .issue-card:not(.sticky) {
-    cursor: move
-}
 
 .vertical-list .issue-card .operation-menu {
     /*display: none;*/

@@ -1,7 +1,7 @@
 $(function () {
-    $(window).resize(function(){
-        location.reload()
-    });
+    // $(window).resize(function(){
+    //     location.reload()
+    // });
 
     checkLoginState();  //检查用户登录状态
 

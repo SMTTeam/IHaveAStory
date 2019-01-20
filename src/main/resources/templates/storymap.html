@@ -12,6 +12,7 @@
 
 <body>
 <div class="story-map-container">
+    <div th:include="/common/nav :: loadNav"></div>
     <div class="mapping-board">
         <div class="board-head">
             <div class="head-container" id="head-container">
@@ -172,6 +173,8 @@
 <div th:include="/common/onload_js::loadJS"></div>
 <script th:inline="javascript">
     var proId = [[${proId}]]
+    var userId = [[${session.user.id}]]
+    var role
 </script>
 <script th:src="@{js/storymap.js}"></script>
 </body>

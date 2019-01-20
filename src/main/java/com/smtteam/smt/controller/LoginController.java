@@ -1,5 +1,6 @@
 package com.smtteam.smt.controller;
 
+import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.common.bean.ResultVO;
 import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
@@ -31,26 +32,35 @@ public class LoginController {
      */
     @PostMapping("/checklogin")
     public ResultVO<User> checkLogin(@RequestParam String email , @RequestParam String pwd , HttpServletRequest request){
-        User result = userService.findByEmailAndPsw(email,pwd);
+        User temp_result = userService.findByEmailAndStatus(email , Constants.USEREMAIL_VERIFIED);
 
-        if( result == null ){
+        if( temp_result == null ){//首先验证邮箱是否已经验证
             ResultVO<User> resultVO = new ResultVO<>();
             resultVO.setCode(ResultCode.NOT_FOUND.getCode());
-            resultVO.setMessage("用户名或密码错误");
+            resultVO.setMessage("邮箱未验证");
             System.out.println(resultVO.getCode());
             return resultVO;
         }else {
-            ResultVO<User> resultVO = new ResultVO<>(result);
-            System.out.println(resultVO.getCode());
-            HttpSession session = request.getSession();
+            User result = userService.findByEmailAndPsw(email , pwd);
+            if( result == null ){
+                ResultVO<User> resultVO = new ResultVO<>();
+                resultVO.setCode(ResultCode.NOT_FOUND.getCode());
+                resultVO.setMessage("用户名或密码错误");
+                System.out.println(resultVO.getCode());
+                return resultVO;
+            }else {
+                ResultVO<User> resultVO = new ResultVO<>(result);
+                System.out.println(resultVO.getCode());
+                HttpSession session = request.getSession();
 //            session.setAttribute("useremail",email);
 //            session.setAttribute("password",pwd);
-            ShowUser showUser = new ShowUser();//使用showUser屏蔽用户密码
-            showUser.setId(result.getId());
-            showUser.setEmail(result.getEmail());
-            showUser.setUsername(result.getUsername());
-            session.setAttribute("user",showUser);
-            return resultVO;
+                ShowUser showUser = new ShowUser();//使用showUser屏蔽用户密码
+                showUser.setId(result.getId());
+                showUser.setEmail(result.getEmail());
+                showUser.setUsername(result.getUsername());
+                session.setAttribute("user",showUser);
+                return resultVO;
+            }
         }
     }
 
