@@ -19,5 +19,4 @@ public interface ActivityService {
 
     List<Activity> getActivityList(int proId);
 
-    int findMaxID();
 }

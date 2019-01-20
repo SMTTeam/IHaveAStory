@@ -5,7 +5,6 @@ import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
 import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.Project;
-import com.smtteam.smt.service.InviteService;
 import com.smtteam.smt.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

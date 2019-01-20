@@ -67,9 +67,4 @@ public class ActivityController {
         return new ResultVO<>(activities);
     }
 
-    @GetMapping("/maxId")
-    public ResultVO<Integer> getActivityNum() {
-        int num = activityService.findMaxID();
-        return new ResultVO<>(num);
-    }
 }

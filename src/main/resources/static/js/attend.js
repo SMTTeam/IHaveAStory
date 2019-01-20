@@ -1,9 +1,9 @@
 // 初始化
 $(function () {
     $('.am-nav li').removeClass('am-active');
-    $('.am-nav li:eq(1)').addClass('am-active');
+    $('.am-nav li:eq(2)').addClass('am-active');
 
-    sendGet('/api/project/list', function (list) {
+    sendGet('/api/project/attended', function (list) {
         if(list.length === 0){
             $('.smt-empty-msg').removeAttr("hidden");
         }else{

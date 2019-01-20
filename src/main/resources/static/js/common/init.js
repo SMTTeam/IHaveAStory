@@ -1,7 +1,7 @@
 $(function () {
-    $(window).resize(function(){
-        location.reload()
-    });
+    // $(window).resize(function(){
+    //     location.reload()
+    // });
 
 
     checkLoginState();  //检查用户登录状态
@@ -246,10 +246,11 @@ function sendGet(url, success) {
                 success(obj.data);
             }
         } else{
+            closeLoading();
             popMsg(obj.message);
         }
     }).fail(function (obj) {
-        console.log(obj);
+        popMsg("请求数据失败，请刷新或重试！")
         closeLoading();
     });
 }
@@ -262,12 +263,12 @@ function sendPost(url, data, success) {
                 success(response.data);
             }
         } else {
+            closeLoading();
             popMsg(response.message);
         }
-    }).error(function (obj) {
+    }).fail(function (obj) {
         closeLoading();
-        console.log(obj);
-        popMsg("操作失败!")
+        popMsg("操作失败，请刷新或重试!")
     });
 }
 

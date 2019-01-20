@@ -72,10 +72,4 @@ public class TaskController {
         return new ResultVO<>(tasks);
     }
 
-
-    @GetMapping("/maxId")
-    public ResultVO<Integer> getTaskNum() {
-        int num = taskService.findMaxID();
-        return new ResultVO<>(num);
-    }
 }

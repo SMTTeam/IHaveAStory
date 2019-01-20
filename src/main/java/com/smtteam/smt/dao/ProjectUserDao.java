@@ -21,4 +21,6 @@ public interface ProjectUserDao extends JpaRepository<ProjectUser, Integer> {
     ProjectUser findByUserIdAndProId(Integer userId, Integer proId);
 
     List<ProjectUser> findByUserIdAndStatus(int userId, int status);
+
+    List<ProjectUser> findByProIdOrderByRoleDesc(Integer proId);
 }

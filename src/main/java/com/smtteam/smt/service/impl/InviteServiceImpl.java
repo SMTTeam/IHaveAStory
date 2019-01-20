@@ -1,25 +1,27 @@
 package com.smtteam.smt.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.smtteam.smt.common.bean.Constants;
+import com.smtteam.smt.common.bean.ShowProjectUser;
 import com.smtteam.smt.common.enums.ProjectRole;
 import com.smtteam.smt.common.exception.ExistException;
 import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.dao.ProjectUserDao;
+import com.smtteam.smt.dao.UserDao;
 import com.smtteam.smt.model.ProjectUser;
+import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.InviteService;
 import com.smtteam.smt.util.EncryptUtil;
 import com.smtteam.smt.util.EnumUtil;
 import com.smtteam.smt.util.MailUtil;
 import com.smtteam.smt.util.StringUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * 类说明：邀请具体实现
@@ -32,6 +34,8 @@ import java.util.NoSuchElementException;
 public class InviteServiceImpl implements InviteService {
     @Autowired
     private ProjectUserDao projectUserDao;
+    @Autowired
+    private UserDao userDao;
     @Autowired
     private MailUtil mailUtil;
 
@@ -54,8 +58,8 @@ public class InviteServiceImpl implements InviteService {
         projectUser = projectUserDao.save(projectUser);
 
         String url = userId + "&" + proId + "&" + EncryptUtil.SHA256(salt);
-        url = server + "/api/invite/accept/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
-        String content = "<html><head><title></title></head><body>亲爱的SMT用户您好,<br> &nbsp;&nbsp;&nbsp;其他用户邀请您加入" + proName + "项目，点击以下链接查看详情：<br> &nbsp;&nbsp; <a href = \"" + url + "\">" + url + "</a></body></html>";
+        url = server + "/invite/accept/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
+        String content = "<html><head><title></title></head><body>亲爱的SMT用户您好,<br> &nbsp;&nbsp;&nbsp;其他用户邀请您加入" + proName + "项目，点击以下链接加入此项目：<br> &nbsp;&nbsp; <a href = \"" + url + "\">" + url + "</a></body></html>";
         System.out.println(content);
         String[] tos = new String[]{email};
         mailUtil.sendHtmlMail(tos, "项目邀请", content);
@@ -95,4 +99,30 @@ public class InviteServiceImpl implements InviteService {
     public ProjectUser findProjectUser(Integer proId, Integer userId) {
         return projectUserDao.findByUserIdAndProId(userId, proId);
     }
+
+    /**
+     * 获取项目的参与列表
+     *
+     * @param proId
+     * @return
+     */
+    @Override
+    public List<ShowProjectUser> findInviteList(Integer proId) {
+        List<ProjectUser> projectUsers = projectUserDao.findByProIdOrderByRoleDesc(proId);
+        List<ShowProjectUser> showUsers = new ArrayList<>();
+        for(ProjectUser projectUser : projectUsers){
+            ShowProjectUser showInfo = new ShowProjectUser();
+            BeanUtils.copyProperties(projectUser, showInfo);
+            Optional<User> userInfo = userDao.findById(projectUser.getUserId());
+            if(userInfo.isPresent()){
+                User user = userInfo.get();
+                //TODO showInfo.setAvatar(user.getAvatar());
+                showInfo.setUsername(user.getUsername());
+                showUsers.add(showInfo);
+            }
+        }
+        return showUsers;
+    }
+
+
 }

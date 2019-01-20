@@ -72,14 +72,4 @@ public class ActivityServiceImpl implements ActivityService {
         return activityDao.findByProIdOrderByPosId(proId);
     }
 
-    @Override
-    public int findMaxID() {
-        Integer num = activityDao.findMaxID();
-        if(num==null){
-            return 0;
-        }else {
-            return num;
-        }
-
-    }
 }

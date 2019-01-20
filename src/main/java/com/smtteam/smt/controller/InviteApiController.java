@@ -1,7 +1,9 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ResultVO;
+import com.smtteam.smt.common.bean.ShowProjectUser;
 import com.smtteam.smt.common.bean.ShowUser;
+import com.smtteam.smt.common.enums.ProjectRole;
 import com.smtteam.smt.common.exception.ExistException;
 import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.Project;
@@ -10,10 +12,12 @@ import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.InviteService;
 import com.smtteam.smt.service.ProjectService;
 import com.smtteam.smt.service.UserService;
+import com.smtteam.smt.util.EnumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -54,25 +58,35 @@ public class InviteApiController {
 
     /**
      * 发出邀请
-     * @param userId
+     * @param email
      * @param proId
      * @param role 权限，对应枚举类
      * @return
      */
     @PostMapping("create")
-    public ResultVO<Void> sendInviteEmail(@RequestParam Integer userId, @RequestParam Integer proId, @RequestParam Integer role){
-        User user = userService.findById(userId);
+    public ResultVO<Void> sendInviteEmail(@RequestParam String email, @RequestParam Integer proId, @RequestParam Integer role, HttpServletRequest request){
+        User user = userService.findByEmailAndStatus(email);
         if(user == null){
-            return new ResultVO<>("用户不存在。");
+            return new ResultVO<>("用户未注册或未通过验证。");
         }
-        //TODO 获取用户ID
-        Integer ownerId = 1;
+        //获取操作者用户ID
+        HttpSession session = request.getSession();
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        Integer ownerId = showUser.getId();
+        //存在判断
+        ProjectUser projectUser = inviteService.findProjectUser(proId, ownerId);
         Project project = projectService.findById(proId);
-        if(project == null || !project.getUserId().equals(ownerId)) {
-            return new ResultVO<>("项目不存在或者您没有权限管理这个项目。");
+        if(project == null || projectUser == null) {
+            return new ResultVO<>("项目不存在或者您未参与该项目。");
         }
+
         try {
-            inviteService.createInvitation(userId, user.getEmail(), proId, project.getProName(), role);
+            //权限判断
+            ProjectRole projectRole = EnumUtil.getEnumByField(ProjectRole.class, "role", projectUser.getRole());
+            if(projectRole == null || !projectRole.canEditProject()){
+                return new ResultVO<>("项目不存在或者您没有权限管理这个项目。");
+            }
+            inviteService.createInvitation(user.getId(), user.getEmail(), proId, project.getProName(), role);
         } catch (NoSuchElementException | NoSuchFieldException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
             return new ResultVO<>("权限输入有误。");
@@ -83,22 +97,6 @@ public class InviteApiController {
     }
 
 
-    @GetMapping("accept/{code}")
-    public ResultVO<Void> acceptInvitation(@PathVariable String code){
-        System.out.println(code);
-        if(code == null || code.isEmpty()){
-            return new ResultVO<>();
-        }
-        ProjectUser projectUser = null;
-        try {
-            projectUser = inviteService.acceptInvitation(code);
-            //TODO 更新userID,跳转页面
-        } catch (NoAccessException | NumberFormatException e) {
-            return new ResultVO<>(e.getMessage());
-        }
-        return new ResultVO<>();
-    }
-
     /**
      * 获取用户对项目的权限
      */
@@ -106,6 +104,12 @@ public class InviteApiController {
     public ResultVO<ProjectUser> getProjectRole(@RequestParam Integer proId, @RequestParam Integer userId, HttpServletRequest request){
         ProjectUser role  = inviteService.findProjectUser(proId, userId);
         return new ResultVO<>(role);
+    }
+
+    @GetMapping("list")
+    public ResultVO<List<ShowProjectUser>> getInviteList(@RequestParam Integer proId, HttpServletRequest request){
+        List<ShowProjectUser> userList  = inviteService.findInviteList(proId);
+        return new ResultVO<>(userList);
     }
 
 }
