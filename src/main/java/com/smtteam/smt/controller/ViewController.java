@@ -47,10 +47,5 @@ public class ViewController {
         return new ModelAndView("register");
     }
 
-    //测试用的（测试跳转到main 主页）
-    @RequestMapping("/main")
-    public ModelAndView main(){
-        return new ModelAndView("main");
-    }
 
 }

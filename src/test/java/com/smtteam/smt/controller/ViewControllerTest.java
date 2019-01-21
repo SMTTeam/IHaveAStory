@@ -7,6 +7,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
+
 
 /**
  * created by Kimone
@@ -27,13 +31,14 @@ public class ViewControllerTest extends SmtApplicationTests {
     @Test
     public void test2() throws Exception {
         mockMvc = getMockMvc();
-        mockMvc.perform(get("/storyMapping").sessionAttr("user",getUser()));
+        mockMvc.perform(get("/storyMapping?proId=1").sessionAttr("user",getUser()));
     }
 
     @Test
     public void login() throws Exception {
         mockMvc = getMockMvc();
-        mockMvc.perform(get("/login"));
+        mockMvc.perform(get("/login")).andExpect(status().isOk());
+        mockMvc.perform(get("/login").sessionAttr("user",getUser()));
     }
 
     @Test
@@ -42,11 +47,6 @@ public class ViewControllerTest extends SmtApplicationTests {
         mockMvc.perform(get("/register"));
     }
 
-    @Test
-    public void main() throws Exception {
-        mockMvc = getMockMvc();
-        mockMvc.perform(get("/main"));
-    }
 
     private ShowUser getUser(){
         user.setId(1);
