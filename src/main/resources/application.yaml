@@ -33,7 +33,7 @@ spring:
   thymeleaf:
     cache: false
     encoding: UTF-8
-    mode: HTML5
+    mode: HTML
     servlet:
       content-type: text/html
 

@@ -8,11 +8,11 @@
     <link rel="stylesheet" th:href="@{css/storymap.css}">
 
 </head>
-<head th:include="/common/head :: loadHeader('用户故事地图')"></head>
+<head th:include="../templates/common/head :: loadHeader('用户故事地图')"></head>
 
 <body>
 <div class="story-map-container">
-    <div th:include="/common/nav :: loadNav"></div>
+    <div th:include="../templates/common/nav :: loadNav"></div>
     <div class="mapping-board">
         <div class="board-head">
             <div class="head-container" id="head-container">
@@ -150,7 +150,7 @@
 </div>
 <script th:src="${'//cdn.bootcss.com/jquery/3.3.1/jquery.min.js'}"></script>
 <script th:src="${'//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js'}"></script>
-<div th:include="/common/onload_js::loadJS"></div>
+<div th:include="../templates/common/onload_js::loadJS"></div>
 <script th:inline="javascript">
     var proId = [[${proId}]]
     var userId = [[${session.user.id}]]
