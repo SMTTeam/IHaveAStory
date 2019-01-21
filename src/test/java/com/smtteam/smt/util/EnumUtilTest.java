@@ -21,15 +21,18 @@ public class EnumUtilTest {
             assertEquals(1, ((Integer) b.get(0)).intValue());
             assertEquals(3, ((Integer) b.get(1)).intValue());
         } catch (NoSuchFieldException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
         }
     }
 
     @Test
-    public void getFieldSetMethodName() {
-    }
-
-    @Test
     public void getEnumByField() {
+        try {
+            ProjectRole role1 = EnumUtil.getEnumByField(ProjectRole.class,"role", 2);
+            assertNull(role1);
+            ProjectRole role2 = EnumUtil.getEnumByField(ProjectRole.class,"role", 3);
+            assertEquals(role2 != null ? role2.getRole() : 3, 3);
+
+        } catch (NoSuchFieldException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+        }
     }
 }

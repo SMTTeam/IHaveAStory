@@ -44,15 +44,17 @@ public class ViewController {
 
     @RequestMapping("/register")
     public ModelAndView register(){
-        ModelAndView modelAndView = new ModelAndView("register");
-        return modelAndView;
-//        return "register";
+        return new ModelAndView("register");
     }
 
+<<<<<<< HEAD
     //测试用的（测试跳转到main 主页）
     @RequestMapping("/main")
     public ModelAndView main(){
         ModelAndView modelAndView = new ModelAndView("main");
         return modelAndView;
     }
+=======
+
+>>>>>>> 4f6d02ddbfbf3607867203ff9bd4e2b8a33be189
 }

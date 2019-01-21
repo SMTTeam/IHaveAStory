@@ -59,14 +59,14 @@ public class EnumUtil {
         return  "get" + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
     }
 
-    public static String getFieldSetMethodName(Field field) {
-        if (field == null) {
-            return null;
-        }
-
-        String name = field.getName();
-        return "set" + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
-    }
+//    private static String getFieldSetMethodName(Field field) {
+//        if (field == null) {
+//            return null;
+//        }
+//
+//        String name = field.getName();
+//        return "set" + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
+//    }
 
 
     /**
@@ -75,7 +75,7 @@ public class EnumUtil {
      * @return SharedObjTypeEnum
      * @throws
      */
-    public static <T, K> T getEnumByField(Class<T> clazz, String fieldName, Integer value) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException{
+    public static <T> T getEnumByField(Class<T> clazz, String fieldName, Integer value) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException{
         Field field = clazz.getDeclaredField(fieldName);
         String methodName = getFieldGetMethodName(field);
         if (methodName != null) {

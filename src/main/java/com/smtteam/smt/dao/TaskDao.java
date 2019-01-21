@@ -22,10 +22,6 @@ public interface TaskDao extends JpaRepository<Task, Integer> {
     @Query("update Task set posId=posId+1 where activityId=:activityId and posId>:posId")
     void updateCreatePosID(@Param("activityId") int activityId, @Param("posId") int posId);
 
-//    @Modifying
-//    @Query("update Task set posId=posId-1 where posId>:posId")
-//    void updateDeletePosID(@Param("posId") int posId);
-
     List<Task> findByActivityIdOrderByPosId(int activityId);
 
     @Query("select max(t.id) from Task t ")

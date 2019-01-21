@@ -97,17 +97,4 @@ public class StoryController {
         return new ResultVO<>(stories);
     }
 
-    /**
-     * 获取某个project的迭代
-     * @param proId
-     * @return
-     */
-//    @GetMapping("/iterList/{proId}")
-//    public ResultVO<List<IterationVO>> getIterList(@PathVariable int proId){
-//        List<IterationVO> list = new ArrayList<>();
-//        list = storyService.findIterNum(proId);
-//        ResultVO<List<IterationVO>> res;
-//        res=new ResultVO<>(list);
-//        return res;
-//    }
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,16 +18,6 @@ public class ReleaseServiceImpl implements ReleaseService {
     @Override
     public List<Release> findIterList(int proId){
         return releaseDao.findByProIdOrderByPosId(proId);
-    }
-
-    @Override
-    public int findMaxID(){
-        Integer num = releaseDao.findMaxID();
-        if(num==null){
-            return 0;
-        }else {
-            return num;
-        }
     }
 
     @Override

@@ -11,13 +11,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+/**
+ * created by weishixin
+ * date 2019-01-21
+ */
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginControllerTest extends SmtApplicationTests {

@@ -12,6 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+/**
+ * created by weishixin
+ * date 2019-01-21
+ */
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RegisterControllerTest extends SmtApplicationTests {
     private MockMvc mockMvc;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StoryServiceImpl implements StoryService {
@@ -23,7 +24,8 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public Story getStoryById(int id){
-        return storyDao.findById(id).get();
+        Optional<Story> story = storyDao.findById(id);
+        return story.orElse(null);
     }
 
     @Override
@@ -42,31 +44,4 @@ public class StoryServiceImpl implements StoryService {
         return storyDao.findByTaskIdOrderByPosIdDesc(taskId);
     }
 
-    @Override
-    public int findMaxPosID(){
-        Integer num = storyDao.findMaxPosID();
-        if(num==null){
-            return 0;
-        }else {
-            return num;
-        }
-    }
-
-//    @Override
-//    public List<IterationVO> findIterNum(int proId){
-//        List<Map<String,IterationVO>> list = storyDao.findIterByProId(proId);
-//        List<IterationVO> vo = new ArrayList<>();
-//        for (Map<String,IterationVO> i:list){
-//            List<Object> tmp=new ArrayList<>();
-//            for (String key:i.keySet()){
-//                tmp.add(i.get(key));
-//            }
-//            IterationVO tmpvo=new IterationVO(Integer.parseInt(tmp.get(0).toString()),tmp.get(1).toString());
-//            if (vo.contains(tmpvo)) {
-//                continue;
-//            }
-//            vo.add(tmpvo);
-//        }
-//        return vo;
-//    }
 }

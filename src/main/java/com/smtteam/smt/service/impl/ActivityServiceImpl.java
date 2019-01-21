@@ -38,8 +38,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Transactional
     public Activity createActivity(Activity activity) {
         activityDao.updateCreatePosID(activity.getProId(),activity.getPosId()-1);
-        Activity result = activityDao.save(activity);
-        return result;
+        return activityDao.save(activity);
     }
 
     @Override
@@ -54,7 +53,6 @@ public class ActivityServiceImpl implements ActivityService {
                 storyService.deleteStory(story.getId());
             }
         }
-//        activityDao.updateDeletePosID(activity.getPosId());
         activityDao.delete(activity);
     }
 
