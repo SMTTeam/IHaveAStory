@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
  * 类说明 加密算法工具类
  */
 public class EncryptUtil {
+	private EncryptUtil(){}
 
 	 /**
 	  * 
@@ -37,7 +38,7 @@ public class EncryptUtil {
 	   */
 	  private static String SHA(final String strText, final String strType){  
 	    // 返回值  
-	    String strResult = null;  
+	    String strResult = "";
 	    // 是否是有效字符串  
 	    if (strText != null && strText.length() > 0){  
 	      try{  
@@ -62,8 +63,7 @@ public class EncryptUtil {
 	        // 得到返回結果  
 	        strResult = strHexString.toString();  
 	      }catch (NoSuchAlgorithmException e){  
-	        e.printStackTrace();  
-	      }  
+	      }
 	    }  
 	    return strResult;  
 	  }

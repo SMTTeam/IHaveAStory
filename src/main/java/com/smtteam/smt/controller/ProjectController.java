@@ -55,8 +55,9 @@ public class ProjectController {
 
     @GetMapping("invite/accept/{code}")
     public String acceptInvitation(@PathVariable String code, HttpServletRequest request, HttpServletResponse response){
+        String error = "error";
         if(code == null || code.isEmpty()){
-            return "error";
+            return error;
         }
         ProjectUser projectUser = null;
         try {
@@ -67,8 +68,8 @@ public class ProjectController {
             session.setAttribute("user",showUser);
             response.sendRedirect("/storyMapping?proId=" + projectUser.getProId());
         } catch (NoAccessException | NumberFormatException | IOException e) {
-            return "error";
+            return error;
         }
-        return "error";
+        return error;
     }
 }

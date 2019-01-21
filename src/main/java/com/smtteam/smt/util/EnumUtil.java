@@ -1,6 +1,5 @@
 package com.smtteam.smt.util;
 
-import com.alibaba.fastjson.JSON;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +13,10 @@ import java.util.List;
  * 创建时间：2019-01-02 14:03
  * 包名：com.smtteam.smt.util
  */
+
 public class EnumUtil {
+
+    private EnumUtil(){}
 
     /**
      * 从变长的枚举参数列表中, 获取指定字段的集合 (eg:   enum list -> status list )
@@ -28,7 +30,7 @@ public class EnumUtil {
      */
     public static List<Object> getListByEnum(String fieldName, Enum... enums) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        List<Object> list = new ArrayList<Object>();
+        List<Object> list = new ArrayList<>();
 
         if (enums == null) {
             return list;
@@ -48,7 +50,7 @@ public class EnumUtil {
         return list;
     }
 
-    public static String getFieldGetMethodName(Field field) {
+    private static String getFieldGetMethodName(Field field) {
         if (field == null) {
             return null;
         }
