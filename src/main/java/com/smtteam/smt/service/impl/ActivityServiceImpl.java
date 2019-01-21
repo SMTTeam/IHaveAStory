@@ -47,11 +47,11 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityDao.findById(id).get();
         List<Task> taskList = taskDao.findByActivityIdOrderByPosId(id);
         for(Task task: taskList) {
-            taskService.deleteTask(task.getId());
             List<Story> storyList = storyDao.findByTaskId(task.getId());
             for (Story story: storyList) {
                 storyService.deleteStory(story.getId());
             }
+            taskService.deleteTask(task.getId());
         }
         activityDao.delete(activity);
     }
