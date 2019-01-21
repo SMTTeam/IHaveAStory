@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginControllerTest extends SmtApplicationTests {
 
@@ -27,7 +27,7 @@ public class LoginControllerTest extends SmtApplicationTests {
     @Test
     public void test0_checkLogin() throws Exception{
         mockMvc = getMockMvc();
-        MvcResult result = mockMvc.perform(post("/checklogin?email=1204353094@qq.com?pwd=123sda"))
+        MvcResult result = mockMvc.perform(post("/checklogin?email=1204353094@qq.com&pwd=123sda"))
 //                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
@@ -39,14 +39,14 @@ public class LoginControllerTest extends SmtApplicationTests {
     @Test
     public void test1_checkLogin() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(post("/checklogin?email=18206296783@163.com?pwd=123sd"));
+        mockMvc.perform(post("/checklogin?email=18206296783@163.com&pwd=123sd"));
 //                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void test2_checkLogin() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(post("/checklogin?email=18206296783@163.com?pwd=123wei"));
+        mockMvc.perform(post("/checklogin?email=18206296783@163.com&pwd=123wei"));
 //                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 

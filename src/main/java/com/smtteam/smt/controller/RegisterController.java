@@ -67,7 +67,7 @@ public class RegisterController {
         User user = null;
         try {
             user = verifyService.sendVerifyEmail(email, psw, username);
-            System.out.println(user.getEmail()+" username:"+user.getUsername()+" userstatus:"+user.getStatus());
+            logger.info(user.getEmail()+" username:"+user.getUsername()+" userstatus:"+user.getStatus());
             return new ResultVO<>(user);
         }catch (ExistException e){
             logger.info(e.getMessage());

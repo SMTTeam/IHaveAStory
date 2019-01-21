@@ -30,7 +30,6 @@ public class SmtApplicationTests {
     public void contextLoads() {
     }
 
-
     public MockMvc getMockMvc(){
         return mockMvc;
     }
