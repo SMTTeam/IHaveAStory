@@ -1,7 +1,11 @@
 package com.smtteam.smt.service.impl;
 
 import com.smtteam.smt.SmtApplicationTests;
+import com.smtteam.smt.dao.StoryDao;
+import com.smtteam.smt.dao.TaskDao;
 import com.smtteam.smt.model.Activity;
+import com.smtteam.smt.model.Story;
+import com.smtteam.smt.model.Task;
 import com.smtteam.smt.service.ActivityService;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -21,6 +25,11 @@ public class ActivityServiceImplTest extends SmtApplicationTests {
     @Autowired
     private ActivityService activityService;
 
+    @Autowired
+    private TaskDao taskDao;
+    @Autowired
+    private StoryDao storyDao;
+
     private static Integer id;
 
     @Test
@@ -28,6 +37,10 @@ public class ActivityServiceImplTest extends SmtApplicationTests {
         Activity activity = new Activity(100,"test_create",1);
         Activity activity1 = activityService.createActivity(activity);
         id = activity1.getId();
+        Task task = new Task(id,"test_task",1);
+        Task res = taskDao.save(task);
+        Story story = new Story(res.getId(),"test_story",1,1,"",1,"",1);
+        storyDao.save(story);
         assertNotNull(activity1.getId());
     }
 
