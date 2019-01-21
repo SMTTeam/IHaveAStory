@@ -26,17 +26,6 @@ public class ReleaseController {
     }
 
     /**
-     * 获取release最大id
-     * @param
-     * @return
-     */
-    @GetMapping("/maxId")
-    public ResultVO<Integer> getReleaseMaxID(){
-        int num = releaseService.findMaxID();
-        return new ResultVO<>(num);
-    }
-
-    /**
      * 新增迭代
      * @param proId
      * @param name

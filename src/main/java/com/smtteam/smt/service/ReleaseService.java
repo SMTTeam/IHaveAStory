@@ -8,8 +8,6 @@ public interface ReleaseService {
 
     List<Release> findIterList(int proId);
 
-    int findMaxID();
-
     Release createRelease(Release release);
 
     Release getReleaseById(int id);
