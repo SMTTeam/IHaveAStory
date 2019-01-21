@@ -52,7 +52,7 @@ public class UserServiceImplTest extends SmtApplicationTests {
     @Test
     public void test5_findByEmailAndPsw(){
         User user = userService.findByEmailAndPsw("120435309@qq.com","test");
-        assertEquals("fds", user.getUsername());
+        assertEquals("航海王", user.getUsername());
     }
 
     @Test
@@ -64,13 +64,13 @@ public class UserServiceImplTest extends SmtApplicationTests {
     @Test
     public void test7_findByEmailAndStatus(){
         User user = userService.findByEmailAndStatus("1204353094@qq.com", 1);
-        assertNull(user);
+        assertNotNull(user);
     }
 
     @Test
     public void test8_updateUserInfoByEmail(){
-        int userid = userService.updateUserInfoByEmail("1204353094@qq.com", "小威");
-        assertEquals(73, userid);
+        int count = userService.updateUserInfoByEmail("1204353094@qq.com", "小威");
+        assertEquals(1, count);
     }
 
 
