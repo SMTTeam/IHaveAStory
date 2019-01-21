@@ -49,4 +49,29 @@ public class ReleaseController {
         Release result = releaseService.createRelease(release);
         return new ResultVO<>(result);
     }
+
+    /**
+     * 修改release名称
+     * @param id
+     * @param name
+     * @return
+     */
+    @PostMapping("/modify")
+    public ResultVO<Release> modifyRelease(@RequestParam int id, @RequestParam String name) {
+        Release release = releaseService.getReleaseById(id);
+        release.setName(name);
+        Release result = releaseService.modifyRelease(release);
+        return new ResultVO<>(result);
+    }
+
+    /**
+     * 删除release
+     * @param id
+     * @return
+     */
+    @PostMapping("/delete")
+    public ResultVO<Release> deleteRelease(@RequestParam int id) {
+        releaseService.deleteRelease(id);
+        return new ResultVO<>();
+    }
 }

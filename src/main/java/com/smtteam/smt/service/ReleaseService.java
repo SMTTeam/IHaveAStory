@@ -11,4 +11,10 @@ public interface ReleaseService {
     int findMaxID();
 
     Release createRelease(Release release);
+
+    Release getReleaseById(int id);
+
+    Release modifyRelease(Release release);
+
+    void deleteRelease(int id);
 }

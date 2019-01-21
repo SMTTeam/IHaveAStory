@@ -285,6 +285,15 @@ $("#createStorySubmit").click(function () {
     $("#priority").val("")
     $("#description").val("")
     $("#acceptance").val("")
+
+    var delReleaseObj = $("#delRelease"+iteration)
+    if (delReleaseObj.hasClass("disabled")==false){
+        delReleaseObj.addClass("disabled")
+        delReleaseObj.attr("title","有从属卡片不能被删除")
+    }
+    else {
+        delReleaseObj.attr("title","有从属卡片不能被删除")
+    }
 })
 
 function editActivity(ele) {
@@ -414,6 +423,9 @@ function deleteActivity(ele) {
         $(".feature-block-list").each(function () {
             var acolumn_id = "acolumn-"+activity_id+$(this).attr("id")
             $("#"+acolumn_id).parent().parent().remove();
+            var release_str = $(this).attr("id");
+            var release_id = release_str.substr(release_str.lastIndexOf("-")+1);
+            checkContainStory(release_id)
         })
         $.ajax({
             type: "POST",
@@ -450,6 +462,9 @@ function deleteTask(ele) {
         $(".feature-block-list").each(function () {
             var tcolumn_id = "tcolumn-"+task_id+$(this).attr("id")
             $("#"+tcolumn_id).parent().remove();
+            var release_str = $(this).attr("id");
+            var release_id = release_str.substr(release_str.lastIndexOf("-")+1);
+            checkContainStory(release_id)
         })
         $.ajax({
             type: "POST",
@@ -467,7 +482,11 @@ function deleteTask(ele) {
 function deleteStory(ele) {
     var id = $(ele).parent().parent().attr("id");
     var story_id = id.substr(id.lastIndexOf("-")+1);
+    var release_str = $(ele).parent().parent().parent().attr("id");
+    var release_id = release_str.substr(release_str.lastIndexOf("-")+1);
+
     $("#"+id).remove();
+    checkContainStory(release_id)
     $.ajax({
         type: "POST",
         url: "/story/delete",
@@ -619,6 +638,12 @@ function getActivity(proId) {
                                                 '</div>' +
                                                 '</li>'
                                             $("#"+acolumn_id).prepend(story)
+
+                                            var delReleaseObj = $("#delRelease"+releaseId)
+                                            if (delReleaseObj.hasClass("disabled")==false){
+                                                delReleaseObj.addClass("disabled")
+                                                delReleaseObj.attr("title","有从属卡片不能被删除")
+                                            }
                                         }
                                     }
                                 })
@@ -651,6 +676,7 @@ function getActivity(proId) {
     if (role == 1) {
         $(".init-card").attr("onclick","")
         $(".init-card").attr("data-target","")
+        $(".dropdown-toggle").attr("data-toggle","")
     }
 }
 
@@ -682,9 +708,9 @@ function getIteration(proId) {
                         '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
                         '                        </button>\n' +
                         '                        <ul class="dropdown-menu">\n' +
-                        '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
-                        '                            <li class="disabled" title="有从属卡片不能被删除"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
-                        '                            <li><a onclick="createIter(this,'+posId+')" class="create-release below">在下方新建分组</a></li>\n' +
+                        '                            <li><a onclick="editIter('+releaseID+')" class="edit-name">编辑名称</a></li>\n' +
+                        '                            <li id="delRelease'+releaseID+'"><a onclick="deleteIter('+releaseID+')" class="delete-release">删除分组</a></li>\n' +
+                        '                            <li><a onclick="createIter('+releaseID+','+posId+')" class="create-release below">在下方新建分组</a></li>\n' +
                         '                        </ul>\n' +
                         '                    </div>\n' +
                         '                </div>\n' +
@@ -696,18 +722,13 @@ function getIteration(proId) {
                     release += block_container
                     $(".board-body").append(release)
                 }
+                if ($(".release-group").length==1){
+                    $("#delRelease"+ilist[0].id).addClass("disabled")
+                    $("#delRelease"+ilist[0].id).attr("title","当前没有其余分组")
+                }
             }
             else {
                 var releaseID
-                // $.ajax({
-                //     type: "GET",
-                //     url: "/release/maxId",
-                //     data: {},
-                //     async: false,
-                //     success: function (data) {
-                //         releaseID = data.data+1
-                //     }
-                // })
                 $.ajax({
                     type: "POST",
                     url: "/release/create",
@@ -732,9 +753,9 @@ function getIteration(proId) {
                     '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
                     '                        </button>\n' +
                     '                        <ul class="dropdown-menu">\n' +
-                    '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
-                    '                            <li class="disabled"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
-                    '                            <li><a onclick="createIter(this,0)" class="create-release below">在下方新建分组</a></li>\n' +
+                    '                            <li><a onclick="editIter('+releaseID+')" class="edit-name">编辑名称</a></li>\n' +
+                    '                            <li class="disabled" title="当前没有其余分组" id="delRelease'+releaseID+'"><a onclick="deleteIter('+releaseID+')" class="delete-release">删除分组</a></li>\n' +
+                    '                            <li><a onclick="createIter('+releaseID+',0)" class="create-release below">在下方新建分组</a></li>\n' +
                     '                        </ul>\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
@@ -750,17 +771,26 @@ function getIteration(proId) {
     })
 }
 
-function createIter(ele, preId) {
+function createIter(preReleaseId, prePosId) {
     var newId
+    var newPosId
     $.ajax({
         type: "POST",
         url: "/release/create",
-        data: {"proId": proId, "name": "未命名分组", "posId": preId},
+        data: {"proId": proId, "name": "未命名分组", "posId": prePosId},
         async: false,
         success: function (data) {
             newId = data.data.id
+            newPosId = data.data.posId
         }
     })
+    if ($(".release-group").length==1){
+        var delReleaseObj = $("#delRelease"+preReleaseId)
+        if ($("#release-"+preReleaseId).find(".issue-card").length == 0){
+            delReleaseObj.removeClass("disabled")
+            delReleaseObj.attr("title","")
+        }
+    }
     var new_iter = '<div class="release-group">\n' +
         '                <div class="release-header">\n' +
         '                    <div class="release-border-line" style="min-width: 1000px;"></div>\n' +
@@ -776,9 +806,9 @@ function createIter(ele, preId) {
         '                            <i class="fa fa-caret-down fa-fw"></i>\n' +
         '                        </button>\n' +
         '                        <ul class="dropdown-menu">\n' +
-        '                            <li><a href="javascript: void(0)" class="edit-name">编辑名称</a></li>\n' +
-        '                            <li class="disabled"><a href="javascript: void(0)" class="delete-release">删除分组</a></li>\n' +
-        '                            <li><a onclick="createIter(this,'+newId+')" class="create-release below">在下方新建分组</a></li>\n' +
+        '                            <li><a onclick="editIter('+newId+')" class="edit-name">编辑名称</a></li>\n' +
+        '                            <li id="delRelease'+newId+'"><a onclick="deleteIter('+newId+')" class="delete-release">删除分组</a></li>\n' +
+        '                            <li><a onclick="createIter('+newId+','+newPosId+')" class="create-release below">在下方新建分组</a></li>\n' +
         '                        </ul>\n' +
         '                    </div>\n' +
         '                </div>\n' +
@@ -786,7 +816,7 @@ function createIter(ele, preId) {
         '            <div class="feature-block-container expanded">\n' +
         '               <ul class="feature-block-list non-list flat-list" id="release-' + newId + '"></ul>\n' +
         '            </div>'
-    var preStr = "release-"+preId
+    var preStr = "release-"+preReleaseId
     var pre_container = $("#"+preStr).parent()
     pre_container.after(new_iter)
     $(".task-container").each(function () {
@@ -813,5 +843,85 @@ function createIter(ele, preId) {
             $("#"+acolumn_id).append(feature_column)
         })
     })
+    // if (prePosId == 0){
+    //     var delReleaseObj = $(ele).prev()
+    //     if (delReleaseObj.hasClass("disabled")){
+    //         delReleaseObj.removeClass("disabled")
+    //         delReleaseObj.attr("title","")
+    //     }
+    // }
     changeColumnWidth()
+    changeLineHeight()
+}
+
+function editIter(releaseId) {
+    var editObj = $("#group"+releaseId)
+    var preName = editObj.text()
+    editObj.css("display","none")
+    editObj.parent().next().css("display","none")
+
+    var inputObj = editObj.next()
+    inputObj.css("display","block")
+    inputObj.val(preName)
+    inputObj.css("cursor","auto")
+    inputObj.select()
+    inputObj.blur(function () {
+        var name = inputObj.val()
+        $.ajax({
+            type: "POST",
+            url: "/release/modify",
+            data: {"id": releaseId, "name": name},
+            async: false,
+            success: function (data) {
+
+            }
+        })
+        inputObj.css("display","none")
+        inputObj.css("cursor","default")
+        editObj.css("display","")
+        editObj.text(name)
+        editObj.parent().next().css("display","")
+    })
+}
+
+function deleteIter(releaseId) {
+    var delReleaseObj = $("#delRelease"+releaseId)
+    if (delReleaseObj.hasClass("disabled")){
+        return
+    }
+    else {
+        $.ajax({
+            type: "POST",
+            url: "/release/delete",
+            data: {"id": releaseId},
+            async: false,
+            success: function (data) {
+
+            }
+        })
+        var feature_container = $("#release-"+releaseId).parent()
+        feature_container.prev().remove()
+        feature_container.remove()
+        if ($(".release-group").length==1){
+            var the_one = $(".feature-block-list").attr("id")
+            var the_id = the_one.substr(the_one.lastIndexOf("-")+1);
+            $("#delRelease"+the_id).addClass("disabled")
+            if ($("#release-"+the_id).find(".issue-card").length == 0){
+                $("#delRelease"+the_id).attr("title","当前没有其余分组")
+            }
+        }
+    }
+}
+
+function checkContainStory(releaseId) {
+    if ($("#release-"+releaseId).find(".issue-card").length == 0){
+        var delReleaseObj = $("#delRelease"+releaseId)
+        if ($(".release-group").length==1){
+            delReleaseObj.attr("title","当前没有其余分组")
+        }
+        else if (delReleaseObj.hasClass("disabled")){
+            delReleaseObj.removeClass("disabled")
+            delReleaseObj.attr("title","")
+        }
+    }
 }
