@@ -4,7 +4,9 @@ import com.smtteam.smt.SmtApplicationTests;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,6 +29,8 @@ public class RegisterControllerTest extends SmtApplicationTests {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void test2_sendVerifyEmail() throws Exception {
         mockMvc = getMockMvc();
         mockMvc.perform(post("/register/verifyemail?email=wsx1204353094@gmail.com&username=六学家&psw=123hhh"));

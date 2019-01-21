@@ -8,6 +8,8 @@ import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * created by weishixin
@@ -22,6 +24,8 @@ public class VerifyServiceImplTest extends SmtApplicationTests {
 
 
     @Test
+    @Transactional
+    @Rollback
     public void test01_sendVerifyEmailTest(){
         //测试 该邮箱已注册但未验证，请前往验证！
         try {
@@ -45,6 +49,8 @@ public class VerifyServiceImplTest extends SmtApplicationTests {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void test02_acceptVerifyEmailTest(){
         //测试邮箱已经验证
         try {

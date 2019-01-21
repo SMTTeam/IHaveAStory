@@ -7,10 +7,13 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserServiceImplTest extends SmtApplicationTests {
@@ -35,7 +38,10 @@ public class UserServiceImplTest extends SmtApplicationTests {
         assertNotNull(user);
     }
 
+
     @Test
+    @Transactional
+    @Rollback
     public void test3_addUser(){
         User user = new User("test@gmail.com","123sda","六小龄童",0,"",1);
         User resultUser = userService.addUser(user);
@@ -68,6 +74,8 @@ public class UserServiceImplTest extends SmtApplicationTests {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void test8_updateUserInfoByEmail(){
         int count = userService.updateUserInfoByEmail("1204353094@qq.com", "小威");
         assertEquals(1, count);
