@@ -20,6 +20,7 @@ public class ActivityTest {
         activity.getId();
         activity.getName();
         activity.getPosId();
+
     }
 
 }
