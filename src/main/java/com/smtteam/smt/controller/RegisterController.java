@@ -2,6 +2,7 @@ package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.common.bean.ResultVO;
+import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
 import com.smtteam.smt.common.exception.ExistException;
 import com.smtteam.smt.common.exception.NoAccessException;
@@ -96,11 +97,13 @@ public class RegisterController {
         }
 //        return new ResultVO<>(user);
         HttpSession session = request.getSession();
-        session.setAttribute("useremail" , user.getEmail());
-        session.setAttribute("userid", user.getId());
-        session.setAttribute("user",user);
-        ModelAndView modelAndView = new ModelAndView("redirect:/project");//验证成功登录进主界面
-        modelAndView.addObject("userid",user.getId());//将userid传到主界面
+        ShowUser showUser = new ShowUser();
+        showUser.setEmail(user.getEmail());
+        showUser.setUsername(user.getUsername());
+        showUser.setId(user.getId());
+        session.setAttribute("user",showUser);
+        ModelAndView modelAndView = new ModelAndView("redirect:/");//验证成功登录进主界面
+//        modelAndView.addObject("userid",user.getId());//将userid传到主界面
         return modelAndView;
     }
 }
