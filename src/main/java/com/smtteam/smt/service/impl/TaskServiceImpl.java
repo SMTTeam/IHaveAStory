@@ -44,7 +44,8 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     public void deleteTask(int id) {
-        Task task = taskDao.findById(id).get();
+        Optional<Task> optionalTask = taskDao.findById(id);
+        Task task = optionalTask.get();
         List<Story> storyList = storyDao.findByTaskId(id);
         for(Story story: storyList) {
             storyDao.delete(story);
