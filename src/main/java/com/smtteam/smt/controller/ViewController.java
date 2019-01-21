@@ -55,5 +55,4 @@ public class ViewController {
         ModelAndView modelAndView = new ModelAndView("main");
         return modelAndView;
     }
-
 }

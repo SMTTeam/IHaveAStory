@@ -1,6 +1,7 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.SmtApplicationTests;
+import com.smtteam.smt.common.bean.ShowUser;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -61,7 +62,10 @@ public class LoginControllerTest extends SmtApplicationTests {
     @Test
     public void test4_Exit() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(get("/exit"));
+        ShowUser showUser = new ShowUser();
+        showUser.setEmail("18206296783@163.com");
+        showUser.setUsername("wei");
+        mockMvc.perform(get("/exit").sessionAttr("user",showUser ));
 //                .andExpect(MockMvcResultMatchers.view().name("redirect:/login2"));
 //                .andExpect(MockMvcResultMatchers.status().isOk());
     }
