@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-<head th:include="/common/head :: loadHeader('新建项目')"></head>
+<head th:include="../templates/common/head :: loadHeader('新建项目')"></head>
 
 <body>
-    <div th:include="/common/nav :: loadNav"></div>
+    <div th:include="../templates/common/nav :: loadNav"></div>
     <canvas id="J_dotLine"></canvas>
 
     <div class="am-container" style="margin: 130px auto 0">
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div th:include="/common/onload_js::loadJS"></div>
+    <div th:include="../templates/common/onload_js::loadJS"></div>
     <script th:src="@{/js/create_project.js}"></script>
 </body>
 </html>

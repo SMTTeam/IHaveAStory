@@ -1,87 +1,76 @@
+<!--<!DOCTYPE html>-->
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>IHaveAStroymap Login</title>
-
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, width=device-width, minimal-ui">
-    <!--<link rel="stylesheet" href="https://dn-st.teambition.net/account/static/css/lib.f6218ac0.css"/>-->
-    <!--<link rel="stylesheet" href="https://dn-st.teambition.net/account/static/css/app.abfc81a8.css"/>-->
-
-    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/font-awesome.min.css}"/>
-    <link rel="stylesheet" th:href="@{/vendor/simple-line-icons/css/simple-line-icons.css}"/>
-    <link rel="stylesheet" th:href="${'//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css'}">
-    <link rel="stylesheet" th:href="@{/media/css/app.css}" id="maincss"/>
-    <link rel="stylesheet" th:href="@{/media/css/theme-i.css}" id="maincss2"/>
-
-    <!--<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="../templates/common/head::loadHeader('登 录')">
 </head>
+<!--style="background-image: url('../static/img/background.jpg'); background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;"-->
+<!--login-background"-->
 <body>
+    <div th:include="../templates/common/nav :: loadNav"></div>
+    <canvas id="J_dotLine"></canvas>
 
-    <div class="wrapper" style="background-image: url(../static/img/background.jpg)">
-        <div class="block-center mt-xl wd-xl" >
-            <div class="panel panel-dark panel-flat">
-                <div class="panel-heading text-center">
-                    <a href="#"><!--先定义成 仍然跳转到本页面-->
-                        <!--<img src="../static/img/logo_IHaveAStory.png" alt="Image" class="block-center img-rounded"/>-->
-                        <p class="text-center pv" style="color: #FFFFFF;font-size: large">I Have A Storymap</p>
-                    </a>
+    <div class="am-container"  >
+        <!--<div class="am-u-lg-10 am-u-md-12 am-u-sm-centered">   style="background-color: black"  -->
+        <div class="am-g"  style="margin-top: 150px" >
+            <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-4" >-->
+                <div class="am-u-sm-4 am-u-md-4 am-u-lg-4  am-u-sm-centered am-u-md-centered am-u-lg-centered">
+                    <!--<label class="am-u-sm-offset-2 am-u-md-offset-2 am-u-lg-offset-2 login-welcom-label "  >欢迎登录</label>-->
+                    <p class="am-text-xxl am-text-center">欢迎登录</p>
                 </div>
-                <div class="panel-body" id="loginPage">
-                    <p class="text-center pv" style="font-size: large">请登录(^o^)</p>
-                    <form id="form" method="post"  onsubmit="return false" data-parsley-validate onkeydown="if(event.which==13) { return false; }">
-                        <label for="loginEmail" class="text-muted"></label>
-                        <div class="form-group has-feedback">
 
-                            <!--@thymesVar id="loginEmail" type="java.lang.String"-->
-                            <!--th:field="*{loginEmail}"-->
-                            <input id="loginEmail" type="email" name="loginEmail"  placeholder="邮箱"
-                                   class="form-control" data-parsley-trigger="change" required="required"
-                                   data-parsley-required-message="邮箱地址不能为空"
-                                   data-parsley-type-message="请输入正确的邮箱地址"
-                                   onkeydown="if(event.which==13) { focusNextInput(this); }"/>
-                            <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                <form id="form"  class="am-form am-u-sm-8 am-u-md-6 am-u-lg-5 am-u-sm-centered am-u-md-centered am-u-lg-centered" method="post" data-parsley-validate onsubmit="return false;" onkeydown="if(event.which==13) { return false;}">
+                    <div class="am-form-group " style="margin-top: 60px;">
+                        <!--required="required"-->
+                        <!--<input type="email" id="doc-vld-email-2" placeholder="输入邮箱" required/>-->
+                        <input id="loginEmail"  type="email" name="loginEmail" placeholder="邮箱"
+                               data-parsley-trigger="change" required="required"
+                                data-parsley-required="true"
+                               data-parsley-required-message="邮箱地址不能为空"
+                               data-parsley-type-message="请输入正确的邮箱地址"
+                               onkeydown="if(event.which==13) { focusNextInput(this); }"/>
+                    </div>
 
+                    <div class="am-form-group" style="margin-top: 30px;" >
+                        <input id="loginPsd" type="password" placeholder="密码"  data-parsley-trigger="change"
+                               data-parsley-required="true" name="loginPassword"
+                               data-parsley-type-message="请输入符合要求的密码"
+                               required="required" data-parsley-required-message="密码不能为空"
+                               onkeydown="if(event.which==13) { focusNextInput(this); }"/>
+                    </div>
+
+
+                    <div class="am-form-group" style="margin-right: 0px;">
+                        <div class="pull-right">
+                            <a href="#" class="a-forgetpsw">忘记密码？</a>
                         </div>
-                        <label for="loginPsd" class="text-muted"></label><!--这里使用空label 调解输入框之间的距离-->
-                        <div class="form-group has-feedback">
-                            <!--@thymesVar id="loginPassword" type="java.lang.String"-->
-                            <!--th:field="*{loginPassword}"-->
-                            <input id="loginPsd" type="password" placeholder="密码" data-parsley-trigger="focusout" name="loginPassword" class="form-control"
-                                   data-parsley-type-message="请输入符合要求的密码"
-                                   required="required" data-parsley-required-message="密码不能为空" onkeydown="if(event.which==13) { focusNextInput(this);}"/>
-                            <span class="fa fa-lock form-control-feedback text-muted"></span>
-                        </div>
-                        <div class="clearfix">
-                            <div class="pull-right">
-                                <a href="#" class="text-muted">忘记密码？</a>
-                            </div>
-                        </div>
-                        <label for="loginButton" class="text-muted"></label>
+                    </div>
+                    <div class="am-form-group" style="margin-top: 10px;">
                         <label for="loginButton" id="formtip" ></label>
-                        <!--th:onclick="login"-->
-                        <button  id="loginButton" type="submit" class="btn btn-block btn-primary mt-lg">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
-                    </form>
-                    <p></p>
-                    <div id="errorMsg" class="alert alert-danger text-center" style="display:none;"></div>
-                    <p class="pt-lg text-center">尚未注册？</p>
-                    <a href="/registersmt" class="btn btn-block btn-default">立即注册</a>
-                </div>
+                    </div>
+                    <div class="am-form-group" style="margin-top: 25px;">
+                        <button id="loginButton" type="submit" class="am-btn smt-bnt am-u-sm-centered" >登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+                    </div>
 
-            </div>
-            <div class="p-lg text-center">
-                <span>&copy;</span>
-                <span>2018</span>
-                <span>-</span>
-                <span>2019</span>
-                <br/>
-                <span>smt_group@163.com</span>
-            </div>
+                    <div class="am-form-group" style="margin-top: 30px;">
+                        <button id="registerButton" type="button" class="am-btn smt-register-btn  am-u-sm-centered" >立即注册</button>
+                    </div>
+                </form>
+                <!--<div class="login-teamcontact text-center">-->
+                    <!--<span>&copy;</span>-->
+                    <!--<span>2018</span>-->
+                    <!--<span>-</span>-->
+                    <!--<span>2019</span>-->
+                    <!--<br/>-->
+                    <!--<span>smt_group@163.com</span>-->
+                <!--</div>-->
+            <!--</div>-->
+                <!--<a href="/registersmt"  class=""></a>-->
+            <!--</div>-->
         </div>
     </div>
-    <script th:src="${'//cdn.bootcss.com/jquery/3.3.1/jquery.min.js'}"></script>
+
+    <div th:include="../templates/common/onload_js::loadJS"></div>
     <script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
     <script th:src="@{js/logincheck.js}"></script>
-    <!--<script th:src="@{js/registercheck.js}"></script>-->
 </body>
 </html>

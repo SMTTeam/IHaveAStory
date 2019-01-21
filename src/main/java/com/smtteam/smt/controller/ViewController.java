@@ -35,18 +35,16 @@ public class ViewController {
         ShowUser showUser = (ShowUser) session.getAttribute("user");
         ModelAndView modelAndView ;
         if( showUser == null){
-//            modelAndView.setViewName("login2");
-            modelAndView = new ModelAndView("login2");
+            modelAndView = new ModelAndView("login");
         }else {
             modelAndView = new ModelAndView("redirect:/project");
         }
         return modelAndView;
-//        return "login";
     }
 
     @RequestMapping("/register")
     public ModelAndView register(){
-        ModelAndView modelAndView = new ModelAndView("register2");
+        ModelAndView modelAndView = new ModelAndView("register");
         return modelAndView;
 //        return "register";
     }

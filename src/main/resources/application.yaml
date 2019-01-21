@@ -23,6 +23,7 @@ spring:
     password: smt2019
     default-encoding: UTF-8
     protocol: smtp
+    port: 465
     properties:
       mail:
         smtp:
@@ -30,10 +31,15 @@ spring:
           starttls:
             enable: true
             required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+
   thymeleaf:
     cache: false
     encoding: UTF-8
-    mode: HTML5
+    mode: HTML
     servlet:
       content-type: text/html
 
