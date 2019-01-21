@@ -49,7 +49,6 @@ public class TaskServiceImpl implements TaskService {
         for(Story story: storyList) {
             storyDao.delete(story);
         }
-//        taskDao.updateDeletePosID(task.getPosId());
         taskDao.delete(task);
     }
 

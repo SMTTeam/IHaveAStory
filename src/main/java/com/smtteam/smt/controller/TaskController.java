@@ -1,7 +1,6 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ResultVO;
-import com.smtteam.smt.model.Activity;
 import com.smtteam.smt.model.Task;
 import com.smtteam.smt.service.ActivityService;
 import com.smtteam.smt.service.TaskService;
