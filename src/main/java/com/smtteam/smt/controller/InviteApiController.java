@@ -88,7 +88,6 @@ public class InviteApiController {
             }
             inviteService.createInvitation(user.getId(), user.getEmail(), proId, project.getProName(), role);
         } catch (NoSuchElementException | NoSuchFieldException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
             return new ResultVO<>("权限输入有误。");
         } catch (ExistException e) {
             return new ResultVO<>("该用户已被邀请或者已在项目中。");
