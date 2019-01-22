@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,23 +34,23 @@ public class ProjectController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("project")
+    @GetMapping("project")
     public String project(){
         return "projects";
     }
 
-    @RequestMapping("attended")
+    @GetMapping("attended")
     public String attended(){
         return "attended";
     }
 
-    @RequestMapping("project/create")
+    @GetMapping("project/create")
     public String createProject(){
         return "createProject";
     }
 
-    @RequestMapping("project/edit")
-    public String editProject(){
+    @GetMapping("project/edit")
+    public String editProject(@RequestParam Integer proId){
         return "editProject";
     }
 
