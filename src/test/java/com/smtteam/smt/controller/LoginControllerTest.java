@@ -63,7 +63,7 @@ public class LoginControllerTest extends SmtApplicationTests {
     @Test
     public void test04_getUserLoginState() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(get("/getuserloginstate").sessionAttr("user",null));
+        mockMvc.perform(get("/getuserloginstate"));
     }
 
     @Test

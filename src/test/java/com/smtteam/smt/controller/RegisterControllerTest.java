@@ -82,7 +82,7 @@ public class RegisterControllerTest extends SmtApplicationTests {
     @Test
     public void test07_acceptVerifyEmail() throws Exception{
         mockMvc = getMockMvc();
-        String code = "MTgyMDYyOTY3ODNAMTYzLmNvbSY4MGRkODkzNDAwZTM2YWJmZWRlZWQ0NmQ4YzgwZWQ4NzE4MGRjZDM12DfI2NDExMDRhODQ3NGQ1ZjJmNjYwMGVl";
+        String code = "TUYxODMyMTc0QHNtYWlsLm5qdS5lZHUuY24mYjEzYzA4YmVhM2E5OGViMGNmYWUxOTJkNGQ1ZTk3M2I0ZWVkMDQ3MWM2NTkwNTJkMzk033JmM2YyYmU4NjVhZA==";
         mockMvc.perform(get("/register/acceptverifyemail/"+code));
     }
 }
