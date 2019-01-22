@@ -41,7 +41,7 @@ public class LoginController {
             ResultVO<User> resultVO = new ResultVO<>();
             resultVO.setCode(ResultCode.NOT_FOUND.getCode());
             resultVO.setMessage("邮箱未验证");
-            logger.info(String.valueOf(resultVO.getCode()));
+            logger.info("邮箱未验证");
             return resultVO;
         }else {
             User result = userService.findByEmailAndPsw(email , pwd);
@@ -75,16 +75,10 @@ public class LoginController {
         HttpSession session = request.getSession();
 
         ShowUser showUser = (ShowUser) session.getAttribute("user");
-        if( showUser == null){
-            ResultVO<ShowUser> resultVO = new ResultVO<>();
-            resultVO.setCode(ResultCode.NOT_FOUND.getCode());
-            resultVO.setMessage("用户尚未登录");
-            return resultVO;
-        }else {
-            ResultVO<ShowUser> resultVO = new ResultVO<>(showUser);
-            logger.info("查询成功，用户已登录！");
-            return resultVO;
-        }
+
+        ResultVO<ShowUser> resultVO = new ResultVO<>(showUser);
+        logger.info("查询成功，用户已登录！");
+        return resultVO;
     }
 
     @GetMapping("/exit")

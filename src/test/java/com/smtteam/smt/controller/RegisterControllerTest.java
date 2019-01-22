@@ -40,7 +40,7 @@ public class RegisterControllerTest extends SmtApplicationTests {
     @Rollback
     public void test02_sendVerifyEmail() throws Exception {
         mockMvc = getMockMvc();
-        String email = "MF1832174@smail.nju.edu.cn";
+        String email = "wsx1204353094@gmail.com";
         String username = "wsx";
         String psw = "123wei" ;
         mockMvc.perform(post("/register/verifyemail?email="+email+"&username="+username+"&psw="+psw));

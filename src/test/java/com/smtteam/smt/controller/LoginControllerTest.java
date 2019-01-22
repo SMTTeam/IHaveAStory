@@ -31,11 +31,11 @@ public class LoginControllerTest extends SmtApplicationTests {
     private ShowUser user = new ShowUser();
     private MockMvc mockMvc ;
     @Test
-    public void test0_checkLogin() throws Exception{
+    public void test00_checkLogin() throws Exception{
         mockMvc = getMockMvc();
         String email = "1204353094@qq.com";
         String pwd = "123sda";
-        mockMvc.perform( post("/checklogin?email"+email+"&pwd="+pwd) );
+        mockMvc.perform( post("/checklogin?email="+email+"&pwd="+pwd) );
     }
 
     @Test

@@ -31,7 +31,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         if ( showUser == null){
 
-            System.out.println("您尚未登录!");
+            logger.info("您尚未登录!");
             response.sendRedirect("/login");//让用户进行登录
             return false;
         }else {

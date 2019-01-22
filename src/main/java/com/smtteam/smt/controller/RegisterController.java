@@ -86,9 +86,9 @@ public class RegisterController {
     public ModelAndView acceptVerifyEmail(@PathVariable String code, HttpServletRequest request){
         String loginfo = "验证邮件里的url后的code："+code;
         logger.info(loginfo);
-        if(code == null || code.isEmpty()){
-            return new ModelAndView("redirect:/login");//重定向到login界面
-        }
+//        if(code == null || code.isEmpty()){
+//            return new ModelAndView("redirect:/login");//重定向到login界面
+//        }
         User user = null;
         try {
             user = verifyService.acceptVerifyEmail(code);

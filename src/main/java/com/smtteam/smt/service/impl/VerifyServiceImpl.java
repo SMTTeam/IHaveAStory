@@ -50,8 +50,16 @@ public class VerifyServiceImpl implements VerifyService {
         //在发送前保存记录到数据库
 
         User user_found = userDao.findByEmail(email);
-        if(user_found != null && user_found.getStatus()== Constants.USEREMAIL_VERIFYING) throw new ExistException("该邮箱已注册但未验证，请前往验证！");
-        if(user_found != null && user_found.getStatus()== Constants.USEREMAIL_VERIFIED) throw new ExistException("该邮箱已经注册验证了！");
+        if(user_found != null && user_found.getStatus()== Constants.USEREMAIL_VERIFYING)
+        {
+            logger.info("该邮箱已注册但未验证，请前往验证！");
+            throw new ExistException("该邮箱已注册但未验证，请前往验证！");
+        }
+        if(user_found != null && user_found.getStatus()== Constants.USEREMAIL_VERIFIED)
+        {
+            logger.info("该邮箱已经注册验证了！");
+            throw new ExistException("该邮箱已经注册验证了！");
+        }
 
 
         String verify = StringUtil.getSalt();
@@ -62,6 +70,7 @@ public class VerifyServiceImpl implements VerifyService {
         url = server + "/register/acceptverifyemail/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
         String content = "<html><head><title></title></head><body>亲爱的SMT用户，<br> &nbsp;&nbsp;&nbsp;您刚刚注册成为SMT用户，请点击以下链接完成邮箱验证：<br> &nbsp;&nbsp; <a href = \""+ url +"\">"+ url +"</a></body></html>";
 
+        logger.info(user.getEmail());
         logger.info(content);
         String[] tos = new String[]{email};
         mailUtil.sendHtmlMail(tos, "邮箱验证", content);
