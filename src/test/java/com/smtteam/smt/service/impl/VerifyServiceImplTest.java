@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+
 /**
  * created by weishixin
  * date 2019-01-20
@@ -21,7 +22,6 @@ public class VerifyServiceImplTest extends SmtApplicationTests {
     private VerifyService verifyService;
 
     private final Logger logger = LoggerFactory.getLogger(VerifyServiceImplTest.class);
-
 
     @Test
     @Transactional
@@ -65,9 +65,19 @@ public class VerifyServiceImplTest extends SmtApplicationTests {
             logger.info(e.getMessage());
         }
 
+        String code = "TUYxODMyMTc0QHNtYWlsLm5qdS5lZHUuY24mYjEzYzA4YmVhM2E5OGViMGNmYWUxOTJkNGQ1ZTk3M2I0ZWVkMDQ3MWM2NTkwNTJkMzk0M2JmM2YyYmU4NjVhZA==";
+
         //测试 验证信息被串改，验证失败
+        String code_v1 = "TUYxODMyMTc0QHNtYWlsLm5qdS5lZHUuY24mYjEzYzA4YmVhM2E5OGViMGNmYWUxOTJkNGQ1ZTk3M2I0ZWVkMDQ3MWM2NTwkNTJkMzk0M2JmM2YyYmU4NjVhZA==";
         try {
-            verifyService.acceptVerifyEmail("MTgyMDYyOTY3ODNAMTYzLmNvbSZiZTUwNzY3YjE4ZDI0NDliOTViZDRkNmQ4MDkyZGExYzEzNzUxZDkwNjMwZjUzNmFjNDExY2M2ODMyODg5NmQ0");
+            verifyService.acceptVerifyEmail(code_v1);
+        }catch (Exception e){
+            logger.info(e.getMessage());
+        }
+
+        //成功验证
+        try {
+            verifyService.acceptVerifyEmail(code);
         }catch (Exception e){
             logger.info(e.getMessage());
         }

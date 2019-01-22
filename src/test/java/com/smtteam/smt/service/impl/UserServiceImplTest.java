@@ -21,19 +21,19 @@ public class UserServiceImplTest extends SmtApplicationTests {
     private UserService userService;
 
     @Test
-    public void test0_findByEmailLike(){
+    public void test00_findByEmailLike(){
         List<User> users = userService.findByEmailLike("@qq.");
         assertNotNull(users);
     }
 
     @Test
-    public void test1_findById(){
+    public void test01_findById(){
         User user = userService.findById(3);
         assertNull(user);
     }
 
     @Test
-    public void test2_findById(){
+    public void test02_findById(){
         User user = userService.findById(1);
         assertNotNull(user);
     }
@@ -42,44 +42,43 @@ public class UserServiceImplTest extends SmtApplicationTests {
     @Test
     @Transactional
     @Rollback
-    public void test3_addUser(){
+    public void test03_addUser(){
         User user = new User("test@gmail.com","123sda","六小龄童",0,"",1);
         User resultUser = userService.addUser(user);
         assertEquals("test@gmail.com", resultUser.getEmail());
     }
 
     @Test
-    public void test4_findByEmail(){
+    public void test04_findByEmail(){
         User user = userService.findByEmail("18206296783@163.com");
         Integer trueResult = new Integer(1);
         assertEquals(trueResult,user.getGender());
     }
 
     @Test
-    public void test5_findByEmailAndPsw(){
+    public void test05_findByEmailAndPsw(){
         User user = userService.findByEmailAndPsw("120435309@qq.com","test");
         assertEquals("航海王", user.getUsername());
     }
 
     @Test
-    public void test6_findByEmailAndStatus(){
+    public void test06_findByEmailAndStatus(){
         User user = userService.findByEmailAndStatus("1204353094@qq.com", 1);
         assertNotNull(user);
     }
 
     @Test
-    public void test7_findByEmailAndStatus(){
-        User user = userService.findByEmailAndStatus("1204353094@qq.com", 1);
-        assertNotNull(user);
+    public void test07_findByEmailAndStatus(){
+        User user = userService.findByEmailAndStatus("1204353094@qq.com");
+        assertNull(user);
     }
 
     @Test
     @Transactional
     @Rollback
-    public void test8_updateUserInfoByEmail(){
+    public void test08_updateUserInfoByEmail(){
         int count = userService.updateUserInfoByEmail("1204353094@qq.com", "小威");
         assertEquals(1, count);
     }
-
 
 }

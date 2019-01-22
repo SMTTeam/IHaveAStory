@@ -31,7 +31,6 @@ public class RegisterController {
     @Autowired
     private VerifyService verifyService;
 
-
     private final Logger logger = LoggerFactory.getLogger(RegisterController.class);
     /**
      * 检查用户输入的邮箱是否已经被注册（js中ajax请求）
@@ -45,12 +44,12 @@ public class RegisterController {
             ResultVO<User> resultVO = new ResultVO<>();
             resultVO.setCode(ResultCode.NOT_FOUND.getCode());
             resultVO.setMessage("该邮箱尚未注册");
-            System.out.println(resultVO.getCode());
+            logger.info(String.valueOf(resultVO.getCode()));
             return resultVO;
         }else {
-            System.out.println("该用户名字为："+userInfoInDB.getUsername());
+            logger.info("该用户名字为："+userInfoInDB.getUsername());
             ResultVO<User> resultVO = new ResultVO<>(userInfoInDB);
-            System.out.println(resultVO.getCode());
+            logger.info(String.valueOf(resultVO.getCode()));
             return resultVO;
         }
     }
@@ -68,7 +67,8 @@ public class RegisterController {
         User user = null;
         try {
             user = verifyService.sendVerifyEmail(email, psw, username);
-            logger.info(user.getEmail()+" username:"+user.getUsername()+" userstatus:"+user.getStatus());
+            String loginfo = user.getEmail()+" username:"+user.getUsername()+" userstatus:"+user.getStatus();
+            logger.info(loginfo);
             return new ResultVO<>(user);
         }catch (ExistException e){
             logger.info(e.getMessage());
@@ -84,7 +84,8 @@ public class RegisterController {
      */
     @GetMapping("/acceptverifyemail/{code}")
     public ModelAndView acceptVerifyEmail(@PathVariable String code, HttpServletRequest request){
-        System.out.println("验证邮件里的url后的code："+code);
+        String loginfo = "验证邮件里的url后的code："+code;
+        logger.info(loginfo);
         if(code == null || code.isEmpty()){
             return new ModelAndView("redirect:/login");//重定向到login界面
         }
@@ -92,18 +93,16 @@ public class RegisterController {
         try {
             user = verifyService.acceptVerifyEmail(code);
         }catch (NoAccessException e){
-//            return new ResultVO<>(e.getMessage());
             return new ModelAndView("redirect:/login");//重定向到login界面
         }
-//        return new ResultVO<>(user);
         HttpSession session = request.getSession();
         ShowUser showUser = new ShowUser();
         showUser.setEmail(user.getEmail());
         showUser.setUsername(user.getUsername());
         showUser.setId(user.getId());
         session.setAttribute("user",showUser);
-        ModelAndView modelAndView = new ModelAndView("redirect:/");//验证成功登录进主界面
-//        modelAndView.addObject("userid",user.getId());//将userid传到主界面
+        ModelAndView modelAndView;
+        modelAndView = new ModelAndView("redirect:/");//验证成功登录进主界面
         return modelAndView;
     }
 }

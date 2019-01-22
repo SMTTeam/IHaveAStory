@@ -26,51 +26,56 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginControllerTest extends SmtApplicationTests {
 
-    private final Logger logger = LoggerFactory.getLogger(LoginControllerTest.class);
 
+
+    private ShowUser user = new ShowUser();
     private MockMvc mockMvc ;
     @Test
     public void test0_checkLogin() throws Exception{
         mockMvc = getMockMvc();
-        MvcResult result = mockMvc.perform(post("/checklogin?email=1204353094@qq.com&pwd=123sda"))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
-
-//        Assert.assertEquals(result.getModelAndView().getModel().get(""));
-
-
+        String email = "1204353094@qq.com";
+        String pwd = "123sda";
+        mockMvc.perform( post("/checklogin?email"+email+"&pwd="+pwd) );
     }
 
     @Test
-    public void test1_checkLogin() throws Exception{
+    public void test01_checkLogin() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(post("/checklogin?email=18206296783@163.com&pwd=123sd"));
-//                .andExpect(MockMvcResultMatchers.status().isOk());
+        String email = "18206296783@163.com";
+        String pwd = "123sd";
+        mockMvc.perform(post("/checklogin?email="+email+"&pwd="+pwd));
     }
 
     @Test
-    public void test2_checkLogin() throws Exception{
+    public void test02_checkLogin() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(post("/checklogin?email=18206296783@163.com&pwd=123wei"));
-//                .andExpect(MockMvcResultMatchers.status().isOk());
+        String email = "18206296783@163.com";
+        String pwd = "123wei";
+        mockMvc.perform(post("/checklogin?email="+email+"&pwd="+pwd));
     }
 
     @Test
-    public void test3_getUserLoginState() throws Exception{
+    public void test03_getUserLoginState() throws Exception{
         mockMvc = getMockMvc();
-
-        mockMvc.perform(get("/getuserloginstate"));
-//            .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(get("/getuserloginstate").sessionAttr("user",getUser()));
     }
 
     @Test
-    public void test4_Exit() throws Exception{
+    public void test04_getUserLoginState() throws Exception{
         mockMvc = getMockMvc();
-        ShowUser showUser = new ShowUser();
-        showUser.setEmail("18206296783@163.com");
-        showUser.setUsername("wei");
-        mockMvc.perform(get("/exit").sessionAttr("user",showUser ));
-//                .andExpect(MockMvcResultMatchers.view().name("redirect:/login2"));
-//                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(get("/getuserloginstate").sessionAttr("user",null));
+    }
+
+    @Test
+    public void test05_Exit() throws Exception{
+        mockMvc = getMockMvc();
+        mockMvc.perform(get("/exit").sessionAttr("user",getUser() ));
+    }
+
+    private ShowUser getUser(){
+        user.setId(66);
+        user.setUsername("weiShiXinX");
+        user.setEmail("18206296783@163.com");
+        return user;
     }
 }

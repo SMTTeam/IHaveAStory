@@ -6,6 +6,8 @@ import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +25,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     /**
      * 检查用户是否是已注册系统用户
@@ -38,7 +41,7 @@ public class LoginController {
             ResultVO<User> resultVO = new ResultVO<>();
             resultVO.setCode(ResultCode.NOT_FOUND.getCode());
             resultVO.setMessage("邮箱未验证");
-            System.out.println(resultVO.getCode());
+            logger.info(String.valueOf(resultVO.getCode()));
             return resultVO;
         }else {
             User result = userService.findByEmailAndPsw(email , pwd);
@@ -46,11 +49,11 @@ public class LoginController {
                 ResultVO<User> resultVO = new ResultVO<>();
                 resultVO.setCode(ResultCode.NOT_FOUND.getCode());
                 resultVO.setMessage("用户名或密码错误");
-                System.out.println(resultVO.getCode());
+                logger.info(String.valueOf(resultVO.getCode()));
                 return resultVO;
             }else {
                 ResultVO<User> resultVO = new ResultVO<>(result);
-                System.out.println(resultVO.getCode());
+                logger.info(String.valueOf(resultVO.getCode()));
                 HttpSession session = request.getSession();
                 ShowUser showUser = new ShowUser();//使用showUser屏蔽用户密码
                 showUser.setId(result.getId());
@@ -79,7 +82,7 @@ public class LoginController {
             return resultVO;
         }else {
             ResultVO<ShowUser> resultVO = new ResultVO<>(showUser);
-            System.out.println("查询成功，用户已登录！");
+            logger.info("查询成功，用户已登录！");
             return resultVO;
         }
     }

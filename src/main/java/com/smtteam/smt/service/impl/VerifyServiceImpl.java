@@ -35,6 +35,7 @@ public class VerifyServiceImpl implements VerifyService {
     @Value("${deploy.url}")
     private String server;
 
+    private final Logger logger = LoggerFactory.getLogger(VerifyServiceImpl.class);
 
     /**
      * 发送验证邮件
@@ -48,9 +49,9 @@ public class VerifyServiceImpl implements VerifyService {
     public User sendVerifyEmail(String email, String psw, String username)throws ExistException{
         //在发送前保存记录到数据库
 
-        User user1 = userDao.findByEmail(email);
-        if(user1 != null && user1.getStatus()== Constants.USEREMAIL_VERIFYING) throw new ExistException("该邮箱已注册但未验证，请前往验证！");
-        if(user1 != null && user1.getStatus()== Constants.USEREMAIL_VERIFIED) throw new ExistException("该邮箱已经注册验证了！");
+        User user_found = userDao.findByEmail(email);
+        if(user_found != null && user_found.getStatus()== Constants.USEREMAIL_VERIFYING) throw new ExistException("该邮箱已注册但未验证，请前往验证！");
+        if(user_found != null && user_found.getStatus()== Constants.USEREMAIL_VERIFIED) throw new ExistException("该邮箱已经注册验证了！");
 
 
         String verify = StringUtil.getSalt();
@@ -61,7 +62,7 @@ public class VerifyServiceImpl implements VerifyService {
         url = server + "/register/acceptverifyemail/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
         String content = "<html><head><title></title></head><body>亲爱的SMT用户，<br> &nbsp;&nbsp;&nbsp;您刚刚注册成为SMT用户，请点击以下链接完成邮箱验证：<br> &nbsp;&nbsp; <a href = \""+ url +"\">"+ url +"</a></body></html>";
 
-        System.out.println(content);
+        logger.info(content);
         String[] tos = new String[]{email};
         mailUtil.sendHtmlMail(tos, "邮箱验证", content);
 
@@ -79,7 +80,6 @@ public class VerifyServiceImpl implements VerifyService {
         byte[] bytes = Base64.getDecoder().decode(code);
         String source = new String(bytes, StandardCharsets.UTF_8);
         String[] array = source.split("&");
-//        Integer userid = Integer.parseInt(array[0]);
         String email = array[0];
         //校验
         User user = userDao.findByEmail(email);

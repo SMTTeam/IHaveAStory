@@ -22,40 +22,67 @@ public class RegisterControllerTest extends SmtApplicationTests {
     private MockMvc mockMvc;
 
     @Test
-    public void test0_checkEmail() throws Exception{
+    public void test00_checkEmail() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(get("/register/checkemail?emailname=123@qq.com"));
+        String emailname = "123@qq.com";
+        mockMvc.perform(get("/register/checkemail?emailname="+emailname));
     }
 
     @Test
-    public void test1_checkEmail() throws Exception{
+    public void test01_checkEmail() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(get("/register/checkemail?emailname=18206296783@163.com"));
+        String emailname = "18206296783@163.com";
+        mockMvc.perform(get("/register/checkemail?emailname=" + emailname));
     }
 
     @Test
     @Transactional
     @Rollback
-    public void test2_sendVerifyEmail() throws Exception {
+    public void test02_sendVerifyEmail() throws Exception {
         mockMvc = getMockMvc();
-        mockMvc.perform(post("/register/verifyemail?email=wsx1204353094@gmail.com&username=六学家&psw=123hhh"));
+        String email = "MF1832174@smail.nju.edu.cn";
+        String username = "wsx";
+        String psw = "123wei" ;
+        mockMvc.perform(post("/register/verifyemail?email="+email+"&username="+username+"&psw="+psw));
     }
 
     @Test
-    public void test3_acceptVerifyEmail() throws Exception{
+    @Transactional
+    @Rollback
+    public void test03_sendVerifyEmail() throws Exception {
+        mockMvc = getMockMvc();
+        String email = "18206296783@163.com";
+        String username = "wsx";
+        String psw = "123wei" ;
+        mockMvc.perform(post("/register/verifyemail?email="+email+"&username="+username+"&psw="+psw));
+    }
+
+    @Test
+    public void test04_acceptVerifyEmail() throws Exception{
+        mockMvc = getMockMvc();
+        mockMvc.perform(get("/register/acceptverifyemail"));
+    }
+
+    @Test
+    public void test05_acceptVerifyEmail() throws Exception{
         mockMvc = getMockMvc();
         mockMvc.perform(get("/register/acceptverifyemail/"));
     }
 
+
     @Test
-    public void test4_acceptVerifyEmail() throws Exception{
+    @Transactional
+    @Rollback
+    public void test06_acceptVerifyEmail() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(get("/register/acceptverifyemail/MTgyMDYyOTY3ODNAMTYzLmNvbSY0MjExZGEzM2QyN2I2NWNlNzg1OTk0OWEyYTY4OTQ4ZGI2ZmNiZDA4MzhiZTkyZmRiZTllZWFjM2IyMGRiOWM1"));
+        String code = "TUYxODMyMTc0QHNtYWlsLm5qdS5lZHUuY24mYjEzYzA4YmVhM2E5OGViMGNmYWUxOTJkNGQ1ZTk3M2I0ZWVkMDQ3MWM2NTkwNTJkMzk0M2JmM2YyYmU4NjVhZA==";
+        mockMvc.perform(get("/register/acceptverifyemail/"+code));
     }
 
     @Test
-    public void test5_acceptVerifyEmail() throws Exception{
+    public void test07_acceptVerifyEmail() throws Exception{
         mockMvc = getMockMvc();
-        mockMvc.perform(get("/register/acceptverifyemail/MTgyMDYyOTY3ODNAMTYzLmNvbSZiZTUwNzY3YjE4ZDI0NDliOTViZDRkNmQ4MDkyZGExYzEzNzUxZDkwNjMwZjUzNmFjNDExY2M2ODMyODg5NmQ0"));
+        String code = "MTgyMDYyOTY3ODNAMTYzLmNvbSY4MGRkODkzNDAwZTM2YWJmZWRlZWQ0NmQ4YzgwZWQ4NzE4MGRjZDM12DfI2NDExMDRhODQ3NGQ1ZjJmNjYwMGVl";
+        mockMvc.perform(get("/register/acceptverifyemail/"+code));
     }
 }
