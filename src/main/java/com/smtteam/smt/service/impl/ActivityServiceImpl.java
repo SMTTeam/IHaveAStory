@@ -45,7 +45,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Transactional
     public void deleteActivity(int id) {
         Optional<Activity> optional = activityDao.findById(id);
-        Activity activity = optional.get();
+        Activity activity = optional.orElse(null);
         List<Task> taskList = taskDao.findByActivityIdOrderByPosId(id);
         for(Task task: taskList) {
             List<Story> storyList = storyDao.findByTaskId(task.getId());
