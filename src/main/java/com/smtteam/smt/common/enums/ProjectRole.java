@@ -6,10 +6,6 @@ public enum ProjectRole {
     private int role;
     private String roleName;
 
-    ProjectRole(int role) {
-        this.role = role;
-    }
-
     ProjectRole(int role, String roleName) {
         this.role = role;
         this.roleName = roleName;
