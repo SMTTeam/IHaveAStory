@@ -1,6 +1,9 @@
 package com.smtteam.smt.common.bean;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 类说明：展示的用户类
  * 创建者：Zeros
@@ -8,6 +11,8 @@ package com.smtteam.smt.common.bean;
  * 包名：com.smtteam.smt.common.bean
  */
 
+@Setter
+@Getter
 public class ShowUser {
     private Integer id;
 
@@ -15,27 +20,4 @@ public class ShowUser {
 
     private String username;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
