@@ -4,6 +4,8 @@ package com.smtteam.smt.common.bean;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * 类说明：展示的用户类
  * 创建者：Zeros
@@ -13,7 +15,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ShowUser {
+public class ShowUser implements Serializable {
     private Integer id;
 
     private String email;

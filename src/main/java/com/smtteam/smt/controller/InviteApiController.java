@@ -50,7 +50,7 @@ public class InviteApiController {
      * @return
      */
     @GetMapping("search")
-    public ResultVO<List<ShowUser>> sendInviteEmail(@RequestParam String email){
+    public ResultVO<List<ShowUser>> search(@RequestParam String email){
         List<User> users = userService.findByEmailLike(email);
         List<ShowUser> userList = users.stream().map(User::toShowUser).collect(Collectors.toList());
         return new ResultVO<>(userList);

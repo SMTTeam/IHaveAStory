@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -18,53 +17,45 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ProjectApiControllerTest extends SmtApplicationTests {
+public class InviteApiControllerTest extends SmtApplicationTests {
     @Autowired
     private MockMvc mockMvc;
+
     private ShowUser user = new ShowUser();
 
     @Test
     @Rollback
     @Transactional
-    public void createProject() throws Exception{
-        String name = "测试Name";
-        String description = "测试描述";
-        String result = mockMvc.perform(post("/api/project/create?proName="+name+"&description="+description)
+    public void search() throws Exception{
+        mockMvc.perform(get("/api/invite/search?email=1509403958")
                 .sessionAttr("user",getUser()))
                 .andExpect(status().isOk()).andDo(print()).andReturn().getResponse().getContentAsString();
-
     }
 
     @Test
     @Rollback
     @Transactional
-    public void modifyProject() throws Exception{
-        Integer id = 2;
-        String name = "测试Name-";
-        String description = "测试描述";
-        mockMvc.perform(post("/api/project/modify?proId="+id+"&proName="+name+"&description="+description)
-                .sessionAttr("user",getUser()))
-                .andExpect(status().isOk()).andDo(print()).andReturn().getResponse().getContentAsString();
-        mockMvc.perform(post("/api/project/modify?proId=32&proName="+name+"&description="+description)
+    public void sendInviteEmail() throws Exception{
+        mockMvc.perform(post("/api/invite/create?proId=2&email=111&role=1")
+                .sessionAttr("user",getUser()));
+        mockMvc.perform(post("/api/invite/create?proId=1&email=111&role=1")
+                .sessionAttr("user",getUser()));
+        mockMvc.perform(post("/api/invite/create?proId=2&email=1509403958@qq.com&role=1")
                 .sessionAttr("user",getUser()));
     }
 
     @Test
-    public void getReleaseList() throws Exception{
-        mockMvc.perform(get("/api/project/list").sessionAttr("user",getUser()))
-                .andExpect(status().isOk());
+    @Rollback
+    @Transactional
+    public void getProjectRole() throws Exception{
+        mockMvc.perform(get("/api/invite/role?proId=2&userId=1"));
     }
 
     @Test
-    public void getAttendedList() throws Exception{
-        mockMvc.perform(get("/api/project/attended").sessionAttr("user",getUser()))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void getProjectDetail() throws Exception{
-        mockMvc.perform(get("/api/project/detail?proId=2").sessionAttr("user",getUser()))
-                .andExpect(status().isOk());
+    @Rollback
+    @Transactional
+    public void getInviteList() throws Exception{
+        mockMvc.perform(get("/api/invite/list?proId=2"));
     }
 
     private ShowUser getUser(){
