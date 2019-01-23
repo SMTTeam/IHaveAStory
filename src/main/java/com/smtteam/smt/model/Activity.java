@@ -1,11 +1,13 @@
 package com.smtteam.smt.model;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-//@Data
+@Setter
+@Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "activity")
@@ -25,38 +27,6 @@ public class Activity {
     public Activity(Integer proId, String name, Integer posId){
         this.proId = proId;
         this.name = name;
-        this.posId = posId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getProId() {
-        return proId;
-    }
-
-    public void setProId(Integer proId) {
-        this.proId = proId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getPosId() {
-        return posId;
-    }
-
-    public void setPosId(Integer posId) {
         this.posId = posId;
     }
 

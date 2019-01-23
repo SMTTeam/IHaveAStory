@@ -1,12 +1,14 @@
 package com.smtteam.smt.model;
 
 import com.smtteam.smt.common.bean.ShowUser;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Setter
+@Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "user")

@@ -1,11 +1,13 @@
 package com.smtteam.smt.model;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Setter
+@Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "pro_user")
