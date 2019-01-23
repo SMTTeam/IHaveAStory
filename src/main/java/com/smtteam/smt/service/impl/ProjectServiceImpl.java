@@ -79,8 +79,8 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public Project modifyProject(Integer proId, Integer userId, String name, String description) throws NoAccessException {
-        Project project = projectDao.findById(proId).get();
-        if(!project.getUserId().equals(userId)){
+        Project project = projectDao.findById(proId).orElse(null);
+        if(project == null || !project.getUserId().equals(userId)){
             throw new NoAccessException("No access to the project.");
         }
         project.setDescription(description);

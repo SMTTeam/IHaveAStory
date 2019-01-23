@@ -36,11 +36,13 @@ public class InviteApiControllerTest extends SmtApplicationTests {
     @Rollback
     @Transactional
     public void sendInviteEmail() throws Exception{
-        mockMvc.perform(post("/api/invite/create?proId=2&email=111&role=1")
+        mockMvc.perform(post("/api/invite/create?proId=3&email=111&role=1")
                 .sessionAttr("user",getUser()));
         mockMvc.perform(post("/api/invite/create?proId=1&email=111&role=1")
                 .sessionAttr("user",getUser()));
-        mockMvc.perform(post("/api/invite/create?proId=2&email=1509403958@qq.com&role=1")
+        mockMvc.perform(post("/api/invite/create?proId=3&email=1509403958@qq.com&role=1")
+                .sessionAttr("user",getUser()));
+        mockMvc.perform(post("/api/invite/create?proId=5&email=1509403958@qq.com&role=1")
                 .sessionAttr("user",getUser()));
     }
 
@@ -48,14 +50,14 @@ public class InviteApiControllerTest extends SmtApplicationTests {
     @Rollback
     @Transactional
     public void getProjectRole() throws Exception{
-        mockMvc.perform(get("/api/invite/role?proId=2&userId=1"));
+        mockMvc.perform(get("/api/invite/role?proId=3&userId=1").sessionAttr("user",getUser()));
     }
 
     @Test
     @Rollback
     @Transactional
     public void getInviteList() throws Exception{
-        mockMvc.perform(get("/api/invite/list?proId=2"));
+        mockMvc.perform(get("/api/invite/list?proId=3").sessionAttr("user",getUser()));
     }
 
     private ShowUser getUser(){
