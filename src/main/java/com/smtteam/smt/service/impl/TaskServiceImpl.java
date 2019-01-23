@@ -50,7 +50,9 @@ public class TaskServiceImpl implements TaskService {
         for(Story story: storyList) {
             storyDao.delete(story);
         }
-        taskDao.delete(task);
+        if(task!=null){
+            taskDao.delete(task);
+        }
     }
 
     @Override

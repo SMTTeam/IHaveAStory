@@ -54,7 +54,10 @@ public class ActivityServiceImpl implements ActivityService {
             }
             taskService.deleteTask(task.getId());
         }
-        activityDao.delete(activity);
+        if(activity!=null){
+            activityDao.delete(activity);
+        }
+
     }
 
     @Override
