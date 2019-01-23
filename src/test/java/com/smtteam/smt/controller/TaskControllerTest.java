@@ -69,6 +69,8 @@ public class TaskControllerTest extends SmtApplicationTests {
         mockMvc = getMockMvc();
         mockMvc.perform(post("/task/delete?id="+id).sessionAttr("user",getUser()))
                 .andExpect(status().isOk());
+        mockMvc.perform(post("/task/delete?id=10000").sessionAttr("user",getUser()))
+                .andExpect(status().isOk());
     }
 
 

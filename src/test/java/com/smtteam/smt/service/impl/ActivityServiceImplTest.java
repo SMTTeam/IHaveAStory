@@ -70,5 +70,6 @@ public class ActivityServiceImplTest extends SmtApplicationTests {
         activityService.deleteActivity(id);
         Activity activity = activityService.getActivityById(id);
         assertNull(activity);
+        activityService.deleteActivity(1000);
     }
 }
