@@ -60,7 +60,6 @@ public class InviteServiceImpl implements InviteService {
         String url = userId + "&" + proId + "&" + EncryptUtil.SHA256(salt);
         url = server + "/invite/accept/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
         String content = "<html><head><title></title></head><body>亲爱的SMT用户您好,<br> &nbsp;&nbsp;&nbsp;其他用户邀请您加入" + proName + "项目，点击以下链接加入此项目：<br> &nbsp;&nbsp; <a href = \"" + url + "\">" + url + "</a></body></html>";
-        System.out.println(content);
         String[] tos = new String[]{email};
         mailUtil.sendHtmlMail(tos, "项目邀请", content);
         return projectUser;

@@ -44,9 +44,11 @@ public class ProjectApiControllerTest extends SmtApplicationTests {
         Integer id = 2;
         String name = "测试Name-";
         String description = "测试描述";
-        String result = mockMvc.perform(post("/api/project/modify?proId="+id+"&proName="+name+"&description="+description)
+        mockMvc.perform(post("/api/project/modify?proId="+id+"&proName="+name+"&description="+description)
                 .sessionAttr("user",getUser()))
                 .andExpect(status().isOk()).andDo(print()).andReturn().getResponse().getContentAsString();
+        mockMvc.perform(post("/api/project/modify?proId=32&proName="+name+"&description="+description)
+                .sessionAttr("user",getUser()));
     }
 
     @Test
