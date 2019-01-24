@@ -40,7 +40,10 @@ public class ReleaseServiceImpl implements ReleaseService {
 
     @Override
     public void deleteRelease(int id){
-        Release release = releaseDao.findById(id).get();
-        releaseDao.delete(release);
+        Optional<Release> optionalRelease = releaseDao.findById(id);
+        Release release = optionalRelease.orElse(null);
+        if( release != null){
+            releaseDao.delete(release);
+        }
     }
 }

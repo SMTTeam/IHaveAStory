@@ -35,8 +35,11 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public void deleteStory(int id){
-        Story story = storyDao.findById(id).get();
-        storyDao.delete(story);
+        Optional<Story> optionalStory = storyDao.findById(id);
+        Story story = optionalStory.orElse(null);
+        if( story != null){
+            storyDao.delete(story);
+        }
     }
 
     @Override
