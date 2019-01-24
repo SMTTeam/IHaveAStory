@@ -54,8 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User addUser(User user){
-        User result = userDao.save(user);
-        return result;
+        return userDao.save(user);
     }
 
     /**

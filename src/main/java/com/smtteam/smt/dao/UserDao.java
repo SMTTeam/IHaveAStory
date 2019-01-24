@@ -1,6 +1,5 @@
 package com.smtteam.smt.dao;
 
-import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

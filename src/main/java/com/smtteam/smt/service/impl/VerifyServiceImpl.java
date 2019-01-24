@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
@@ -49,13 +48,13 @@ public class VerifyServiceImpl implements VerifyService {
     public User sendVerifyEmail(String email, String psw, String username)throws ExistException{
         //在发送前保存记录到数据库
 
-        User user_found = userDao.findByEmail(email);
-        if(user_found != null && user_found.getStatus()== Constants.USEREMAIL_VERIFYING)
+        User userFound = userDao.findByEmail(email);
+        if(userFound != null && userFound.getStatus()== Constants.USEREMAIL_VERIFYING)
         {
             logger.info("该邮箱已注册但未验证，请前往验证！");
             throw new ExistException("该邮箱已注册但未验证，请前往验证！");
         }
-        if(user_found != null && user_found.getStatus()== Constants.USEREMAIL_VERIFIED)
+        if(userFound != null && userFound.getStatus()== Constants.USEREMAIL_VERIFIED)
         {
             logger.info("该邮箱已经注册验证了！");
             throw new ExistException("该邮箱已经注册验证了！");

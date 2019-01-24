@@ -35,9 +35,9 @@ public class LoginController {
      */
     @PostMapping("/checklogin")
     public ResultVO<User> checkLogin(@RequestParam String email , @RequestParam String pwd , HttpServletRequest request){
-        User temp_result = userService.findByEmailAndStatus(email , Constants.USEREMAIL_VERIFIED);
+        User tempResult = userService.findByEmailAndStatus(email , Constants.USEREMAIL_VERIFIED);
 
-        if( temp_result == null ){//首先验证邮箱是否已经验证
+        if( tempResult == null ){//首先验证邮箱是否已经验证
             ResultVO<User> resultVO = new ResultVO<>();
             resultVO.setCode(ResultCode.NOT_FOUND.getCode());
             resultVO.setMessage("邮箱未验证");
@@ -49,11 +49,13 @@ public class LoginController {
                 ResultVO<User> resultVO = new ResultVO<>();
                 resultVO.setCode(ResultCode.NOT_FOUND.getCode());
                 resultVO.setMessage("用户名或密码错误");
-                logger.info(String.valueOf(resultVO.getCode()));
+                String infoCode = String.valueOf(resultVO.getCode());
+                logger.info(infoCode);
                 return resultVO;
             }else {
                 ResultVO<User> resultVO = new ResultVO<>(result);
-                logger.info(String.valueOf(resultVO.getCode()));
+                String infoCode = String.valueOf(resultVO.getCode());
+                logger.info(infoCode);
                 HttpSession session = request.getSession();
                 ShowUser showUser = new ShowUser();//使用showUser屏蔽用户密码
                 showUser.setId(result.getId());
@@ -85,7 +87,6 @@ public class LoginController {
     public ModelAndView exitLogin(HttpServletRequest request){
         HttpSession session = request.getSession();
         session.setAttribute("user",null);
-        ModelAndView modelAndView = new ModelAndView("redirect:/login2");
-        return modelAndView;
+        return new ModelAndView("redirect:/login2");
     }
 }

@@ -4,7 +4,6 @@ import com.smtteam.smt.common.exception.ExistException;
 import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.User;
 
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * 验证邮箱

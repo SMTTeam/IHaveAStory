@@ -23,7 +23,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception{
-        logger.info(request.getRequestURI()+"   , -------------");
+        String loginfo = request.getRequestURI()+"   , -------------";
+        logger.info(loginfo);
         //从Session里面获取User user引用判断是否为空 来实现登录拦截逻辑
         HttpSession session = request.getSession();
 
@@ -46,7 +47,7 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView)throws Exception{
-
+        //如果需要在controller执行后调用，需要编写相关代码
     }
 
     /**
@@ -56,6 +57,6 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex)throws Exception{
-
+        //如果需要在页面渲染之后，进行资源清理操作，需要编写相关代码
     }
 }

@@ -23,19 +23,13 @@ public class InterceptorConfig implements WebMvcConfigurer{
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/","/login","/error","/register","/invite/accept/**","/register/**","/checklogin","/css/**","/img/**","/vendor/**","/js/**");
-
-
-//        InterceptorRegistration registration = registry.addInterceptor(loginInterceptor);
-//        registration.addPathPatterns("/**");
-//        registration.excludePathPatterns("/login","/register","/register/*","/checklogin");
     }
 
     /**
      *  配置静态资源，比如html,css,js等
      */
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 
-//        super.addResourceHandlers(registry);
     }
 }

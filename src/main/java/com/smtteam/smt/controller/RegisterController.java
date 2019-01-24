@@ -1,6 +1,5 @@
 package com.smtteam.smt.controller;
 
-import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.common.bean.ResultVO;
 import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
@@ -44,12 +43,15 @@ public class RegisterController {
             ResultVO<User> resultVO = new ResultVO<>();
             resultVO.setCode(ResultCode.NOT_FOUND.getCode());
             resultVO.setMessage("该邮箱尚未注册");
-            logger.info(String.valueOf(resultVO.getCode()));
+            String infoCode = String.valueOf(ResultCode.NOT_FOUND.getCode());
+            logger.info(infoCode);
             return resultVO;
         }else {
-            logger.info("该用户名字为："+userInfoInDB.getUsername());
+            String loginfo = "该用户名字为："+userInfoInDB.getUsername();
+            logger.info(loginfo);
             ResultVO<User> resultVO = new ResultVO<>(userInfoInDB);
-            logger.info(String.valueOf(resultVO.getCode()));
+            String loginfoCode = String.valueOf(resultVO.getCode());
+            logger.info(loginfoCode);
             return resultVO;
         }
     }
@@ -86,9 +88,7 @@ public class RegisterController {
     public ModelAndView acceptVerifyEmail(@PathVariable String code, HttpServletRequest request){
         String loginfo = "验证邮件里的url后的code："+code;
         logger.info(loginfo);
-//        if(code == null || code.isEmpty()){
-//            return new ModelAndView("redirect:/login");//重定向到login界面
-//        }
+
         User user = null;
         try {
             user = verifyService.acceptVerifyEmail(code);
