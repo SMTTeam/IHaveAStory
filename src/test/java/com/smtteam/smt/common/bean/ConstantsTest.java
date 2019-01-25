@@ -11,13 +11,13 @@ public class ConstantsTest {
 
         Constants constants = new Constants();
 
-        assertEquals(Constants.PROJECT_INVITING.intValue(), 1);
-        assertEquals(Constants.PROJECT_INVITED.intValue(), 2);
+        assertEquals(1,Constants.PROJECT_INVITING.intValue());
+        assertEquals(2,Constants.PROJECT_INVITED.intValue());
 
-        assertEquals(Constants.USEREMAIL_VERIFYING.intValue(), 1);
-        assertEquals(Constants.USEREMAIL_VERIFIED.intValue(), 2);
+        assertEquals(1,Constants.USEREMAIL_VERIFYING.intValue());
+        assertEquals(2,Constants.USEREMAIL_VERIFIED.intValue() );
 
-        assertEquals(Constants.USER_DEFAULT_GENDA.intValue(), 1);
+        assertEquals(1,Constants.USER_DEFAULT_GENDA.intValue());
         assertTrue("".equals(Constants.USER_DEFAULT_VERIFY));
 
         assertEquals(Constants.SALT_LENGTH.intValue(), 20);

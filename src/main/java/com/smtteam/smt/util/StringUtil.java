@@ -12,6 +12,7 @@ import java.util.Random;
  */
 
 public class StringUtil {
+    private StringUtil(){}
 
     /**
      * 密文加密和解析字典，必须private，可以根据需要打乱这些字符的顺序，打乱后，可以得到不同的密码，最好按需打乱
@@ -38,7 +39,6 @@ public class StringUtil {
      * @return
      */
     private static String getRandomString(int length){
-       //Random random=new Random();
         StringBuilder sb=new StringBuilder();
         for(int i=0;i<length;i++){
             int number=random.nextInt(array.length);

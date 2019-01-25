@@ -5,7 +5,6 @@ import com.smtteam.smt.common.bean.ShowProjectUser;
 import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ProjectRole;
 import com.smtteam.smt.common.exception.ExistException;
-import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.model.Project;
 import com.smtteam.smt.model.ProjectUser;
 import com.smtteam.smt.model.User;

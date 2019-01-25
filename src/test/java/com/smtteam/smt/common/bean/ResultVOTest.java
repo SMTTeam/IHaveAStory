@@ -23,7 +23,4 @@ public class ResultVOTest {
         r2.getData();
     }
 
-
-
-
 }

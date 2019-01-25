@@ -65,8 +65,8 @@ public class ProjectServiceImpl implements ProjectService {
         List<Integer> projectIdList = list.stream()
                 .filter(pro -> pro.getRole() != ProjectRole.Owner.getRole())
                 .map(ProjectUser::getProId).collect(Collectors.toList());
-        List<Project> projects = projectDao.findByIdIn(projectIdList);
-        return projects;
+
+        return projectDao.findByIdIn(projectIdList);
     }
 
     /**

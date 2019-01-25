@@ -10,7 +10,7 @@ public class ShowUserTest {
     public void test() {
         ShowUser user = new ShowUser();
         user.setId(1);
-        assertEquals(user.getId().intValue(),1);
+        assertEquals(1,user.getId().intValue());
 
         user.setUsername("zs");
         assertNotNull(user.getUsername());

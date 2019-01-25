@@ -30,7 +30,7 @@ public class EnumUtilTest {
             ProjectRole role1 = EnumUtil.getEnumByField(ProjectRole.class,"role", 2);
             assertNull(role1);
             ProjectRole role2 = EnumUtil.getEnumByField(ProjectRole.class,"role", 3);
-            assertEquals(role2 != null ? role2.getRole() : 3, 3);
+            assertEquals( 3, role2 != null ? role2.getRole() : 3);
 
         } catch (NoSuchFieldException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
         }

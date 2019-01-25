@@ -11,10 +11,10 @@ public class ShowProjectUserTest {
         ShowProjectUser user = new ShowProjectUser();
 
         user.setUserId(1);
-        assertEquals(user.getUserId().intValue(), 1);
+        assertEquals(1,user.getUserId().intValue() );
 
         user.setProId(1);
-        assertEquals(user.getProId().intValue(), 1);
+        assertEquals(1,user.getProId().intValue());
 
 
         user.setAvatar("1.png");
@@ -24,10 +24,10 @@ public class ShowProjectUserTest {
         assertNotNull(user.getUsername());
 
         user.setRole(1);
-        assertEquals(user.getRole().intValue(), 1);
+        assertEquals(1,user.getRole().intValue() );
 
         user.setStatus(1);
-        assertEquals(user.getStatus().intValue(), 1);
+        assertEquals(1,user.getStatus().intValue() );
     }
 
 }

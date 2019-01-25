@@ -2,7 +2,6 @@ package com.smtteam.smt.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,6 +29,6 @@ public class InterceptorConfig implements WebMvcConfigurer{
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-
+        // 如果要配置静态资源，可以在这里做
     }
 }

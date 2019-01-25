@@ -59,16 +59,6 @@ public class EnumUtil {
         return  "get" + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
     }
 
-//    private static String getFieldSetMethodName(Field field) {
-//        if (field == null) {
-//            return null;
-//        }
-//
-//        String name = field.getName();
-//        return "set" + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
-//    }
-
-
     /**
      * 返回指定编码的'枚举'-目前是只支持属性值为int类型
      * @param clazz

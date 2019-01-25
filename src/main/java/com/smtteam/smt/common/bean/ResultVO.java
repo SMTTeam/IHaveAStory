@@ -1,7 +1,6 @@
 package com.smtteam.smt.common.bean;
 
 import com.smtteam.smt.common.enums.ResultCode;
-import lombok.Data;
 
 
 /**

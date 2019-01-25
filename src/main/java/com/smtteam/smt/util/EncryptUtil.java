@@ -1,5 +1,8 @@
 package com.smtteam.smt.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -10,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class EncryptUtil {
 	private EncryptUtil(){}
-
+	private final static Logger logger = LoggerFactory.getLogger(EncryptUtil.class);
 	 /**
 	  * 
 	  * @Title: SHA256
@@ -51,7 +54,7 @@ public class EncryptUtil {
 	        byte byteBuffer[] = messageDigest.digest();  
 	  
 	        // 將 byte 轉換爲 string  
-	        StringBuffer strHexString = new StringBuffer();  
+	        StringBuilder strHexString = new StringBuilder();
 	        // 遍歷 byte buffer  
 	        for (int i = 0; i < byteBuffer.length; i++){  
 	          String hex = Integer.toHexString(0xff & byteBuffer[i]);  
@@ -62,7 +65,8 @@ public class EncryptUtil {
 	        }  
 	        // 得到返回結果  
 	        strResult = strHexString.toString();  
-	      }catch (NoSuchAlgorithmException e){  
+	      }catch (NoSuchAlgorithmException e){
+	      	logger.error("NoSuchAlgorithmException !");
 	      }
 	    }  
 	    return strResult;  
