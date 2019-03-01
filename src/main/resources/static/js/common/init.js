@@ -461,7 +461,7 @@ $("#user-oldpsw").parsley().addAsyncValidator("checkOldPsw" , function (xhr) {
             isOldPswTrue = false;
             return false;
         }
-    },'/userinfo/checkoldpsw',{"dataType": "json","data":{"oldpsw":function(){return $('#user-oldpsw').val();} , "useremail":showUser.email}
+    },'/userinfo/checkoldpsw',{"dataType": "json","data":{"oldpsw":function(){return $('#user-oldpsw').val();} , "useremail":function(){ if(showUser == null){return "";} else{ return  showUser.email;}}}
 });
 
 //点击"保存"按钮，修改密码

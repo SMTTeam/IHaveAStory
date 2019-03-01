@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="../templates/common/head::loadHeader('重置密码')">
+<body>
+    <div th:include="../templates/common/nav :: loadNav"></div>
+    <canvas id="J_dotLine"></canvas>
+
+    <div class="am-container">
+        <div class="am-g"  style="margin-top: 250px" >
+            <div class="am-u-sm-4 am-u-md-4 am-u-lg-4  am-u-sm-centered am-u-md-centered am-u-lg-centered">
+                <p class="am-text-xxl am-text-center">啊哦！链接失效诶!</p>
+            </div>
+
+            <form id="form_findbackResetPsw" class="am-form am-u-sm-8 am-u-md-6 am-u-lg-5 am-u-sm-centered" method="post" data-parsley-validate onsubmit="return false;">
+                <div class="am-form-group" style="margin-top: 80px;">
+                    <button id="backToSendResetPswEmailButton" type="button" class="am-btn smt-register-btn  am-u-sm-centered" >返回发送重置密码邮件界面</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div th:include="../templates/common/onload_js::loadJS"></div>
+    <script th:src="@{js/link_invalid.js}"></script>
+</body>
+</html>

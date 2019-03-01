@@ -1,5 +1,7 @@
 package com.smtteam.smt.service;
 
+import com.smtteam.smt.common.exception.NoAccessException;
+import com.smtteam.smt.common.exception.NotExistException;
 import com.smtteam.smt.model.User;
 
 import java.util.List;
@@ -74,4 +76,19 @@ public interface UserService {
      * @return
      */
     int updateUserPswByEmail(String useremail , String newpsw);
+
+    /**
+     * 发送重置密码邮件
+     * @param email
+     * @return
+     */
+    User sendResetPswEmail(String email) throws NotExistException;
+
+//    /**
+//     * 重置密码
+//     * @param code
+//     * @return
+//     * @throws NoAccessException
+//     */
+//    User resetPsw(String code) throws NoAccessException;
 }

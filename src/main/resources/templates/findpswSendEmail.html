@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="../templates/common/head::loadHeader('找回密码')">
+</head>
+<body>
+    <div th:include="../templates/common/nav :: loadNav"></div>
+    <canvas id="J_dotLine"></canvas>
+
+    <div class="am-container">
+        <div class="am-g"  style="margin-top: 150px" >
+            <div class="am-u-sm-4 am-u-md-4 am-u-lg-4  am-u-sm-centered am-u-md-centered am-u-lg-centered">
+                <p class="am-text-xxl am-text-center">找回密码</p>
+            </div>
+
+            <form id="form_findbackPsw" class="am-form am-u-sm-8 am-u-md-6 am-u-lg-5 am-u-sm-centered" method="post" data-parsley-validate onsubmit="return false;">
+                <div class="am-form-group " style="margin-top: 50px;">
+                    <input id="findback_PswInputEmail" type="email" placeholder="输入邮箱地址"
+                           data-parsley-required-message="邮箱地址不能为空"
+                           data-parsley-type-message="请输入正确的邮箱地址"
+                           data-parsley-trigger="blur"
+                           data-parsley-required="true"
+                           data-parsley-remote
+                           data-parsley-remote-validator="checkEmailForFindBackPsw"
+                           data-parsley-remote-options='{ "type": "GET" }'
+                           data-parsley-remote-message="邮箱尚未注册" />
+                </div>
+
+                <div class="am-form-group " style="margin-top: 25px;">
+                    <button id="findback_SendEmailButton" type="submit" class="am-btn smt-bnt am-u-sm-centered">发送重置密码邮件</button>
+                </div>
+
+                <div class="am-form-group" style="margin-top: 30px;">
+                    <button id="findback_RegisterButton" type="button" class="am-btn smt-register-btn  am-u-sm-centered" >前往注册</button>
+                </div>
+
+                <div class="am-form-group" style="margin-top: 30px;">
+                    <button id="backToLoginButton" type="button" class="am-btn smt-login-btn  am-u-sm-centered" >返回登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:include="../templates/common/onload_js::loadJS"></div>
+    <script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
+    <script th:src="@{js/find_back_psw_sendemail.js}"></script>
+</body>
+</html>
