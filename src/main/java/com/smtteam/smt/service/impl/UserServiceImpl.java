@@ -97,4 +97,9 @@ public class UserServiceImpl implements UserService {
     public User findByEmailAndStatus(String email) {
         return userDao.findByEmailAndStatus(email, Constants.USEREMAIL_VERIFIED);
     }
+
+    @Override
+    public int updateUserPswByEmail(String useremail , String newpsw){
+        return userDao.updateUserPswByEmail(newpsw, useremail);
+    }
 }

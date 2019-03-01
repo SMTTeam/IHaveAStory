@@ -66,4 +66,12 @@ public interface UserService {
      * @return
      */
     User findByEmailAndStatus(String email);
+
+    /**
+     * 根据useremail 更新个人信息的 密码字段
+     * @param useremail
+     * @param newpsw
+     * @return
+     */
+    int updateUserPswByEmail(String useremail , String newpsw);
 }
