@@ -6,10 +6,13 @@
     <div th:include="../templates/common/nav :: loadNav"></div>
     <canvas id="J_dotLine"></canvas>
     <!-- code from here -->
-    <div class="am-container">
+    <div class="am-container project-container" hidden>
         <div class="am-g smt-title">
-            <div class="am-u-sm-12">
+            <div class="am-u-sm-6">
                 <h2>项目详情</h2>
+            </div>
+            <div class="am-u-sm-6">
+                <button class="am-btn smt-bnt am-fr" style="margin:-5px 5px; width: 120px" onclick="showDel()">删除项目</button>
             </div>
         </div>
         <div class="am-g smt-block">
@@ -19,21 +22,21 @@
                 <div class="am-form-group am-form-icon am-form-feedback smt-input-row">
                     <span class="am-fl smt-input-label">项目名称:</span>
                     <p class="smt-input-wrapper">
-                        <input type="text" class="smt-input-for-row" id="name" name="proName" placeholder="" maxlength="30" required>
+                        <input type="text" class="smt-input-for-row" id="name" name="proName" placeholder="" maxlength="30" disabled required>
                         <span class="am-icon-warning" style="display: none"></span>
                     </p>
                 </div>
                 <div class="am-form-group am-form-icon am-form-feedback smt-input-row">
                     <span class="am-fl smt-input-label">项目详情:</span>
                     <p class="smt-input-wrapper">
-                        <textarea class="smt-input-for-row am-scrollable-vertical" rows="4" name="description" id="description" maxlength="300" placeholder="" required></textarea>
+                        <textarea class="smt-input-for-row am-scrollable-vertical" rows="4" name="description" id="description" maxlength="300" placeholder="" disabled required></textarea>
                         <span class="am-icon-warning" style="display: none"></span>
                     </p>
                 </div>
                 <!--<div class="am-form-group smt-input-row">-->
                     <!--<button type="submit" class="am-fr am-btn smt-bnt smt-small-btn">修改项目</button>-->
                 <!--</div>-->
-                <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
+                <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered edit-role" hidden>
                     <div class="am-g">
                         <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;margin-top: 10px" onclick="modifyProject()">修改项目</button>
                     </div>
@@ -53,28 +56,41 @@
         <!--</div>-->
         <div class="am-g smt-block">
             <ul class="am-g smt-lines" id="project-users">
-                <!--<li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >-->
-                    <!--<div class="am-g smt-line">-->
-                        <!--<div class="am-u-sm-2">-->
-                            <!--<img class="smt-line-icon" src="/img/boy.png">-->
-                        <!--</div>-->
-                        <!--<div class="am-u-sm-2">-->
-                            <!--<p>小王</p>-->
-                        <!--</div>-->
-                        <!--<div class="am-u-sm-3">-->
-                            <!--<p class="smt-line-role" style="width: auto">可编辑</p>-->
-                            <!--&lt;!&ndash;<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">&ndash;&gt;-->
-                        <!--</div>-->
-                        <!--<div class="am-u-sm-3">-->
-                            <!--<p>邀请中</p>-->
-                        <!--</div>-->
-                        <!--<div class="am-u-sm-2">-->
-                            <!--<img class="smt-line-operator" src="/img/common/delete.png">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</li>-->
+                <li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >
+                    <div class="am-g smt-line">
+                        <div class="am-u-sm-2">
+                            <img class="smt-line-icon" src="/img/boy.png">
+                        </div>
+                        <div class="am-u-sm-2">
+                            <p>小王</p>
+                        </div>
+                        <div class="am-u-sm-3">
+                            <p class="smt-line-role" style="width: auto">可编辑</p>
+                            <!--<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">-->
+                        </div>
+                        <div class="am-u-sm-3">
+                            <div class="am-form">
+                                <div class="am-form-group am-form-icon am-form-feedback">
+                                    <!--<p class="smt-input-wrapper">-->
+                                        <select name="role">
+                                            <option value="1">可查看</option>
+                                            <option value="3">可编辑</option>
+                                            <option value="7">可管理</option>
+                                        </select>
+                                    <!--</p>-->
+                                </div>
+                            </div>
+
+                            <p>邀请中</p>
+                        </div>
+
+                        <div class="am-u-sm-2">
+                            <img class="smt-line-operator" src="/img/common/delete.png">
+                        </div>
+                    </div>
+                </li>
             </ul>
-            <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
+            <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered edit-role" hidden>
                 <div class="am-g">
                     <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;" onclick="showInvite()">邀请成员</button>
                 </div>
@@ -153,6 +169,10 @@
     <br>
 
     <div th:include="../templates/common/onload_js::loadJS"></div>
+    <script th:inline="javascript">
+        var proId = getUrlParam('proId');
+        var userId = [[${session.user.id}]]
+    </script>
     <script th:src="@{/js/edit_project.js}"></script>
 </body>
 </html>

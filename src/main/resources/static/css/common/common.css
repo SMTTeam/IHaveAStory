@@ -89,7 +89,7 @@ body.smt-loading > *:not(.u-shade) {
     position: fixed;
     display: block;
     left: 50%;
-    top: 50%;
+    top: 40%;
     padding: 10px 20px;
     max-width: 50%;
     border-radius: 5px;
@@ -106,6 +106,117 @@ body.smt-loading > *:not(.u-shade) {
     z-index: 19999;
 }
 
+.smt-confirm {
+    padding: 30px 20px;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    box-shadow: 1px 1px 50px rgba(0, 0, 0, .3);
+    min-width: 100px;
+    border-radius: 10px;
+}
+
+.smt-pop-shade {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.smt-pop-title {
+    text-align: center;
+    font-size: 16px;
+    color: #7c6aa6;
+}
+
+.smt-btn-wp {
+    clear: both;
+    float: right;
+    margin-top: 40px;
+}
+
+.smt-btn-wp input,
+.smt-btn-wp button {
+    margin-left: 10px;
+}
+
+.smt-btn-wp .btn {
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100px;
+    *zoom: 1;
+    *overflow: visible;
+    padding: 4px 12px;
+    -webkit-transition: background-color .1s linear;
+    -moz-transition: background-color .1s linear;
+    -o-transition: background-color .1s linear;
+    transition: background-color .1s linear
+}
+
+.smt-btn-wp .btn:hover, .smt-btn-wp .btn:focus, .smt-btn-wp .btn:active, .smt-btn-wp .btn.active, .smt-btn-wp .btn.disabled, .smt-btn-wp .btn[disabled] {
+    text-decoration: none
+}
+
+.smt-btn-wp .btn:active, .smt-btn-wp .btn.active {
+    background-color: #ccc
+}
+
+.smt-btn-wp .btn:first-child {
+    *margin-left: 0
+}
+
+.smt-btn-wp .btn.active, .smt-btn-wp .btn:active {
+    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.125) inset;
+    -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.125) inset;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.125) inset
+}
+
+/*默认——灰色	通常用于取消*/
+.smt-btn-wp .btn-default {
+    color: #303133;
+    background-color: #fff;
+    border-color: #303133;
+}
+
+.smt-btn-wp .btn-primary {
+    color: #fff;
+    background-color: #303133;
+}
+
+.smt-btn-wp .btn-primary:hover,
+.smt-btn-wp .btn-primary:focus,
+.smt-btn-wp .btn-primary:active,
+.smt-btn-wp .btn-primary.active {
+    color: #fff;
+    background-color: #2b332b;
+}
+
+/*次要按钮*/
+.smt-btn-wp .btn-secondary {
+    color: #303133;
+    background-color: #fff;
+    border-color: #303133;
+}
+
+.smt-btn-wp .btn-secondary:hover,
+.smt-btn-wp .btn-secondary:focus,
+.smt-btn-wp .btn-secondary:active,
+.smt-btn-wp .btn-secondary.active {
+    color: #fff;
+    background-color: #0f9ae0;
+    border-color: #0f9ae0
+}
 
 .smt-bnt{
     color: #fff;
