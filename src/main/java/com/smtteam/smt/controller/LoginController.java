@@ -87,6 +87,6 @@ public class LoginController {
     public ModelAndView exitLogin(HttpServletRequest request){
         HttpSession session = request.getSession();
         session.setAttribute("user",null);
-        return new ModelAndView("redirect:/login2");
+        return new ModelAndView("redirect:/login");
     }
 }

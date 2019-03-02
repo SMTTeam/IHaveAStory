@@ -10,7 +10,7 @@ $(function () {
     var username="";
 
     $('#user-name').val(username);
-})
+});
 
 //点击个人中心下拉框
 $('#personalSetting').on('click', function() {
@@ -19,6 +19,8 @@ $('#personalSetting').on('click', function() {
         username = showUser.username;
 
     }
+
+
     $('#user-name').val(username);
     $('#my-prompt').modal("hide");
     $('#my-prompt').modal({
@@ -26,6 +28,22 @@ $('#personalSetting').on('click', function() {
         keyboard: false,//键盘关闭对话框
         show:true//弹出对话框
     });
+
+    //初始化模态框状态，将状态恢复至基本信息状态 相当于点击了"基本信息"
+    if( $('#smt-li-baseinfo').hasClass("am-active")){
+        return;
+    }else {
+        $('#smt-li-baseinfo').addClass("am-active");
+        document.getElementById("changePsw").style.display="none";
+        document.getElementById("baseInfo").style.display="";  //显示基本信息
+        $('#smt-li-changepsw').removeClass("am-active");
+    }
+
+
+    //将"修改密码"页面的输入框清零
+    $("#user-oldpsw").val('');
+    $("#user-newpsw").val('');
+    $("#user-confirm-newpsw").val('');
     // $("#my-prompt").modal({
     //     // relatedTarget: this,
     //     backdrop: "static",//点击空白处不关闭对话框
@@ -361,6 +379,7 @@ $('#smt-close-modal').click(function () {
     // });
     // popMsg("点击了关闭按钮");
     $('#my-prompt').modal('close');
+
 });
 //点击"基本信息"
 $('#smt-li-baseinfo').click(function () {
@@ -369,19 +388,32 @@ $('#smt-li-baseinfo').click(function () {
         return;
     }else {
         $('#smt-li-baseinfo').addClass("am-active");
-        $('#smt-li-changepsw').removeClass("aam-active");
+        document.getElementById("changePsw").style.display="none";
+        document.getElementById("baseInfo").style.display="";  //显示基本信息
+        $('#smt-li-changepsw').removeClass("am-active");
     }
 });
 
-//点击"修改密码" （用span实现tab导航功能），不过目前没起作用
+//点击"修改密码"
+$('#smt-li-changepsw').click(function () {
+   if( $('#smt-li-changepsw').hasClass("am-active")){
+       return;
+   } else{
+       $('#smt-li-changepsw').addClass("am-active");
+       document.getElementById("baseInfo").style.display="none";
+       document.getElementById("changePsw").style.display="";  //显示修改密码
+       $('#smt-li-baseinfo').removeClass("am-active");
+   }
+});
+
 function clickToCloseModal() {
     // var tempClass = $('#smt-li-baseinfo').getAttributeNames("class");
-    if( $('#smt-li-changepsw').hasClass("am-active")){
-        return;
-    }else {
-        $('#smt-li-changepsw').addClass("am-active");
-        $('#smt-li-baseinfo').removeClass("aam-active");
-    }
+    // if( $('#smt-li-changepsw').hasClass("am-active")){
+    //     return;
+    // }else {
+    //     $('#smt-li-changepsw').addClass("am-active");
+    //     $('#smt-li-baseinfo').removeClass("am-active");
+    // }
 };
 
 //点击“保存”按钮，提交修改信息
@@ -413,4 +445,61 @@ $('#btn-updatebaseinfo').click(function () {
             }
         }
     });
+});
+
+var isOldPswTrue;
+
+$("#user-oldpsw").parsley().addAsyncValidator("checkOldPsw" , function (xhr) {
+        var jsonData = JSON.parse(xhr.responseText);
+        var code = jsonData.code;
+        if (code === 200){
+
+            isOldPswTrue = true;
+            // alert("isemailExist="+isemailExist);
+            return true;
+        }else {
+            isOldPswTrue = false;
+            return false;
+        }
+    },'/userinfo/checkoldpsw',{"dataType": "json","data":{"oldpsw":function(){return $('#user-oldpsw').val();} , "useremail":function(){ if(showUser == null){return "";} else{ return  showUser.email;}}}
+});
+
+//点击"保存"按钮，修改密码
+$("#btn-updatePsw").click(function (){
+   var newpsw =  $.trim($("#user-newpsw").val());
+   var confirm_newpsw =  $.trim($("#user-confirm-newpsw").val());
+   var password_pattern = /^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$)\S{6,20}$/;
+
+   if(!isOldPswTrue || ! password_pattern.test(newpsw) || !password_pattern.test(confirm_newpsw) || newpsw !== confirm_newpsw){
+       return;//啥都不做
+   }
+   $.ajax({
+       type:'POST',
+       url:'/userinfo/changepsw',
+       data:{"useremail":showUser.email ,"newpsw":newpsw},
+       dataType:'json',
+       timeout:1000,
+       error:function () {
+           popMsg("请求更改密码信息失败，请重试",3000);
+           $("#user-oldpsw").val('');
+           $("#user-newpsw").val('');
+           $("#user-confirm-newpsw").val('');
+       },
+       success:function (result) {
+           if( result.code === 200){
+               popMsg('保存新密码成功');
+               $("#user-oldpsw").val('');
+               $("#user-newpsw").val('');
+               $("#user-confirm-newpsw").val('');
+               // showUser.username = $("#user-name").val();
+               // username = showUser.username;
+               // popMsg(username);
+           }else {
+               popMsg('密码修改失败！');
+               // $("#user-oldpsw").val('');
+               // $("#user-newpsw").val('');
+               // $("#user-confirm-newpsw").val('');
+           }
+       }
+   })
 });

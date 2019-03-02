@@ -1,6 +1,7 @@
 package com.smtteam.smt.controller;
 
 import com.smtteam.smt.common.bean.ShowUser;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,4 +49,19 @@ public class ViewController {
     }
 
 
+    @RequestMapping("/findbackpsw")
+    public ModelAndView findBackPsw(){
+        return new ModelAndView("findpswSendEmail");
+    }
+
+    //test
+    @RequestMapping("/findpswResetPsw")
+    public ModelAndView findPswResetPsw(){
+        return new ModelAndView("findpswResetPsw");
+    }
+
+    @RequestMapping("/linkInvalid")
+    public ModelAndView linkInvalid(){
+        return new ModelAndView("LinkIsInvalid");
+    }
 }

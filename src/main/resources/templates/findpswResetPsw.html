@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="../templates/common/head::loadHeader('重置密码')">
+<body>
+    <div th:include="../templates/common/nav :: loadNav"></div>
+    <canvas id="J_dotLine"></canvas>
+
+    <div class="am-container">
+        <div class="am-g"  style="margin-top: 150px" >
+            <div class="am-u-sm-4 am-u-md-4 am-u-lg-4  am-u-sm-centered am-u-md-centered am-u-lg-centered">
+                <p class="am-text-xxl am-text-center">重置密码</p>
+            </div>
+            <form id="form_findbackResetPsw" class="am-form am-u-sm-8 am-u-md-6 am-u-lg-5 am-u-sm-centered" th:object="${session.user}" method="post" data-parsley-validate onsubmit="return false;">
+                <div class="am-form-group " style="margin-top: 50px;">
+                    <input id="findback_PswEmail" class="am-form-field" type="text" th:value="${session.resetpswemail}"  disabled="disabled"/>
+                </div>
+
+                <div class="am-form-group " style="margin-top: 25px;">
+                    <input id="findbackPswInputNewPassword" type="password" placeholder="输入新密码"
+                           data-parsley-trigger="change"
+                           required="required"
+                           data-parsley-required="true"
+                           data-parsley-required-message="请输入密码"
+                           pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$)\S{6,20}$/"
+                           data-parsley-pattern-message="请输入6-20位字母数字组合" />
+                </div>
+
+                <div class="am-form-group" style="margin-top: 25px;">
+                    <input id="confirmInputNewPassword" type="password" placeholder="确认密码"
+                           required="required"
+                           data-parsley-required="true"
+                           data-parsley-trigger="change"
+                           data-parsley-required-message="确认密码不可为空"
+                           data-parsley-equalto="#findbackPswInputNewPassword"
+                           data-parsley-equalto-message="两次密码输入不一致" />
+                </div>
+
+                <div class="am-form-group" style="margin-top: 30px;">
+                    <button id="resetPswButton" type="submit" class="am-btn smt-bnt am-u-sm-centered">重置密码</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:include="../templates/common/onload_js::loadJS"></div>
+    <script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
+    <script th:src="@{js/find_back_psw_resetpsw.js}"></script>
+</body>
+</html>

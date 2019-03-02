@@ -60,7 +60,6 @@ public class VerifyServiceImpl implements VerifyService {
             throw new ExistException("该邮箱已经注册验证了！");
         }
 
-
         String verify = StringUtil.getSalt();
         User user = new User( email,psw, username, Constants.USER_DEFAULT_GENDA, verify, Constants.USEREMAIL_VERIFYING);
         user = userDao.save(user);

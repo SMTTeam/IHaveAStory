@@ -1,13 +1,26 @@
 package com.smtteam.smt.service.impl;
 
 import com.smtteam.smt.common.bean.Constants;
+import com.smtteam.smt.common.exception.NoAccessException;
+import com.smtteam.smt.common.exception.NotExistException;
 import com.smtteam.smt.dao.UserDao;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.UserService;
+import com.smtteam.smt.util.EncryptUtil;
+import com.smtteam.smt.util.MailUtil;
+import com.smtteam.smt.util.StringUtil;
+import org.aspectj.weaver.ast.Not;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +37,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private MailUtil mailUtil;
 
+    @Value("${deploy.url}")
+    private String server;
+
+    private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     /**
      * 根据邮箱查找用户
      * @param email
@@ -76,7 +95,11 @@ public class UserServiceImpl implements UserService {
     //验证身份登录时要把 邮箱验证的 status（验证完成）考虑进去，仅当status为verified状态时才查找成功
     @Override
     public User findByEmailAndPsw(String email , String psw){
-        return userDao.findByEmailAndPsw(email,psw);
+        if(email.equals("")){
+            return null;
+        }else {
+            return userDao.findByEmailAndPsw(email,psw);
+        }
     }
 
     @Override
@@ -97,4 +120,59 @@ public class UserServiceImpl implements UserService {
     public User findByEmailAndStatus(String email) {
         return userDao.findByEmailAndStatus(email, Constants.USEREMAIL_VERIFIED);
     }
+
+    @Override
+    public int updateUserPswByEmail(String useremail , String newpsw){
+        return userDao.updateUserPswByEmail(newpsw, useremail);
+    }
+
+
+    /**
+     * 发送重置密码邮件
+     * @param email
+     * @return
+     */
+    @Override
+    public User sendResetPswEmail(String email) throws NotExistException {
+        User userFound = userDao.findByEmail(email);
+        if( userFound != null && userFound.getStatus()== Constants.USEREMAIL_VERIFYING){
+            logger.info("该邮箱尚未验证，请前往验证！");
+            throw new NotExistException("该邮箱尚未验证，请前往验证！");
+        }
+        if( userFound ==null ){
+            logger.info("该邮箱不存在！");
+            throw new NotExistException("该邮箱不存在！");
+        }
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String send_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        //将发送时间写到链接里面去包装起来
+
+        logger.info("发送时间是："+send_time);
+
+        String verify = StringUtil.getSalt();
+        String url = email +"&"+ send_time + "&"+ EncryptUtil.SHA256(verify);
+        url = server + "/userinfo/resetpsw/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
+        String content = "<html><head><title></title></head><body>亲爱的SMT用户，<br> &nbsp;&nbsp;&nbsp;您刚刚申请重置密码，请点击以下链接重置密码(有效期为24小时)：<br> &nbsp;&nbsp; <a href = \""+ url +"\">"+ url +"</a></body></html>";
+        logger.info(userFound.getEmail());
+        logger.info(content);
+        String[] tos = new String[]{email};
+        mailUtil.sendHtmlMail(tos , "重置密码" , content);
+        return userFound;
+    }
+
+//    @Override
+//    public User resetPsw(String code) throws NoAccessException{
+//        byte[] bytes = Base64.getDecoder().decode(code);
+//        String source = new String(bytes, StandardCharsets.UTF_8);
+//        String[] array = source.split("&");
+//        String email = array[0];
+//        //校验
+//        User user = userDao.findByEmail(email);
+//        if( user == null){
+//            throw new NoAccessException("验证邮箱不存在");
+//        }else if(!array[1].equals(EncryptUtil.SHA256(user.getVerify()))){
+//            throw new NoAccessException("重置信息被串改，重置失败");
+//        }
+//    }
 }
