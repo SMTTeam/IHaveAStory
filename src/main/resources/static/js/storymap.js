@@ -21,7 +21,7 @@ function drop(ev,ele)
 {
     ev.preventDefault();
     if(src_div != ele){
-        var src_val = ev.dataTransfer.getData("text/html")
+        var src_val = $(src_div).children()[0].innerHTML//ev.dataTransfer.getData("text/html")
         var tar_val = $(ele).children()[0].innerHTML
 
         var src_card_id = $(src_div).attr("id")
@@ -35,8 +35,8 @@ function drop(ev,ele)
         var type = drag_type.substr(0,drag_type.lastIndexOf("-"))
         drag_mod(type,tar_id,src_val)
         drag_mod(type,src_id,tar_val)
-        $(src_div).children()[0].innerHTML = $(ele).children()[0].innerHTML;
-        $(ele).children()[0].innerHTML=ev.dataTransfer.getData("text/html");
+        $(src_div).children()[0].innerHTML = tar_val;
+        $(ele).children()[0].innerHTML=src_val//ev.dataTransfer.getData("text/html");
     }
 }
 
