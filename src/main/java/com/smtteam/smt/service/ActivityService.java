@@ -19,4 +19,6 @@ public interface ActivityService {
 
     List<Activity> getActivityList(int proId);
 
+    void deleteByProId(int proId);
+
 }
