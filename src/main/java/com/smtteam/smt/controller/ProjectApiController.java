@@ -106,5 +106,17 @@ public class ProjectApiController {
         return new ResultVO<>(project);
     }
 
+    /**
+     * 删除项目
+     */
+    @PostMapping("delete")
+    public ResultVO<Void> deleteProject(@RequestParam Integer proId, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        Integer userId = showUser.getId();
+        boolean result = projectService.deleteProject(proId, userId);
+        return result ? new ResultVO<>() : new ResultVO<>("项目不存在或您没有该项目的权限。");
+    }
+
 
 }

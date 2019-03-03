@@ -46,4 +46,12 @@ public interface ProjectService {
      * @return
      */
     Project findById(Integer proId);
+
+    /**
+     * 删除项目
+     * @param proId
+     * @param userId
+     * @return
+     */
+    boolean deleteProject(Integer proId, Integer userId);
 }

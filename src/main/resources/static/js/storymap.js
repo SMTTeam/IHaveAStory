@@ -1,3 +1,59 @@
+//拖拽
+var drag_type = null;
+var src_div = null;
+
+function dragStart(ev,ele)
+{
+    src_div=ele;
+    drag_type = $(ele).attr("class");
+    var name = $(ele).children()[0].innerHTML
+    ev.dataTransfer.setData("text/html",name);
+}
+function allowDrop(ev,ele)
+{
+    var tmp = $(ele).attr("class");
+    if(drag_type==tmp){
+        ev.preventDefault();
+    }
+}
+
+function drop(ev,ele)
+{
+    ev.preventDefault();
+    if(src_div != ele){
+        var src_val = $(src_div).children()[0].innerHTML//ev.dataTransfer.getData("text/html")
+        var tar_val = $(ele).children()[0].innerHTML
+
+        var src_card_id = $(src_div).attr("id")
+        var src_index = src_card_id.lastIndexOf("-")
+        var src_id = src_card_id.substr(src_index+1)
+
+        var tar_card_id = $(ele).attr("id")
+        var tar_index = tar_card_id.lastIndexOf("-")
+        var tar_id=tar_card_id.substr(tar_index+1)
+
+        var type = drag_type.substr(0,drag_type.lastIndexOf("-"))
+        drag_mod(type,tar_id,src_val)
+        drag_mod(type,src_id,tar_val)
+        $(src_div).children()[0].innerHTML = tar_val;
+        $(ele).children()[0].innerHTML=src_val//ev.dataTransfer.getData("text/html");
+    }
+}
+
+function drag_mod(type,id,name) {
+    var url = "/"+type+"/modify";
+    // console.log(type,url);
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {"id":id, "name": name},
+        async: false,
+        success: function (data) {
+
+        }
+    })
+}
+
 function over(ele){
     if(role!=1){
         var id = $(ele).children("div").attr("id")
@@ -53,7 +109,7 @@ function createActivity(element,a_posId,t_posId){
     var tmp='<div class="column" id="'+column_id+'">\n' +
         '                    <div class="column-container"><div class="column-border-line" style="min-height: 600px;"></div>\n' +
         '                        <div class="activity-container">\n' +
-        '                            <div class="activity-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+acard_id+'">\n' +
+        '                            <div class="activity-card" ondragstart="dragStart(event,this)" ondragover="allowDrop(event,this)" ondrop="drop(event,this)" draggable="true" onmousemove="over(this)" onmouseleave="leave(this)" id="'+acard_id+'">\n' +
         '                                <textarea class="a-name-editor" maxlength="50" readonly="readonly" id="'+aarea_id+'">未命名activity</textarea>\n' +
         '                                <div class="a-operation-menu" id="'+amenu_id+'" style="display: none">\n' +
         '                                    <a onclick="deleteActivity(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
@@ -63,7 +119,7 @@ function createActivity(element,a_posId,t_posId){
         '                            </div>\n' +
         '                        </div>\n' +
         '                        <ul class="task-container">\n' +
-        '                            <li class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
+        '                            <li class="task-card" ondragstart="dragStart(event,this)" ondragover="allowDrop(event,this)" ondrop="drop(event,this)" draggable="true" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
         '                                <textarea class="t-name-editor" maxlength="50" readonly="readonly" id="'+tarea_id+'">未命名task</textarea>\n' +
         '                                <div class="t-operation-menu" id="'+tmenu_id+'" style="display: none">\n' +
         '                                    <a onclick="deleteTask(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
@@ -148,7 +204,7 @@ function createTask(element,activityId,t_posId) {
     }
 
     var new_id = t_posId+1
-    var tmp = '<li class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
+    var tmp = '<li class="task-card" ondragstart="dragStart(event,this)" ondragover="allowDrop(event,this)" ondrop="drop(event,this)" draggable="true" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
         '                                <textarea class="t-name-editor" maxlength="50" readonly="readonly" id="'+tarea_id+'">未命名task</textarea>\n' +
         '                                <div class="t-operation-menu" id="'+tmenu_id+'" style="display: none">\n' +
         '                                    <a onclick="deleteTask(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
@@ -586,7 +642,7 @@ function getActivity(proId) {
                                 var tcard_id = "tcard-"+t_id
                                 var tmenu_id = "tmenu-"+t_id
                                 var tarea_id = "tarea-"+t_id
-                                task+='<li class="task-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
+                                task+='<li class="task-card" ondragstart="dragStart(event,this)" ondragover="allowDrop(event,this)" ondrop="drop(event,this)" draggable="true" onmousemove="over(this)" onmouseleave="leave(this)" id="'+tcard_id+'">\n' +
                                     '                                <textarea class="t-name-editor" maxlength="50" readonly="readonly" id="'+tarea_id+'">'+t_name+'</textarea>\n' +
                                     '                                <div class="t-operation-menu" id="'+tmenu_id+'" style="display: none">\n' +
                                     '                                    <a onclick="deleteTask(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +
@@ -650,7 +706,7 @@ function getActivity(proId) {
                             }
                             task+="</ul>"
                             tmp = '<div class="column" id="'+column_id+'"><div class="column-container"><div class="column-border-line" style="min-height: 600px;"></div><div class="activity-container">\n' +
-                                '                            <div class="activity-card" onmousemove="over(this)" onmouseleave="leave(this)" id="'+acard_id+'">\n' +
+                                '                            <div class="activity-card" ondragstart="dragStart(event,this)" ondragover="allowDrop(event,this)" ondrop="drop(event,this)" draggable="true" onmousemove="over(this)" onmouseleave="leave(this)" id="'+acard_id+'">\n' +
                                 '                                <textarea class="a-name-editor" maxlength="50" readonly="readonly" id="'+aarea_id+'">'+a_name+'</textarea>\n' +
                                 '                                <div class="a-operation-menu" id="'+amenu_id+'" style="display: none">\n' +
                                 '                                    <a onclick="deleteActivity(this)"><img class="delete" title="删除" src="img/delete.png"></a>' +

@@ -76,4 +76,13 @@ public class ActivityServiceImpl implements ActivityService {
         return activityDao.findByProIdOrderByPosId(proId);
     }
 
+    @Override
+    public void deleteByProId(int proId) {
+        List<Activity> list = getActivityList(proId);
+        for(Activity activity:list) {
+            int a_id = activity.getId();
+            deleteActivity(a_id);
+        }
+    }
+
 }
