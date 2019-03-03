@@ -138,7 +138,7 @@ $('#registerButton').click(function () {
     var email_pattern= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     var password_pattern = /^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$)\S{6,20}$/;
 
-    if ( username == "" || ! email_pattern.test(email) || ! password_pattern.test(password) ||  password !== verify_password || isemailExist){
+    if ( username === "" || ! email_pattern.test(email) || ! password_pattern.test(password) ||  password !== verify_password || isemailExist){
         return;//啥都不做
     }
     // popMsg('已向您的邮箱发送验证邮件！请登录邮箱，验证之后才能登录哦！');

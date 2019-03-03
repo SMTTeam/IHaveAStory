@@ -118,7 +118,9 @@ public class UserInfoController {
             return new ResultVO<>(user);
         }catch (NotExistException e){
             logger.info(e.getMessage());
-            return new ResultVO<>(e.getMessage());
+            ResultVO<User> resultVO = new ResultVO<>(e.getMessage());
+            resultVO.setCode(ResultCode.NOT_FOUND.getCode());
+            return resultVO;
         }
     }
 
@@ -146,7 +148,7 @@ public class UserInfoController {
             int minutes = (diff-days*(1000 * 60 * 60 * 24)-hours*(1000* 60 * 60))/(1000* 60);
 
             logger.info("显示整型"+days+"天"+hours+"小时"+minutes+"分钟");
-            if( days > 0 || hours >= Constants.MAX_VALIDT_IME_TO_FIND_BACK_PASSWORD){//超过八小时
+            if( days > 0 || hours >= Constants.MAX_VALID_TIME_TO_FIND_BACK_PASSWORD){//超过八小时
                 logger.info("链接失效");
                 ModelAndView modelAndView;
                 modelAndView = new ModelAndView("redirect:/linkInvalid");
