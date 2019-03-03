@@ -1,6 +1,7 @@
 package com.smtteam.smt.controller;
 
 
+import com.smtteam.smt.common.bean.Constants;
 import com.smtteam.smt.common.bean.ResultVO;
 import com.smtteam.smt.common.bean.ShowUser;
 import com.smtteam.smt.common.enums.ResultCode;
@@ -137,24 +138,16 @@ public class UserInfoController {
         try {
             Date sendTime = df.parse(send_time);
             Date currentTime = df.parse(current_time);
-            long diff = sendTime.getTime() - currentTime.getTime();//这样得到的差值是微秒级别
-            long days = diff / (1000 * 60 * 60 * 24);
+            long diff0 = currentTime.getTime() - sendTime.getTime();//这样得到的差值是微秒级别
+            logger.info("diff0:"+diff0);
+            int diff = (int)diff0;
+            int days = diff / (1000 * 60 * 60 * 24);
+            int hours = (diff-days*(1000 * 60 * 60 * 24))/(1000* 60 * 60);
+            int minutes = (diff-days*(1000 * 60 * 60 * 24)-hours*(1000* 60 * 60))/(1000* 60);
 
-            long hours = (diff-days*(1000 * 60 * 60 * 24))/(1000* 60 * 60);
-            long minutes = (diff-days*(1000 * 60 * 60 * 24)-hours*(1000* 60 * 60))/(1000* 60);
-
-            Long day = new Long(days);
-            Long hour = new Long(hours);
-            Long minute = new Long(minutes);
-            Long min_zero = new Long(0);
-            Long min_one = new Long(1);
-            logger.info(""+days+"天"+hours+"小时"+minutes+"分钟");
-            logger.info(" "+(hours<1));
-            int day1 = day.intValue();
-            int hour1 = hour.intValue();
-            int minute1 = minute.intValue();
-            if( days > 0 || hours > 0 ){
-                logger.info("执行力没啊");
+            logger.info("显示整型"+days+"天"+hours+"小时"+minutes+"分钟");
+            if( days > 0 || hours >= Constants.MAX_VALIDT_IME_TO_FIND_BACK_PASSWORD){//超过八小时
+                logger.info("链接失效");
                 ModelAndView modelAndView;
                 modelAndView = new ModelAndView("redirect:/linkInvalid");
                 return modelAndView;
