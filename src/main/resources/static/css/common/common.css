@@ -89,7 +89,7 @@ body.smt-loading > *:not(.u-shade) {
     position: fixed;
     display: block;
     left: 50%;
-    top: 40%;
+    top: 45%;
     padding: 10px 20px;
     max-width: 50%;
     border-radius: 5px;
@@ -102,7 +102,7 @@ body.smt-loading > *:not(.u-shade) {
 
 .smt-msg {
     color: #fff;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 19999;
 }
 
@@ -369,11 +369,11 @@ body.smt-loading > *:not(.u-shade) {
     padding: 2px 15px;
 }
 
-.smt-lines li:hover{
-    color: #409EFF;
-    border: 1px solid #DCDFE6;
-    border-radius: 10px;
-}
+/*.smt-lines li:hover{*/
+    /*color: #409EFF;*/
+    /*border: 1px solid #DCDFE6;*/
+    /*border-radius: 10px;*/
+/*}*/
 
 /*.smt-lines li:last-child:hover{*/
     /*color: #303133;*/
@@ -413,8 +413,49 @@ body.smt-loading > *:not(.u-shade) {
 }
 
 .smt-line-operator:hover{
+    /*cursor: pointer;*/
+    /*color: #409EFF;*/
+}
+
+.smt-line-img{
+    display:block;
+    width: 24px;
+    height: 24px;
+    margin: 20px 5px;
+    float: left;
+    background-size:100% 100%;-moz-background-size:100% 100%;
+    background-repeat: no-repeat;
+}
+
+.smt-line-img:hover{
     cursor: pointer;
-    color: #409EFF;
+}
+
+.delete-img{
+    background-image: url('/img/common/delete.png');
+}
+.delete-img:hover{
+    background-image: url('/img/common/delete_hover.png');
+}
+
+.owner-img{
+    background-image: url('/img/common/owner.png');
+}
+
+.attend-img{
+    background-image: url('/img/common/attend_hover.png');
+}
+
+.edit-img{
+    background-image: url('/img/common/edit.png');
+}
+.edit-img:hover{
+    background-image: url('/img/common/edit_hover.png');
+}
+
+.smt-line-select{
+    margin: 16px auto;
+    max-width: 100px;
 }
 
 .smt-empty-msg{

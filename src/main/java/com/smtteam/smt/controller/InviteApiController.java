@@ -110,4 +110,13 @@ public class InviteApiController {
         return new ResultVO<>(userList);
     }
 
+    @PostMapping("delete")
+    public ResultVO<Void> deleteInvite(@RequestParam Integer proId, @RequestParam Integer userId, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        Integer askUserId = showUser.getId();
+        boolean result = inviteService.deleteInvite(proId, userId, askUserId);
+        return result ? new ResultVO<>() : new ResultVO<>("对应项目或用户不存在，同时请确认您是否有编辑该项目的权限。");
+    }
+
 }

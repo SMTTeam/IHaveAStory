@@ -11,7 +11,7 @@
             <div class="am-u-sm-6">
                 <h2>项目详情</h2>
             </div>
-            <div class="am-u-sm-6">
+            <div class="am-u-sm-6 owner-role" hidden>
                 <button class="am-btn smt-bnt am-fr" style="margin:-5px 5px; width: 120px" onclick="showDel()">删除项目</button>
             </div>
         </div>
@@ -49,46 +49,32 @@
             </div>
         </div>
 
-        <!--<div class="am-g smt-title" style="margin: -40px 0 0">-->
-            <!--<div class="am-u-sm-12" style="padding: 20px 32px;margin: -75px auto 0;">-->
-                <!--<button class="am-fr am-btn smt-bnt smt-small-btn">邀请成员</button>-->
-            <!--</div>-->
-        <!--</div>-->
         <div class="am-g smt-block">
             <ul class="am-g smt-lines" id="project-users">
-                <li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >
-                    <div class="am-g smt-line">
-                        <div class="am-u-sm-2">
-                            <img class="smt-line-icon" src="/img/boy.png">
-                        </div>
-                        <div class="am-u-sm-2">
-                            <p>小王</p>
-                        </div>
-                        <div class="am-u-sm-3">
-                            <p class="smt-line-role" style="width: auto">可编辑</p>
-                            <!--<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">-->
-                        </div>
-                        <div class="am-u-sm-3">
-                            <div class="am-form">
-                                <div class="am-form-group am-form-icon am-form-feedback">
-                                    <!--<p class="smt-input-wrapper">-->
-                                        <select name="role">
-                                            <option value="1">可查看</option>
-                                            <option value="3">可编辑</option>
-                                            <option value="7">可管理</option>
-                                        </select>
-                                    <!--</p>-->
-                                </div>
-                            </div>
-
-                            <p>邀请中</p>
-                        </div>
-
-                        <div class="am-u-sm-2">
-                            <img class="smt-line-operator" src="/img/common/delete.png">
-                        </div>
-                    </div>
-                </li>
+                <!--<li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >-->
+                    <!--<div class="am-g smt-line">-->
+                        <!--<div class="am-u-sm-2">-->
+                            <!--<img class="smt-line-icon" src="/img/boy.png">-->
+                        <!--</div>-->
+                        <!--<div class="am-u-sm-2">-->
+                            <!--<p>小王</p>-->
+                        <!--</div>-->
+                        <!--<div class="am-u-sm-3">-->
+                            <!--<p class="smt-line-role" style="width: auto">可编辑</p>-->
+                        <!--</div>-->
+                        <!--<div class="am-u-sm-3">-->
+                            <!--<p>邀请中</p>-->
+                        <!--</div>-->
+                        <!--<div class="am-u-sm-2">-->
+                            <!--<div class="am-g">-->
+                                <!--<div class="am-u-sm-12 am-u-md-10 am-u-lg-8 am-u-sm-centered">-->
+                                    <!--<span class="smt-line-img edit-img" onclick="showModInvite()"></span>-->
+                                    <!--<span class="smt-line-img delete-img" onclick="deleteInvite()"></span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
             </ul>
             <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered edit-role" hidden>
                 <div class="am-g">

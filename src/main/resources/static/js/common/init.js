@@ -358,7 +358,7 @@ function popMsg(msg, mills, c) {
                 callback = c;
         }
     }
-    $('body').append($msg = $('<div class="smt-pop smt-msg"><span>' + msg + '</span></div>'));
+    $('body').append($msg = $('<div class="smt-pop-shade"></div><div class="smt-pop smt-msg"><span>' + msg + '</span></div>'));
     setTimeout(function () {
         $msg.remove();
         callback();

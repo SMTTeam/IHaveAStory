@@ -30,14 +30,18 @@ $(function () {
                 canEdit = true;
                 $('.edit-role').show();
                 $('.smt-input-for-row').attr("disabled",false);
+                if(data.role == 15){
+                    $('.owner-role').show();
+                }
             }
+
         })
     ).done(function () {
         sendGet('/api/project/detail?proId=' + proId, function (data) {
             if(data == null){
                 $('.project-container').empty();
                 $('.project-container').append('<div class="am-g">' +
-                    '<p style="text-align: center;margin-top: 200px">该项目不存在!</p>\n' +
+                    '<p style="text-align: center;margin-top: 200px">该项目不存在!</p>' +
                     '</div>');
                 $('.project-container').show();
                 return;
@@ -53,7 +57,13 @@ $(function () {
 
         sendGet('/api/invite/list?proId=' + proId, function (data) {
             $.each(data, function (index, user) {
-                var img = user.role === 15 ? '<img class="smt-line-operator" src="/img/common/owner.png">' : '<img class="smt-line-operator smt-delete-invite" src="/img/common/attend.png" onMouseOver="this.src=\'/img/common/attend.png\'">';
+                var img = '<span class="smt-line-img attend-img"></span>';
+                if(user.role === 15){
+                    img = '<span class="smt-line-img owner-img"></span>';
+                }else if(canEdit){
+                    img = '<span class="smt-line-img edit-img" onclick="showModInvite(' + user.userId + ')"></span>' +
+                          '<span class="smt-line-img delete-img" onclick="deleteInvite(' + user.userId + ')"></span>'
+                }
                 $('#project-users').append('<li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >' +
                     '                    <div class="am-g smt-line">' +
                     '                        <div class="am-u-sm-2">' +
@@ -69,7 +79,11 @@ $(function () {
                     '                        <div class="am-u-sm-3">' +
                     '                            <p>'+ parseInviteStatus(user.status) +'</p>' +
                     '                        </div>' +
-                    '                        <div class="am-u-sm-2">' + img +
+                    '                        <div class="am-u-sm-2">' +
+                    '                           <div class="am-g">' +
+                    '                                <div class="am-u-sm-12 am-u-md-10 am-u-lg-8 am-u-sm-centered">' + img +
+                    '                                </div>' +
+                    '                            </div>' +
                     '                        </div>' +
                     '                    </div>' +
                     '                </li>')
@@ -125,4 +139,16 @@ function showDel() {
             });
         })
     });
+}
+
+function showModInvite() {
+
+}
+
+function deleteInvite(inviteId) {
+    sendPost('/api/invite/delete', {"proId": proId, "userId": inviteId}, function () {
+        popMsg("删除成员成功！", 1000, function () {
+            window.location.reload();
+        });
+    })
 }

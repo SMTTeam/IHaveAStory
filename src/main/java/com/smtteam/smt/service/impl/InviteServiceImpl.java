@@ -7,6 +7,7 @@ import com.smtteam.smt.common.exception.ExistException;
 import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.dao.ProjectUserDao;
 import com.smtteam.smt.dao.UserDao;
+import com.smtteam.smt.model.Project;
 import com.smtteam.smt.model.ProjectUser;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.InviteService;
@@ -121,6 +122,21 @@ public class InviteServiceImpl implements InviteService {
             }
         }
         return showUsers;
+    }
+
+    /**
+     * 删除项目协作的成员
+     * @return
+     */
+    @Override
+    public boolean deleteInvite(Integer proId, Integer userId, Integer askUserId) {
+        ProjectUser askUser = projectUserDao.findByUserIdAndProId(askUserId, proId);
+        ProjectUser delUser = projectUserDao.findByUserIdAndProId(userId,proId);
+        if(delUser == null || askUser == null || askUser.getRole() < ProjectRole.Project_Editor.getRole()){
+            return false;
+        }
+        projectUserDao.deleteById(delUser.getId());
+        return true;
     }
 
 

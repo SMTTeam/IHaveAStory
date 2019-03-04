@@ -49,4 +49,13 @@ public interface InviteService {
      * @return
      */
     List<ShowProjectUser> findInviteList(Integer proId);
+
+    /**
+     * 删除项目协作的成员
+     * @param proId
+     * @param userId
+     * @param askUserId
+     * @return
+     */
+    boolean deleteInvite(Integer proId, Integer userId, Integer askUserId);
 }
