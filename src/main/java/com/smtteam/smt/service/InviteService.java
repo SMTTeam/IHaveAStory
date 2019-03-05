@@ -58,4 +58,14 @@ public interface InviteService {
      * @return
      */
     boolean deleteInvite(Integer proId, Integer userId, Integer askUserId);
+
+    /**
+     * 修改项目协作成员的权限
+     * @param proId
+     * @param userId
+     * @param askUserId
+     * @param role
+     * @return
+     */
+    boolean modifyInvite(Integer proId, Integer userId, Integer askUserId, Integer role) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, NoSuchFieldException;
 }

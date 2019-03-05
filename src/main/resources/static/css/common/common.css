@@ -102,7 +102,7 @@ body.smt-loading > *:not(.u-shade) {
 
 .smt-msg {
     color: #fff;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.8);
     z-index: 19999;
 }
 

@@ -119,4 +119,18 @@ public class InviteApiController {
         return result ? new ResultVO<>() : new ResultVO<>("对应项目或用户不存在，同时请确认您是否有编辑该项目的权限。");
     }
 
+    @PostMapping("modify")
+    public ResultVO<Void> deleteInvite(@RequestParam Integer proId, @RequestParam Integer userId,
+                                       @RequestParam Integer role, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        ShowUser showUser = (ShowUser) session.getAttribute("user");
+        Integer askUserId = showUser.getId();
+        boolean result = false;
+        try {
+            result = inviteService.modifyInvite(proId, userId, askUserId, role);
+        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | NoSuchFieldException e) {
+            return new ResultVO<>("权限输入有误。");
+        }
+        return result ? new ResultVO<>() : new ResultVO<>("对应项目或用户不存在，同时请确认您是否有编辑该项目的权限。");
+    }
 }

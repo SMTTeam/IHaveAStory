@@ -150,6 +150,37 @@
                 </div>
             </form>
         </div>
+
+        <div class="am-modal" tabindex="-1" id="invite-modal">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">
+                    修改成员权限
+                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd am-form am-form-inline am-g" style="padding-top: 30px; padding-bottom: 40px;">
+                    <div class="am-form-group am-u-sm-6" style="padding: .1em">
+                        <span class="am-fl smt-input-label" style="margin:0 15px; width: 40px;">姓名:</span>
+                        <p class="smt-input-wrapper" style="margin: 0 auto">
+                            <input type="text" class="am-form-field smt-input-for-row" id="modify-name" disabled>
+                            <input type="text" name="userId" id="modify-userId" style="display: none">
+                        </p>
+                    </div>
+                    <div class="am-form-group am-u-sm-6" style="padding: .1em 10px">
+                        <span class="am-fl smt-input-label" style="margin:0 15px; width: 40px;">权限:</span>
+                        <p class="smt-input-wrapper" style="margin: 0 auto">
+                            <select id="modify-role" class="smt-input-for-row" name="modify-role">
+                                <option value="1">可查看</option>
+                                <option value="3">可编辑</option>
+                                <option value="7">可管理</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-confirm>确认修改</span>
+                </div>
+            </div>
+        </div>
     </div>
     <br>
     <br>

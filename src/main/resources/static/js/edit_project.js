@@ -61,7 +61,7 @@ $(function () {
                 if(user.role === 15){
                     img = '<span class="smt-line-img owner-img"></span>';
                 }else if(canEdit){
-                    img = '<span class="smt-line-img edit-img" onclick="showModInvite(' + user.userId + ')"></span>' +
+                    img = '<span class="smt-line-img edit-img" onclick="showModInvite(' + user.userId +',\'' + user.username + '\',' + user.role  + ')"></span>' +
                           '<span class="smt-line-img delete-img" onclick="deleteInvite(' + user.userId + ')"></span>'
                 }
                 $('#project-users').append('<li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >' +
@@ -141,8 +141,24 @@ function showDel() {
     });
 }
 
-function showModInvite() {
+function showModInvite(id, name, role) {
+    $('#modify-userId').val(id);
+    $('#modify-name').val(name);
+    $('#modify-role').val(role);
 
+    $('#invite-modal').modal({
+        relatedTarget: this,
+        closeViaDimmer: false,
+        onConfirm: function(e) {
+            var modifyId = $('#modify-userId').val();
+            var modifyRole = $('#modify-role').val();
+            sendPost('/api/invite/modify', {"proId": proId, "userId": modifyId, "role": modifyRole}, function () {
+                popMsg("修改成员权限成功！", 1000, function () {
+                    window.location.reload();
+                });
+            })
+        }
+    });
 }
 
 function deleteInvite(inviteId) {

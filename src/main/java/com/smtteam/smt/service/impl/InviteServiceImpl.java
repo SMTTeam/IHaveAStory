@@ -7,7 +7,6 @@ import com.smtteam.smt.common.exception.ExistException;
 import com.smtteam.smt.common.exception.NoAccessException;
 import com.smtteam.smt.dao.ProjectUserDao;
 import com.smtteam.smt.dao.UserDao;
-import com.smtteam.smt.model.Project;
 import com.smtteam.smt.model.ProjectUser;
 import com.smtteam.smt.model.User;
 import com.smtteam.smt.service.InviteService;
@@ -136,6 +135,22 @@ public class InviteServiceImpl implements InviteService {
             return false;
         }
         projectUserDao.deleteById(delUser.getId());
+        return true;
+    }
+
+    /**
+     * 修改项目协作成员的权限
+     */
+    @Override
+    public boolean modifyInvite(Integer proId, Integer userId, Integer askUserId, Integer role) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, NoSuchFieldException {
+        ProjectUser modify = projectUserDao.findByUserIdAndProId(userId,proId);
+        ProjectUser askUser = projectUserDao.findByUserIdAndProId(askUserId, proId);
+        ProjectRole projectRole = EnumUtil.getEnumByField(ProjectRole.class,"role", role);
+        if(modify == null || askUser == null || projectRole == null || askUser.getRole() < ProjectRole.Project_Editor.getRole()){
+            return false;
+        }
+        modify.setRole(projectRole.getRole());
+        projectUserDao.saveAndFlush(modify);
         return true;
     }
 
