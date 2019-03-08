@@ -123,5 +123,36 @@ public class InviteServiceImpl implements InviteService {
         return showUsers;
     }
 
+    /**
+     * 删除项目协作的成员
+     * @return
+     */
+    @Override
+    public boolean deleteInvite(Integer proId, Integer userId, Integer askUserId) {
+        ProjectUser askUser = projectUserDao.findByUserIdAndProId(askUserId, proId);
+        ProjectUser delUser = projectUserDao.findByUserIdAndProId(userId,proId);
+        if(delUser == null || askUser == null || askUser.getRole() < ProjectRole.Project_Editor.getRole()){
+            return false;
+        }
+        projectUserDao.deleteById(delUser.getId());
+        return true;
+    }
+
+    /**
+     * 修改项目协作成员的权限
+     */
+    @Override
+    public boolean modifyInvite(Integer proId, Integer userId, Integer askUserId, Integer role) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, NoSuchFieldException {
+        ProjectUser modify = projectUserDao.findByUserIdAndProId(userId,proId);
+        ProjectUser askUser = projectUserDao.findByUserIdAndProId(askUserId, proId);
+        ProjectRole projectRole = EnumUtil.getEnumByField(ProjectRole.class,"role", role);
+        if(modify == null || askUser == null || projectRole == null || askUser.getRole() < ProjectRole.Project_Editor.getRole()){
+            return false;
+        }
+        modify.setRole(projectRole.getRole());
+        projectUserDao.saveAndFlush(modify);
+        return true;
+    }
+
 
 }

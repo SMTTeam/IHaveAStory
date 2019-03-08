@@ -24,4 +24,7 @@ public class Constants {
 
     //盐长度
     public static final Integer SALT_LENGTH = 20;
+
+    //找回密码最大有效时间
+    public static final Integer MAX_VALID_TIME_TO_FIND_BACK_PASSWORD = 8 ;
 }

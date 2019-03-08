@@ -39,8 +39,11 @@ $("#backToLoginButton").click(function () {
 });
 
 $("#findback_SendEmailButton").click(function () {
-
-    var useremail = $.trim($("#findback_PswInputEmail").val());
+    var useremail_findback = $.trim($("#findback_PswInputEmail").val());
+    if(useremail_findback === "" || useremail_findback ===undefined){
+        popMsg("邮箱不能为空！",1500);
+        return;
+    }
 
     if( isFindBackemailExist === false){
         return; //啥都不做
@@ -49,7 +52,7 @@ $("#findback_SendEmailButton").click(function () {
     $.ajax({
         type:'POST',
         url:'/userinfo/sendresetpswemail',
-        data:{"useremail":useremail},
+        data:{"useremail":useremail_findback},
         dataType:'json',
         timeout:10000,   //设置为1s可能有时候网速比较慢了，容易引发超时错误
         error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -57,9 +60,11 @@ $("#findback_SendEmailButton").click(function () {
             alert(errorThrown.toString());
         },
         success:function(result){
+
             popMsg("重置密码邮件已发送到您的邮箱！请查收！", 1500, function () {
                 window.location.href = "/login";
             });
+
         }
     });
 });

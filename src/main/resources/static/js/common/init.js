@@ -358,11 +358,34 @@ function popMsg(msg, mills, c) {
                 callback = c;
         }
     }
-    $('body').append($msg = $('<div class="smt-pop smt-msg"><span>' + msg + '</span></div>'));
+    $('body').append($msg = $('<div class="smt-pop-shade"></div><div class="smt-pop smt-msg"><span>' + msg + '</span></div>'));
     setTimeout(function () {
         $msg.remove();
         callback();
     }, time);
+}
+
+
+//确认对话框
+function popConfirm(msg, callback) {
+    var $a, $b;
+    $('body').append(
+        $a = $('<div class="smt-pop-shade"></div>'),
+        $b = $('<div class="smt-pop smt-confirm">' + msg + '</div>').append($('<div class="smt-btn-wp"></div>').append(
+            '<input type="button" value="确定/OK" class="btn btn-primary radius" data-confirm>',
+            '<input type="button" value="取消/Cancel" class="btn btn-default radius" data-cancel>'
+        ))
+    );
+    $b.find(':button').click(function () {
+        var confirm = 0;
+        if ($(this).is('[data-confirm]'))
+            confirm = 1;
+        $a.remove();
+        $b.remove();
+        if ((callback || 0) && confirm)
+            callback.apply($b[0]);
+    });
+    return $b;
 }
 
 //获取url中的参数

@@ -6,10 +6,13 @@
     <div th:include="../templates/common/nav :: loadNav"></div>
     <canvas id="J_dotLine"></canvas>
     <!-- code from here -->
-    <div class="am-container">
+    <div class="am-container project-container" hidden>
         <div class="am-g smt-title">
-            <div class="am-u-sm-12">
+            <div class="am-u-sm-6">
                 <h2>项目详情</h2>
+            </div>
+            <div class="am-u-sm-6 owner-role" hidden>
+                <button class="am-btn smt-bnt am-fr" style="margin:-5px 5px; width: 120px" onclick="showDel()">删除项目</button>
             </div>
         </div>
         <div class="am-g smt-block">
@@ -19,21 +22,21 @@
                 <div class="am-form-group am-form-icon am-form-feedback smt-input-row">
                     <span class="am-fl smt-input-label">项目名称:</span>
                     <p class="smt-input-wrapper">
-                        <input type="text" class="smt-input-for-row" id="name" name="proName" placeholder="" maxlength="30" required>
+                        <input type="text" class="smt-input-for-row" id="name" name="proName" placeholder="" maxlength="30" disabled required>
                         <span class="am-icon-warning" style="display: none"></span>
                     </p>
                 </div>
                 <div class="am-form-group am-form-icon am-form-feedback smt-input-row">
                     <span class="am-fl smt-input-label">项目详情:</span>
                     <p class="smt-input-wrapper">
-                        <textarea class="smt-input-for-row am-scrollable-vertical" rows="4" name="description" id="description" maxlength="300" placeholder="" required></textarea>
+                        <textarea class="smt-input-for-row am-scrollable-vertical" rows="4" name="description" id="description" maxlength="300" placeholder="" disabled required></textarea>
                         <span class="am-icon-warning" style="display: none"></span>
                     </p>
                 </div>
                 <!--<div class="am-form-group smt-input-row">-->
                     <!--<button type="submit" class="am-fr am-btn smt-bnt smt-small-btn">修改项目</button>-->
                 <!--</div>-->
-                <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
+                <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered edit-role" hidden>
                     <div class="am-g">
                         <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;margin-top: 10px" onclick="modifyProject()">修改项目</button>
                     </div>
@@ -46,11 +49,6 @@
             </div>
         </div>
 
-        <!--<div class="am-g smt-title" style="margin: -40px 0 0">-->
-            <!--<div class="am-u-sm-12" style="padding: 20px 32px;margin: -75px auto 0;">-->
-                <!--<button class="am-fr am-btn smt-bnt smt-small-btn">邀请成员</button>-->
-            <!--</div>-->
-        <!--</div>-->
         <div class="am-g smt-block">
             <ul class="am-g smt-lines" id="project-users">
                 <!--<li class="am-u-sm-12 am-u-md-11 am-u-sm-centered" >-->
@@ -63,18 +61,22 @@
                         <!--</div>-->
                         <!--<div class="am-u-sm-3">-->
                             <!--<p class="smt-line-role" style="width: auto">可编辑</p>-->
-                            <!--&lt;!&ndash;<img class="am-fl smt-role-select" src="/img/common/select.png" alt="">&ndash;&gt;-->
                         <!--</div>-->
                         <!--<div class="am-u-sm-3">-->
                             <!--<p>邀请中</p>-->
                         <!--</div>-->
                         <!--<div class="am-u-sm-2">-->
-                            <!--<img class="smt-line-operator" src="/img/common/delete.png">-->
+                            <!--<div class="am-g">-->
+                                <!--<div class="am-u-sm-12 am-u-md-10 am-u-lg-8 am-u-sm-centered">-->
+                                    <!--<span class="smt-line-img edit-img" onclick="showModInvite()"></span>-->
+                                    <!--<span class="smt-line-img delete-img" onclick="deleteInvite()"></span>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         <!--</div>-->
                     <!--</div>-->
                 <!--</li>-->
             </ul>
-            <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered" >
+            <div class="am-u-sm-6 am-u-md-2 am-u-sm-centered edit-role" hidden>
                 <div class="am-g">
                     <button type="submit" class="am-btn smt-bnt am-u-sm-centered" style="line-height: 1.4;" onclick="showInvite()">邀请成员</button>
                 </div>
@@ -148,11 +150,46 @@
                 </div>
             </form>
         </div>
+
+        <div class="am-modal" tabindex="-1" id="invite-modal">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">
+                    修改成员权限
+                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd am-form am-form-inline am-g" style="padding-top: 30px; padding-bottom: 40px;">
+                    <div class="am-form-group am-u-sm-6" style="padding: .1em">
+                        <span class="am-fl smt-input-label" style="margin:0 15px; width: 40px;">姓名:</span>
+                        <p class="smt-input-wrapper" style="margin: 0 auto">
+                            <input type="text" class="am-form-field smt-input-for-row" id="modify-name" disabled>
+                            <input type="text" name="userId" id="modify-userId" style="display: none">
+                        </p>
+                    </div>
+                    <div class="am-form-group am-u-sm-6" style="padding: .1em 10px">
+                        <span class="am-fl smt-input-label" style="margin:0 15px; width: 40px;">权限:</span>
+                        <p class="smt-input-wrapper" style="margin: 0 auto">
+                            <select id="modify-role" class="smt-input-for-row" name="modify-role">
+                                <option value="1">可查看</option>
+                                <option value="3">可编辑</option>
+                                <option value="7">可管理</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-confirm>确认修改</span>
+                </div>
+            </div>
+        </div>
     </div>
     <br>
     <br>
 
     <div th:include="../templates/common/onload_js::loadJS"></div>
+    <script th:inline="javascript">
+        var proId = getUrlParam('proId');
+        var userId = [[${session.user.id}]]
+    </script>
     <script th:src="@{/js/edit_project.js}"></script>
 </body>
 </html>

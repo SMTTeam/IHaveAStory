@@ -7,9 +7,11 @@ import com.smtteam.smt.dao.ProjectDao;
 import com.smtteam.smt.dao.ProjectUserDao;
 import com.smtteam.smt.model.Project;
 import com.smtteam.smt.model.ProjectUser;
+import com.smtteam.smt.service.ActivityService;
 import com.smtteam.smt.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +26,16 @@ import java.util.stream.Collectors;
  */
 
 @Service
+@Transactional
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectDao projectDao;
     @Autowired
     private ProjectUserDao projectUserDao;
+
+    @Autowired
+    private ActivityService activityService;
 
     /**
      * 创建项目
@@ -80,7 +86,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project modifyProject(Integer proId, Integer userId, String name, String description) throws NoAccessException {
         Project project = projectDao.findById(proId).orElse(null);
-        if(project == null || !project.getUserId().equals(userId)){
+        ProjectUser user = projectUserDao.findByUserIdAndProId(userId, proId);
+        if(project == null || user == null || user.getRole() < ProjectRole.Project_Editor.getRole()){
             throw new NoAccessException("No access to the project.");
         }
         project.setDescription(description);
@@ -98,6 +105,28 @@ public class ProjectServiceImpl implements ProjectService {
     public Project findById(Integer proId) {
         Optional<Project> project = projectDao.findById(proId);
         return project.orElse(null);
+    }
+
+    /**
+     * 删除项目
+     * @param proId
+     * @param userId
+     * @return
+     */
+    @Override
+    public boolean deleteProject(Integer proId, Integer userId) {
+        Optional<Project> pro = projectDao.findById(proId);
+        Project project = pro.orElse(null);
+        if(project != null && project.getUserId().equals(userId)){
+            List<ProjectUser> userList = projectUserDao.findByProIdOrderByRoleDesc(proId);
+            for(ProjectUser user: userList){
+                projectUserDao.deleteById(user.getId());
+            }
+            activityService.deleteByProId(proId);
+            projectDao.deleteById(proId);
+            return true;
+        }
+        return false;
     }
 
 
