@@ -33,8 +33,21 @@ function drop(ev,ele)
         var tar_id=tar_card_id.substr(tar_index+1)
 
         var type = drag_type.substr(0,drag_type.lastIndexOf("-"))
-        drag_mod(type,tar_id,src_val)
-        drag_mod(type,src_id,tar_val)
+        if (type == "activity" || type == "task") {
+            drag_mod(type,tar_id,src_val)
+            drag_mod(type,src_id,tar_val)
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/story/exchange",
+                data: {"src_id":src_id, "tar_id": tar_id},
+                async: false,
+                success: function (data) {
+
+                }
+            })
+        }
         $(src_div).children()[0].innerHTML = tar_val;
         $(ele).children()[0].innerHTML=src_val//ev.dataTransfer.getData("text/html");
     }
@@ -316,7 +329,7 @@ $("#createStorySubmit").click(function () {
             var smenu_id = "smenu-"+s_num
             var sarea_id = "sarea-"+s_num
             var new_posId = posId+1
-            var story = '<li class="issue-card board-card doing" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">' +
+            var story = '<li class="issue-card board-card doing" ondragstart="dragStart(event,this)" ondragover="allowDrop(event,this)" ondrop="drop(event,this)" draggable="true" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">' +
                 '<p class="card-title" title="'+name+'" id="' + sarea_id + '">' + name + '</p>' +
                 '<div class="operation-menu" id="' + smenu_id + '" style="display: none">' +
                 '   <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>\' +' +
@@ -351,6 +364,36 @@ $("#createStorySubmit").click(function () {
         delReleaseObj.attr("title","有从属卡片不能被删除")
     }
 })
+
+$("#cancelCreateStory").click(function () {
+    initInput()
+})
+
+$("#closeCreateStory").click(function () {
+    initInput()
+})
+
+function initInput() {
+    $("#name").val("")
+    $("#storyPoint").val("")
+    $("#priority").val("低")
+    $("#description").val("")
+    $("#acceptance").val("")
+    removeAm()
+}
+
+function removeAm() {
+    $("#name").removeClass("am-field-error");
+    $("#name").removeClass("am-field-valid");
+    $("#storyPoint").removeClass("am-field-error");
+    $("#storyPoint").removeClass("am-field-valid");
+    $("#priority").removeClass("am-field-error");
+    $("#priority").removeClass("am-field-valid");
+    $("#description").removeClass("am-field-error");
+    $("#description").removeClass("am-field-valid");
+    $("#acceptance").removeClass("am-field-error");
+    $("#acceptance").removeClass("am-field-valid");
+}
 
 function editActivity(ele) {
     var id = $(ele).parent().prev().attr("id");
@@ -469,6 +512,27 @@ $("#modifyStorySubmit").click(function () {
         }
     })
 })
+
+$("#cancelModifyStory").click(function () {
+    removeAm2()
+})
+
+$("#closeModifyStory").click(function () {
+    removeAm2()
+})
+
+function removeAm2() {
+    $("#m_name").removeClass("am-field-error");
+    $("#m_name").removeClass("am-field-valid");
+    $("#m_storyPoint").removeClass("am-field-error");
+    $("#m_storyPoint").removeClass("am-field-valid");
+    $("#m_priority").removeClass("am-field-error");
+    $("#m_priority").removeClass("am-field-valid");
+    $("#m_description").removeClass("am-field-error");
+    $("#m_description").removeClass("am-field-valid");
+    $("#m_acceptance").removeClass("am-field-error");
+    $("#m_acceptance").removeClass("am-field-valid");
+}
 
 function deleteActivity(ele) {
     var conf = confirm("此操作会删除该activity以及对应的所有task和story，确定要删除吗？");
@@ -683,7 +747,7 @@ function getActivity(proId) {
                                             // console.log(smenu_id)
                                             var sarea_id = "sarea-" + s_id
                                             var spos_id = "spos-" + s_posId
-                                            var story = '<li class="issue-card board-card doing" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">' +
+                                            var story = '<li class="issue-card board-card doing" ondragstart="dragStart(event,this)" ondragover="allowDrop(event,this)" ondrop="drop(event,this)" draggable="true" onmousemove="over(this)" onmouseleave="leave(this)" id="' + scard_id + '">' +
                                                 '<p class="card-title" title="'+s_name+'" id="' + sarea_id + '">' + s_name + '</p>' +
                                                 '<div class="operation-menu" id="' + smenu_id + '" style="display: none">' +
                                                 '   <a onclick="deleteStory(this)"><img class="delete" title="删除" src="img/delete.png"></a>\' +' +
@@ -730,8 +794,9 @@ function getActivity(proId) {
         }
     })
     if (role == 1) {
-        $(".init-card").attr("onclick","")
-        $(".init-card").attr("data-target","")
+        // $(".init-card").attr("onclick","")
+        // $(".init-card").attr("data-target","")
+        $(".init-card").css("display","none")
         $(".dropdown-toggle").attr("data-toggle","")
     }
 }

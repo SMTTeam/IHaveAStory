@@ -47,7 +47,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" id="closeCreateStory" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">新增story</h4>
                 </div>
                 <div class="modal-body">
@@ -60,13 +60,26 @@
                                 <input type="hidden" class="name" id="preId" name="preId">
                             </div>
                             <div class="am-form-group" style="margin-top: 10px">
-                                <input type="text" class="name" id="name" name="name" placeholder="故事名称" required>
+                                <span class="am-fl smt-input-label">故事名称</span>
+                                <p class="smt-input-wrapper">
+                                    <input type="text" class="name" id="name" name="name" required>
+                                </p>
                             </div>
                             <div class="am-form-group" style="margin-top: 10px">
-                                <input type="text" class="name" id="storyPoint" name="storyPoint" placeholder="故事点数">
+                                <span class="am-fl smt-input-label">故事点数</span>
+                                <p class="smt-input-wrapper">
+                                    <input type="number" min="0" class="name" id="storyPoint" name="storyPoint">
+                                </p>
                             </div>
                             <div class="am-form-group" style="margin-top: 10px">
-                                <input type="text" class="name" id="priority" name="priority" placeholder="优先级">
+                                <span class="am-fl smt-input-label">优先级</span>
+                                <p class="smt-input-wrapper">
+                                    <select class="name" id="priority" name="priority">
+                                        <option>低</option>
+                                        <option>中</option>
+                                        <option>高</option>
+                                    </select>
+                                </p>
                             </div>
                             <div class="am-form-group" style="margin-top: 10px">
                                 <input type="hidden" class="name" id="posId" name="posId">
@@ -99,7 +112,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" id="closeModifyStory" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">修改story</h4>
                 </div>
                 <div class="modal-body">
@@ -112,13 +125,26 @@
                                 <input type="hidden" class="name" id="m_id" name="id">
                             </div>
                             <div class="am-form-group" style="margin-top: 10px">
-                                <input type="text" class="name" id="m_name" name="name" placeholder="故事名称" required>
+                                <span class="am-fl smt-input-label">故事名称</span>
+                                <p class="smt-input-wrapper">
+                                    <input type="text" class="name" id="m_name" name="name" required>
+                                </p>
                             </div>
                             <div class="am-form-group" style="margin-top: 10px">
-                                <input type="text" class="name" id="m_storyPoint" name="storyPoint" placeholder="故事点数">
+                                <span class="am-fl smt-input-label">故事点数</span>
+                                <p class="smt-input-wrapper">
+                                    <input type="number" min="0"  class="name" id="m_storyPoint" name="storyPoint">
+                                </p>
                             </div>
                             <div class="am-form-group" style="margin-top: 10px">
-                                <input type="text" class="name" id="m_priority" name="priority" placeholder="优先级">
+                                <span class="am-fl smt-input-label">优先级</span>
+                                <p class="smt-input-wrapper">
+                                    <select class="name" id="m_priority" name="priority">
+                                        <option>低</option>
+                                        <option>中</option>
+                                        <option>高</option>
+                                    </select>
+                                </p>
                             </div>
                             <div class="am-form-group" style="margin-top: 10px">
                                 <input type="hidden" class="name" id="m_posId" name="posId">

@@ -88,7 +88,7 @@ public class StoryController {
 
     /**
      * 根据task获取对应的所有story
-     * @param
+     * @param taskId
      * @return
      */
     @GetMapping("/list/{taskId}")
@@ -97,4 +97,40 @@ public class StoryController {
         return new ResultVO<>(stories);
     }
 
+    /**
+     * 根据storyid获取内容
+     * @param src_id,tar_id
+     * @return
+     */
+    @PostMapping("/exchange")
+    public ResultVO<Story> getStoryById(@RequestParam int src_id, @RequestParam int tar_id){
+        Story src_story = storyService.getStoryById(src_id);
+        Story tar_story = storyService.getStoryById(tar_id);
+
+        String tmp_name = src_story.getName();
+        int tmp_priority = src_story.getPriority();
+        String tmp_descrip = src_story.getDescription();
+        String tmp_accept = src_story.getAcceptance();
+
+        src_story.setName(tar_story.getName());
+        src_story.setStoryPoint(tar_story.getStoryPoint());
+        src_story.setPriority(tar_story.getPriority());
+        src_story.setDescription(tar_story.getDescription());
+        src_story.setAcceptance(tar_story.getAcceptance());
+        Story src = storyService.modifyStory(src_story);
+
+        tar_story.setName(tmp_name);
+        if (src_story.getStoryPoint() != null) {
+            int tmp_point = src_story.getStoryPoint();
+            tar_story.setStoryPoint(tmp_point);
+        }
+        else {
+            tar_story.setStoryPoint(null);
+        }
+        tar_story.setPriority(tmp_priority);
+        tar_story.setDescription(tmp_descrip);
+        tar_story.setAcceptance(tmp_accept);
+        Story tar = storyService.modifyStory(tar_story);
+        return new ResultVO<>();
+    }
 }
