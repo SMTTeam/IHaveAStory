@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService {
         String verify = StringUtil.getSalt();
         String url = email +"&"+ send_time + "&"+ EncryptUtil.SHA256(verify);
         url = server + "/userinfo/resetpsw/" + Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8));
-        String content = "<html><head><title></title></head><body>亲爱的SMT用户，<br> &nbsp;&nbsp;&nbsp;您刚刚申请重置密码，请点击以下链接重置密码(有效期为24小时)：<br> &nbsp;&nbsp; <a href = \""+ url +"\">"+ url +"</a></body></html>";
+        String content = "<html><head><title></title></head><body>亲爱的SMT用户，<br> &nbsp;&nbsp;&nbsp;您刚刚申请重置密码，请点击以下链接重置密码(有效期为8小时)：<br> &nbsp;&nbsp; <a href = \""+ url +"\">"+ url +"</a></body></html>";
         logger.info(userFound.getEmail());
         logger.info(content);
         String[] tos = new String[]{email};
