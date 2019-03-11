@@ -23,14 +23,14 @@ public class ViewController {
         return "main";
     }
 
-    @RequestMapping("/storyMapping")
+    @GetMapping("/storyMapping")
     public ModelAndView test(@RequestParam int proId){
         ModelAndView modelAndView = new ModelAndView("storymap");
         modelAndView.addObject("proId",proId);
         return modelAndView;
     }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public ModelAndView login(HttpServletRequest request){
         HttpSession session = request.getSession();
         ShowUser showUser = (ShowUser) session.getAttribute("user");
@@ -43,24 +43,24 @@ public class ViewController {
         return modelAndView;
     }
 
-    @RequestMapping("/register")
+    @GetMapping("/register")
     public ModelAndView register(){
         return new ModelAndView("register");
     }
 
 
-    @RequestMapping("/findbackpsw")
+    @GetMapping("/findbackpsw")
     public ModelAndView findBackPsw(){
         return new ModelAndView("findpswSendEmail");
     }
 
     //test
-    @RequestMapping("/findpswResetPsw")
+    @GetMapping("/findpswResetPsw")
     public ModelAndView findPswResetPsw(){
         return new ModelAndView("findpswResetPsw");
     }
 
-    @RequestMapping("/linkInvalid")
+    @GetMapping("/linkInvalid")
     public ModelAndView linkInvalid(){
         return new ModelAndView("LinkIsInvalid");
     }
