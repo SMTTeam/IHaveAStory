@@ -77,6 +77,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    @Transactional
     public void deleteByProId(int proId) {
         List<Activity> list = getActivityList(proId);
         for(Activity activity:list) {
