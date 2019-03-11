@@ -120,7 +120,7 @@ public class InviteApiController {
     }
 
     @PostMapping("modify")
-    public ResultVO<Void> deleteInvite(@RequestParam Integer proId, @RequestParam Integer userId,
+    public ResultVO<Void> modifyInvite(@RequestParam Integer proId, @RequestParam Integer userId,
                                        @RequestParam Integer role, HttpServletRequest request){
         HttpSession session = request.getSession();
         ShowUser showUser = (ShowUser) session.getAttribute("user");

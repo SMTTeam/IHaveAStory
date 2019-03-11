@@ -39,7 +39,7 @@ public class ProjectApiControllerTest extends SmtApplicationTests {
     @Rollback
     @Transactional
     public void modifyProject() throws Exception{
-        Integer id = 2;
+        Integer id = 3;
         String name = "测试Name-";
         String description = "测试描述";
         mockMvc.perform(post("/api/project/modify?proId="+id+"&proName="+name+"&description="+description)
@@ -65,6 +65,14 @@ public class ProjectApiControllerTest extends SmtApplicationTests {
     public void getProjectDetail() throws Exception{
         mockMvc.perform(get("/api/project/detail?proId=2").sessionAttr("user",getUser()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void deleteProject() throws Exception{
+        mockMvc.perform(post("/api/project/delete?proId=21").sessionAttr("user",getUser()));
+        mockMvc.perform(post("/api/project/delete?proId=5").sessionAttr("user",getUser()));
     }
 
     private ShowUser getUser(){

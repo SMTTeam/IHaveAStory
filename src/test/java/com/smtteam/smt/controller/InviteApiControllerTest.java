@@ -60,6 +60,25 @@ public class InviteApiControllerTest extends SmtApplicationTests {
         mockMvc.perform(get("/api/invite/list?proId=3").sessionAttr("user",getUser()));
     }
 
+    @Test
+    @Rollback
+    @Transactional
+    public void deleteInvite() throws Exception{
+        mockMvc.perform(post("/api/invite/delete?proId=3&userId=4").sessionAttr("user",getUser()));
+        mockMvc.perform(post("/api/invite/delete?proId=3&userId=5").sessionAttr("user",getUser()));
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void modifyInvite() throws Exception{
+        mockMvc.perform(post("/api/invite/modify?proId=3&userId=4&role=4").sessionAttr("user",getUser()));
+        mockMvc.perform(post("/api/invite/modify?proId=3&userId=5&role=4").sessionAttr("user",getUser()));
+        mockMvc.perform(post("/api/invite/modify?proId=3&userId=5&role=1").sessionAttr("user",getUser()));
+    }
+
+
+
     private ShowUser getUser(){
         user.setId(1);
         user.setUsername("zs");
