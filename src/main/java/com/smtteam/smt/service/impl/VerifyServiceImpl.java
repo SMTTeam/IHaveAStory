@@ -49,12 +49,12 @@ public class VerifyServiceImpl implements VerifyService {
         //在发送前保存记录到数据库
 
         User userFound = userDao.findByEmail(email);
-        if(userFound != null && userFound.getStatus()== Constants.USEREMAIL_VERIFYING)
+        if(userFound != null && userFound.getStatus().equals(Constants.USEREMAIL_VERIFYING))
         {
             logger.info("该邮箱已注册但未验证，请前往验证！");
             throw new ExistException("该邮箱已注册但未验证，请前往验证！");
         }
-        if(userFound != null && userFound.getStatus()== Constants.USEREMAIL_VERIFIED)
+        if(userFound != null && userFound.getStatus().equals(Constants.USEREMAIL_VERIFIED) )
         {
             logger.info("该邮箱已经注册验证了！");
             throw new ExistException("该邮箱已经注册验证了！");

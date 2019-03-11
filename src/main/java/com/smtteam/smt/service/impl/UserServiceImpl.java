@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User sendResetPswEmail(String email) throws NotExistException {
         User userFound = userDao.findByEmail(email);
-        if( userFound != null && userFound.getStatus()== Constants.USEREMAIL_VERIFYING){
+        if( userFound != null && userFound.getStatus().equals(Constants.USEREMAIL_VERIFYING)){
             logger.info("该邮箱尚未验证，请前往验证！");
             throw new NotExistException("该邮箱尚未验证，请前往验证！");
         }
