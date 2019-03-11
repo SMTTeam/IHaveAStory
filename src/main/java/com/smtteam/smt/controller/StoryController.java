@@ -103,7 +103,7 @@ public class StoryController {
      * @return
      */
     @PostMapping("/exchange")
-    public ResultVO<Story> getStoryById(@RequestParam int src_id, @RequestParam int tar_id){
+    public ResultVO<Story> exchangeById(@RequestParam int src_id, @RequestParam int tar_id){
         Story src_story = storyService.getStoryById(src_id);
         Story tar_story = storyService.getStoryById(tar_id);
 

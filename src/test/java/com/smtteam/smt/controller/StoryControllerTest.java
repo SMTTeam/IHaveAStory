@@ -130,6 +130,14 @@ public class StoryControllerTest extends SmtApplicationTests {
         mockMvc.perform(get("/story/list/"+taskId).sessionAttr("user",getUser()));
     }
 
+    @Test
+    public void test07_exchangeById()throws Exception{
+        mockMvc = getMockMvc();
+        int src_id = 24;
+        int tar_id = 297;
+        mockMvc.perform(post("/story/exchange?src_id="+src_id+"&tar_id="+tar_id).sessionAttr("user",getUser()));
+    }
+
     private ShowUser getUser(){
         user.setId(66);
         user.setUsername("Jay Chou");
