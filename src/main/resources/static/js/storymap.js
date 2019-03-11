@@ -7,7 +7,7 @@ function dragStart(ev,ele)
     src_div=ele;
     drag_type = $(ele).attr("class");
     var name = $(ele).children()[0].innerHTML
-    ev.dataTransfer.setData("text/html",name);
+    // ev.dataTransfer.setData("text/html",name);
 }
 function allowDrop(ev,ele)
 {
@@ -35,7 +35,9 @@ function drop(ev,ele)
         var type = drag_type.substr(0,drag_type.lastIndexOf("-"))
         if (type == "activity" || type == "task") {
             drag_mod(type,tar_id,src_val)
+            // $(ele).children()[0].innerHTML = tar_val
             drag_mod(type,src_id,tar_val)
+            // $(src_div).children()[0].val()
         }
         else {
             $.ajax({
@@ -47,6 +49,8 @@ function drop(ev,ele)
 
                 }
             })
+            $(src_div).children()[0].setAttribute("title",tar_val)
+            $(ele).children()[0].setAttribute("title",src_val)
         }
         $(src_div).children()[0].innerHTML = tar_val;
         $(ele).children()[0].innerHTML=src_val//ev.dataTransfer.getData("text/html");
@@ -55,6 +59,13 @@ function drop(ev,ele)
 
 function drag_mod(type,id,name) {
     var url = "/"+type+"/modify";
+    var ele_id
+    if (type=='activity'){
+        ele_id = '#aarea-'+id
+    }
+    if(type=='task'){
+        ele_id = '#tarea-'+id
+    }
     // console.log(type,url);
     $.ajax({
         type: "POST",
@@ -65,6 +76,7 @@ function drag_mod(type,id,name) {
 
         }
     })
+    $(ele_id).val(name)
 }
 
 function over(ele){
@@ -397,6 +409,7 @@ function removeAm() {
 
 function editActivity(ele) {
     var id = $(ele).parent().prev().attr("id");
+
     $("#"+id).removeAttr("readonly")
     $("#"+id).css("cursor","auto")
     $("#"+id).select()
@@ -415,6 +428,7 @@ function editActivity(ele) {
 
             }
         })
+        $("#"+id).text(name)
     })
 
 }
@@ -439,6 +453,7 @@ function editTask(ele) {
 
             }
         })
+        $("#"+id).text(name)
     })
 
 }
@@ -621,12 +636,25 @@ function deleteStory(ele) {
 $(document).ready(function () {
     $('.am-nav li').removeClass('am-active');
     $('.am-nav li:eq(1)').addClass('am-active');
-    getRole()
-    getIteration(proId)
-    getActivity(proId)
+    $.ajax({
+        type: "GET",
+        url: '/api/project/detail?proId='+proId,
+        async: false,
+        success: function (data) {
+            if (data.data == null) {
+                $('.smt-empty-msg').removeAttr("hidden");
+                $('.mapping-board').remove()
+            }
+            else {
+                getRole()
+                getIteration(proId)
+                getActivity(proId)
 
-    changeLineHeight()
-    changeColumnWidth()
+                changeLineHeight()
+                changeColumnWidth()
+            }
+        }
+    })
 })
 
 function changeLineHeight(){

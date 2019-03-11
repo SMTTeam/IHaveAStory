@@ -98,7 +98,7 @@ public class StoryController {
     }
 
     /**
-     * 根据storyid获取内容
+     * 交换两个story
      * @param src_id,tar_id
      * @return
      */

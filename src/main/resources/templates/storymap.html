@@ -13,6 +13,10 @@
 <body>
 <div class="story-map-container">
     <div th:include="../templates/common/nav :: loadNav"></div>
+    <div class="am-u-sm-12 am-u-sm-centered">
+        <p class="smt-empty-msg" hidden>该项目不存在哦</p>
+    </div>
+
     <div class="mapping-board">
         <div class="board-head">
             <div class="head-container" id="head-container">
@@ -75,7 +79,7 @@
                                 <span class="am-fl smt-input-label">优先级</span>
                                 <p class="smt-input-wrapper">
                                     <select class="name" id="priority" name="priority">
-                                        <option>低</option>
+                                        <option selected="selected">低</option>
                                         <option>中</option>
                                         <option>高</option>
                                     </select>
