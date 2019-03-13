@@ -25,9 +25,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginControllerTest extends SmtApplicationTests {
-
-
-
     private ShowUser user = new ShowUser();
     private MockMvc mockMvc ;
     @Test

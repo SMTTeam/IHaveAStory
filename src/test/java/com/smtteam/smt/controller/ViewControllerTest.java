@@ -35,16 +35,34 @@ public class ViewControllerTest extends SmtApplicationTests {
     }
 
     @Test
-    public void login() throws Exception {
+    public void test_login() throws Exception {
         mockMvc = getMockMvc();
         mockMvc.perform(get("/login")).andExpect(status().isOk());
         mockMvc.perform(get("/login").sessionAttr("user",getUser()));
     }
 
     @Test
-    public void register() throws Exception {
+    public void test_register() throws Exception {
         mockMvc = getMockMvc();
         mockMvc.perform(get("/register"));
+    }
+
+    @Test
+    public void test_findBackPsw() throws Exception {
+        mockMvc = getMockMvc();
+        mockMvc.perform(get("/findbackpsw"));
+    }
+
+    @Test
+    public void test_findPswResetPsw() throws Exception {
+        mockMvc = getMockMvc();
+        mockMvc.perform(get("/findpswResetPsw"));
+    }
+
+    @Test
+    public void test_linkInvalid() throws Exception {
+        mockMvc = getMockMvc();
+        mockMvc.perform(get("/linkInvalid"));
     }
 
 

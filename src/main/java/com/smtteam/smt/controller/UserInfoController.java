@@ -158,8 +158,6 @@ public class UserInfoController {
             logger.info(e.getMessage());
         }
 
-
-
         HttpSession session = request.getSession();
         session.setAttribute("resetpswemail", email);
         ModelAndView modelAndView;
